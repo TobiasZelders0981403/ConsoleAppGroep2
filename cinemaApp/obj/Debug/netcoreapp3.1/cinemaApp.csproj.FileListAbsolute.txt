@@ -1,0 +1,13 @@
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\cinemaApp.exe
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\cinemaApp.deps.json
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\cinemaApp.runtimeconfig.json
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\cinemaApp.runtimeconfig.dev.json
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\cinemaApp.dll
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\cinemaApp.pdb
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.csprojAssemblyReference.cache
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.csproj.CoreCompileInputs.cache
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.AssemblyInfoInputs.cache
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.AssemblyInfo.cs
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.dll
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.pdb
+C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.genruntimeconfig.cache
