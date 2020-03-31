@@ -19,6 +19,7 @@ namespace cinemaApp
         //All usernames and passwords will be stored in these lists
         private List<string> usernames = new List<string>();
         private List<string> passwords = new List<string>();
+        private List<string> ageList = new List<string>();
 
         //When a account is made all input will be stored inside accounts.txt and the user will automatically login
         public void CreateAccount()
@@ -62,6 +63,7 @@ namespace cinemaApp
                 string[] components = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 usernames.Add(components[0]);
                 passwords.Add(components[1]);
+                ageList.Add(components[2]);
             }
             streamreader.Close();
         }
@@ -74,10 +76,12 @@ namespace cinemaApp
             checkUsername();
             checkPassword();
 
-            if ((usernames.Contains(username)) && (passwords.Contains(password)) && (usernames.IndexOf(username) == passwords.IndexOf(password)))
+            if ((usernames.Contains(username)) && (passwords.Contains(password)) && (passwords[usernames.IndexOf(username)] == password))
             {
                 accountVerified = true;
                 Console.WriteLine("You have logged in succesfully!");
+                int.TryParse(ageList[usernames.IndexOf(username)], out checkedage);
+                this.age = checkedage;
             } else
             {
                 Console.WriteLine("Incorrect, Please try again!");
