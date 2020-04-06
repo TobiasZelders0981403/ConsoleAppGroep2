@@ -27,7 +27,7 @@ namespace cinemaApp
         static int seatChoice = -1;
 
         //input
-        public static void ResereTickets(User user)
+        public static void ReserveTicketsMain(User user)
         {
             //select time
             TimeSelection();
