@@ -39,9 +39,7 @@ namespace cinemaApp
             SeatSelection(user);
         }
 
-
-
-
+        //checks if input is valid
         static void TimeSelection()
         {
             for (int i = 0; i < timeLen; i++)
@@ -61,6 +59,7 @@ namespace cinemaApp
             timeChoice = checkedChoice;
         }
 
+        //checks if input is valid
         static void MovieSelection()
         {
             for (int i = 0; i < 3; i++)
@@ -80,6 +79,7 @@ namespace cinemaApp
             movieChoice = checkedChoice;
         }
 
+        //lets the user select seats
         static void SeatSelection(User user)
         {
             int rowMax = 10;
@@ -127,6 +127,7 @@ namespace cinemaApp
             Options(user);
         }
 
+        //checks if a seat is taken
         static bool TakenOrNot(string[][] roomSeats, int row, int seat)
         {
             if (row < 0 || seat < 0) {
@@ -141,6 +142,7 @@ namespace cinemaApp
             }
         }
 
+        //ending options
         static void Options(User user)
         {
             //options
@@ -162,6 +164,7 @@ namespace cinemaApp
 
         }
 
+        //shows seat data from storage
         static void ReadSeats(int rowMax, int seatsPerRow, string[][] roomSeats)
         {
             ReadSeatFile();
@@ -196,6 +199,7 @@ namespace cinemaApp
 
         }
 
+        //reads seat data from storage
         static void ReadSeatFile()
         {
             string fileName = timeChoice + "-Seats.txt";
@@ -217,6 +221,7 @@ namespace cinemaApp
             streamreader.Close();
         }
 
+        //saves adjusted seat data in storage
         static void SaveSeatFile()
           {
             string fileName = timeChoice + "-Seats.txt";
@@ -253,6 +258,7 @@ namespace cinemaApp
             streamwriter.Close();
         }
 
+        //adds chocen tickets to the shopping cart
         static void AddToShoppingCart(User user)
         {
             string fileName = user.username + "-ShoppingCart.txt";
