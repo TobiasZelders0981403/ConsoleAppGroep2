@@ -27,7 +27,7 @@ namespace cinemaApp
         static int seatChoice = -1;
 
         //input
-        public static void ResereTickets()
+        public static void ResereTickets(User user)
         {
             //select time
             TimeSelection();
@@ -36,7 +36,7 @@ namespace cinemaApp
             MovieSelection();
 
             //select seat(s)
-            SeatSelection();
+            SeatSelection(user);
         }
 
 
@@ -80,7 +80,7 @@ namespace cinemaApp
             movieChoice = checkedChoice;
         }
 
-        static void SeatSelection()
+        static void SeatSelection(User user)
         {
             int rowMax = 10;
             int seatsPerRow = 15;
@@ -123,7 +123,8 @@ namespace cinemaApp
                 }
             roomSeats[rowChoice][seatChoice] = "1";
             SaveSeatFile();
-            Options();
+            AddToShoppingCart(user);
+            Options(user);
         }
 
         static bool TakenOrNot(string[][] roomSeats, int row, int seat)
@@ -140,9 +141,8 @@ namespace cinemaApp
             }
         }
 
-        static void Options()
+        static void Options(User user)
         {
-            
             //options
             Console.WriteLine("0: Select another seat\n1: Quit");
             string choice = Console.ReadLine();
@@ -157,7 +157,7 @@ namespace cinemaApp
             {
                 rowChoice = -1;
                 seatChoice = -1;
-                SeatSelection();
+                SeatSelection(user);
             }
 
         }
@@ -250,6 +250,15 @@ namespace cinemaApp
             }
             StreamWriter streamwriter = new StreamWriter(@fileName);
             streamwriter.WriteLine(data);
+            streamwriter.Close();
+        }
+
+        static void AddToShoppingCart(User user)
+        {
+            string fileName = user.username + "-ShoppingCart.txt";
+            StreamWriter streamwriter = new StreamWriter(@fileName, append: true);
+            string data = $"Time: {timeOptions[timeChoice]}\nMovie: {movieOptions[timeChoice][movieChoice]}\nRow: {rowChoice}, Seat: {seatChoice}\n";
+            streamwriter.Write(data);
             streamwriter.Close();
         }
     }
