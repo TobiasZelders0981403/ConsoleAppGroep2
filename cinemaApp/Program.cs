@@ -8,8 +8,9 @@ namespace cinemaApp
         {
             User user = new User();
             //Login(user) or Register(user);
-            Register(user);
-            ReserveTickets.ResereTickets(user);
+            //ReserveTickets.ReserveTicketsMain(user);
+            //UserData.UserDataMain();
+
             Console.Read();
         }
 
