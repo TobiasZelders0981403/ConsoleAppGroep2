@@ -23,6 +23,8 @@ namespace cinemaApp
         static int timeChoice;
         static int movieChoice;
         static int checkedChoice;
+        static int rowChoice = -1;
+        static int seatChoice = -1;
 
         //input
         public static void ResereTickets()
@@ -35,11 +37,6 @@ namespace cinemaApp
 
             //select seat(s)
             SeatSelection();
-
-            //read available/taken seats
-            ReadSeatFile();
-            //save available/taken seats
-            SaveSeatFile();
         }
 
 
@@ -55,7 +52,7 @@ namespace cinemaApp
             Console.WriteLine(timeOptionString);
             string choiceInput = Console.ReadLine();
             int.TryParse(choiceInput, out checkedChoice);
-            while (!(0 <= checkedChoice && checkedChoice < timeLen))
+            while (!(0 <= checkedChoice && checkedChoice < timeLen) || string.IsNullOrWhiteSpace(choiceInput))
             {
                 Console.WriteLine("Invalid Input! Please enter your option:");
                 choiceInput = Console.ReadLine();
@@ -74,7 +71,7 @@ namespace cinemaApp
             Console.WriteLine(movieOptionString);
             string movieInput = Console.ReadLine();
             int.TryParse(movieInput, out checkedChoice);
-            while (!(0 <= checkedChoice && checkedChoice < 3))
+            while ((!(0 <= checkedChoice && checkedChoice < 3)) || string.IsNullOrWhiteSpace(movieInput))
             {
                 Console.WriteLine("Invalid Input! Please enter your option:");
                 movieInput = Console.ReadLine();
@@ -85,6 +82,117 @@ namespace cinemaApp
 
         static void SeatSelection()
         {
+            int rowMax = 10;
+            int seatsPerRow = 15;
+            string[][] roomSeats = Room1Seats;
+            ReadSeats(rowMax, seatsPerRow, roomSeats);
+                while (TakenOrNot(roomSeats, rowChoice, seatChoice)){
+                    if (movieChoice == 1)
+                    {
+                    rowMax = 15;
+                        seatsPerRow = 20;
+                        roomSeats = Room2Seats;
+                    }
+                    else if (movieChoice == 2)
+                    {
+                        rowMax = 25;
+                        seatsPerRow = 25;
+                        roomSeats = Room3Seats;
+                    };
+                    Console.WriteLine("Please Select a row:");
+                    string row = Console.ReadLine();
+                    int.TryParse(row, out checkedChoice);
+                    while ((!(0 <= checkedChoice && checkedChoice < rowMax)) || string.IsNullOrWhiteSpace(row))
+                    {
+                        Console.WriteLine("Invalid Input! Please enter your option:");
+                        row = Console.ReadLine();
+                        int.TryParse(row, out checkedChoice);
+                    }
+                    rowChoice = checkedChoice;
+
+                    Console.WriteLine("Please select a seat:");
+                    string seat = Console.ReadLine();
+                    int.TryParse(seat, out checkedChoice);
+                    while ((!(0 <= checkedChoice && checkedChoice < seatsPerRow)) || string.IsNullOrWhiteSpace(seat))
+                    {
+                        Console.WriteLine("Invalid Input! Please enter your option:");
+                        seat = Console.ReadLine();
+                        int.TryParse(seat, out checkedChoice);
+                    }
+                    seatChoice = checkedChoice;
+                }
+            roomSeats[rowChoice][seatChoice] = "1";
+            SaveSeatFile();
+            Options();
+        }
+
+        static bool TakenOrNot(string[][] roomSeats, int row, int seat)
+        {
+            if (row < 0 || seat < 0) {
+                return true;
+            } else if (roomSeats[row][seat] == "1")
+            {
+                Console.WriteLine("This seat is taken. Please try again");
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
+        static void Options()
+        {
+            
+            //options
+            Console.WriteLine("0: Select another seat\n1: Quit");
+            string choice = Console.ReadLine();
+            int.TryParse(choice, out checkedChoice);
+            while ((!(0 <= checkedChoice && checkedChoice < 2)) || string.IsNullOrWhiteSpace(choice))
+            {
+                Console.WriteLine("Invalid Input! Please enter your option:");
+                choice = Console.ReadLine();
+                int.TryParse(choice, out checkedChoice);
+            }
+            if (checkedChoice == 0)
+            {
+                rowChoice = -1;
+                seatChoice = -1;
+                SeatSelection();
+            }
+
+        }
+
+        static void ReadSeats(int rowMax, int seatsPerRow, string[][] roomSeats)
+        {
+            ReadSeatFile();
+
+            string data = "";
+
+            for (int i = 0; i < rowMax; i++)
+            {
+                if (i < 10)
+                {
+                    data += $"row {i}:  ";
+                }
+                else
+                {
+                    data += $"row {i}: ";
+
+                }
+                for (int j = 0; j < seatsPerRow; j++)
+                {
+                    if (roomSeats[i][j] == "1")
+                    {
+                        data += "_ ";
+                    }
+                    else
+                    {
+                        data += $"{j} ";
+                    }
+                }
+                data += "\n";
+            }
+            Console.WriteLine(data);
 
         }
 
@@ -110,7 +218,7 @@ namespace cinemaApp
         }
 
         static void SaveSeatFile()
-          a{
+          {
             string fileName = timeChoice + "-Seats.txt";
             string data = "";
 
