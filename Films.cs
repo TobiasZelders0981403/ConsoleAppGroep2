@@ -21,9 +21,11 @@ namespace Films2_0
         static string Replacement;
         static string Edit;
         static string FullList;
+        static string filmID;
         static string Delete;
         static int BIndex;
         static int EIndex;
+        
 
         public static void FilmMain()
         {
@@ -69,7 +71,10 @@ namespace Films2_0
             Release = Console.ReadLine();
             Console.WriteLine("Enter time:");
             Time = Console.ReadLine();
-            filmList += filmName + "\n" + filmDescription + "\n" + Genre + "\n" + Release + "\n" + Time + "\n";
+            Console.WriteLine("Enter film ID:");
+            filmID = Console.ReadLine();
+
+            filmList += filmName + "\n" + filmDescription + "\n" + Genre + "\n" + Release + "\n" + Time + "\n" + filmID + "\n";
 
             StreamWriter sw = new StreamWriter(@"filmlist.txt", append: true);
                 sw.WriteLine(filmList);
