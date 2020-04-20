@@ -13,6 +13,7 @@ namespace Films2_0
         static string input;
         static string input2;
         static string filmName;
+        static string filmAge;
         static string filmDescription;
         static string Genre;
         static string Release;
@@ -63,6 +64,8 @@ namespace Films2_0
         {
             Console.WriteLine("Enter film name:");
             filmName = Console.ReadLine();
+            Console.WriteLine("Enter age:");
+            filmAge = Console.ReadLine();
             Console.WriteLine("Enter film description:");
             filmDescription = Console.ReadLine();
             Console.WriteLine("Enter film genre:");
@@ -74,7 +77,7 @@ namespace Films2_0
             Console.WriteLine("Enter film ID:");
             filmID = Console.ReadLine();
 
-            filmList += filmName + "\n" + filmDescription + "\n" + Genre + "\n" + Release + "\n" + Time + "\n" + filmID + "\n";
+            filmList += filmName + "\n" + filmAge + "\n" + filmDescription + "\n" + Genre + "\n" + Release + "\n" + Time + "\n" + filmID + "\n";
 
             StreamWriter sw = new StreamWriter(@"filmlist.txt", append: true);
                 sw.WriteLine(filmList);
