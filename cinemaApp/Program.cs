@@ -7,10 +7,13 @@ namespace cinemaApp
         static void Main(string[] args)
         {
             User user = new User();
-            //Login(user) or Register(user);
+            Login(user);
+            //Register(user);
             //ReserveTickets.ReserveTicketsMain(user);
             //UserData.UserDataMain();
-
+            //RoomOptions.RoomOptionsMain();
+            //Films.FilmMain();
+            Filters.GenreFilter(user);
             Console.Read();
         }
 

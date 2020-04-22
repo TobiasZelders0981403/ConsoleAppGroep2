@@ -5,11 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Films2_0
-{
-    class Films
+namespace cinemaApp {
+    public class Films
     {
-        static string username;
         static string input;
         static string input2;
         static string filmName;
@@ -68,7 +66,7 @@ namespace Films2_0
             filmAge = Console.ReadLine();
             Console.WriteLine("Enter film description:");
             filmDescription = Console.ReadLine();
-            Console.WriteLine("Enter film genre:");
+            Console.WriteLine("Enter film genre (no caps):");
             Genre = Console.ReadLine();
             Console.WriteLine("Enter release date:");
             Release = Console.ReadLine();

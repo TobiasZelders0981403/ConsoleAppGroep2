@@ -4,8 +4,7 @@
 // Room 2 : 15 rows of 20 seats
 // Rooom 3 : 25 rows of 25 seats
 
-namespace Cinema_
-{
+namespace cinemaApp {
     class Rooms
     {
         public double[,] seatPrices;
@@ -237,9 +236,9 @@ namespace Cinema_
         }
     }
 
-    class User
+    public class RoomOptions
     {
-        static void Main()
+        public static void RoomOptionsMain()
         {
             bool busy = true;
 
