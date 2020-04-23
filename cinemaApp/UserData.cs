@@ -10,20 +10,24 @@ namespace cinemaApp
     {
         public static void UserDataInput()
         {
-            string Date;
+            string Day;
             string Tickets;
             string Money;
+            List<string> dayOptions = new List<string>() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             //DateTime today;
             using (DataTable dt = new DataTable("sales"))
             {
 
-                dt.Columns.Add("Date", typeof(string));
+                dt.Columns.Add("Day", typeof(string));
                 dt.Columns.Add("Tickets", typeof(int));
                 dt.Columns.Add("Money", typeof(string));
 
                 //today = DateTime.Now;
-                Console.WriteLine("What is the Date?");
-                Date = Console.ReadLine();
+                Console.WriteLine("\nPlease select the day.");
+                for (int i = 0; i < dayOptions.Count; i++) {
+                    Console.WriteLine($"{i}: {dayOptions[i]}");
+                }
+                Day = dayOptions[Program.ChoiceInput(0, 6)];
 
                 Console.WriteLine("How many tickets were sold?");
                 Tickets = Console.ReadLine();
@@ -33,9 +37,9 @@ namespace cinemaApp
 
 
 
-                using (StreamWriter sw = File.AppendText(@"SaleDataInput1.csv"))
+                using (StreamWriter sw = File.AppendText("SaleDataInput1.csv"))
                 {
-                    sw.WriteLine(Date + ";" + Tickets + ";" + Money);
+                    sw.WriteLine(Day + ";" + Tickets + ";" + Money);
 
                 }
             }
@@ -44,7 +48,7 @@ namespace cinemaApp
         public static void ShowSaleData() {
             //DateTime today;
             DataTable dt = new DataTable("sales");
-            dt.Columns.Add("Date", typeof(string));
+            dt.Columns.Add("Day", typeof(string));
             dt.Columns.Add("Tickets", typeof(int));
             dt.Columns.Add("Money", typeof(string));
 
@@ -56,7 +60,7 @@ namespace cinemaApp
                 }
             }
                 foreach (DataRow dr in dt.Rows) {
-                Console.WriteLine("Date = {0}\t \t Amount of tickets = {1}\t \t Money made = {2} euro", dr["Date"], dr["Tickets"], dr["Money"]);
+                Console.WriteLine("Day = {0}\t \t Amount of tickets = {1}\t \t Money made = {2} euro", dr["Day"], dr["Tickets"], dr["Money"]);
             }
         }
     }

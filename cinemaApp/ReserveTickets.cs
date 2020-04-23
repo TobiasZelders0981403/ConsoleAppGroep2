@@ -18,18 +18,20 @@ namespace cinemaApp
         static List<string> dayOptions = new List<string>() { "monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
         static List<string> timeOptions = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00"};
         static int timeLen = timeOptions.Count;
-        static string[][] movieOptions = { new string[] { "up", "aladin", "lion king" }, new string[] { "aladin", "lion king", "up" } };
+        static List<string> movieOptions = new List<string>();
         static string movieOptionString = "";
-        static string timeOptionString = "";
+        static int dayChoice;
         static int timeChoice;
         static int movieChoice;
-        static int checkedChoice;
         static int rowChoice = -1;
         static int seatChoice = -1;
 
         //input
         public static void ReserveTicketsMain(User user)
         {
+            //select day
+            DaySelection();
+
             //select time
             TimeSelection();
 
@@ -40,35 +42,35 @@ namespace cinemaApp
             SeatSelection(user);
         }
 
+        static void DaySelection() {
+            Console.WriteLine("\nPlease select a day.");
+            for (int i =0; i < dayOptions.Count; i++) {
+                Console.WriteLine($"{i}: {dayOptions[i]}");
+            }
+            dayChoice = Program.ChoiceInput(0, 6);
+        }
+
         //checks if input is valid
         static void TimeSelection()
         {
+            Console.WriteLine("Please select a time.");
             for (int i = 0; i < timeLen; i++)
             {
-                timeOptionString += i.ToString() + ":  " + timeOptions[i] + "\n";
+                Console.WriteLine($"{i}: {timeOptions[i]}");
             }
-            Console.WriteLine("Please select a option.");
             timeChoice = Program.ChoiceInput(0,timeLen);
         }
 
         //checks if input is valid
         static void MovieSelection()
         {
-            for (int i = 0; i < 3; i++)
+            LoadMovies();
+            Console.WriteLine("\nPlease select a movie.");
+            for (int i = 0; i < movieOptions.Count; i++)
             {
-                movieOptionString += i.ToString() + ":  " + movieOptions[timeChoice][i] + "\n";
+                Console.WriteLine($"{i}: {movieOptions[i]}");
             }
-            Console.WriteLine("Please select a option.");
-            Console.WriteLine(movieOptionString);
-            string movieInput = Console.ReadLine();
-            int.TryParse(movieInput, out checkedChoice);
-            while ((!(0 <= checkedChoice && checkedChoice < 3)) || string.IsNullOrWhiteSpace(movieInput))
-            {
-                Console.WriteLine("Invalid Input! Please enter your option:");
-                movieInput = Console.ReadLine();
-                int.TryParse(movieInput, out checkedChoice);
-            }
-            movieChoice = checkedChoice;
+            movieChoice = Program.ChoiceInput(0,movieOptions.Count);
         }
 
         //lets the user select seats
@@ -81,7 +83,7 @@ namespace cinemaApp
                 while (TakenOrNot(roomSeats, rowChoice, seatChoice)){
                     if (movieChoice == 1)
                     {
-                    rowMax = 15;
+                        rowMax = 15;
                         seatsPerRow = 20;
                         roomSeats = Room2Seats;
                     }
@@ -90,28 +92,12 @@ namespace cinemaApp
                         rowMax = 25;
                         seatsPerRow = 25;
                         roomSeats = Room3Seats;
-                    };
-                    Console.WriteLine("Please Select a row:");
-                    string row = Console.ReadLine();
-                    int.TryParse(row, out checkedChoice);
-                    while ((!(0 <= checkedChoice && checkedChoice < rowMax)) || string.IsNullOrWhiteSpace(row))
-                    {
-                        Console.WriteLine("Invalid Input! Please enter your option:");
-                        row = Console.ReadLine();
-                        int.TryParse(row, out checkedChoice);
                     }
-                    rowChoice = checkedChoice;
+                    Console.WriteLine("Please Select a row:");
+                    rowChoice = Program.ChoiceInput(0,rowMax - 1);
 
                     Console.WriteLine("Please select a seat:");
-                    string seat = Console.ReadLine();
-                    int.TryParse(seat, out checkedChoice);
-                    while ((!(0 <= checkedChoice && checkedChoice < seatsPerRow)) || string.IsNullOrWhiteSpace(seat))
-                    {
-                        Console.WriteLine("Invalid Input! Please enter your option:");
-                        seat = Console.ReadLine();
-                        int.TryParse(seat, out checkedChoice);
-                    }
-                    seatChoice = checkedChoice;
+                    seatChoice = Program.ChoiceInput(0, seatsPerRow - 1);
                 }
             roomSeats[rowChoice][seatChoice] = "1";
             SaveSeatFile();
@@ -139,15 +125,8 @@ namespace cinemaApp
         {
             //options
             Console.WriteLine("0: Select another seat\n1: Quit");
-            string choice = Console.ReadLine();
-            int.TryParse(choice, out checkedChoice);
-            while ((!(0 <= checkedChoice && checkedChoice < 2)) || string.IsNullOrWhiteSpace(choice))
-            {
-                Console.WriteLine("Invalid Input! Please enter your option:");
-                choice = Console.ReadLine();
-                int.TryParse(choice, out checkedChoice);
-            }
-            if (checkedChoice == 0)
+            int choice = Program.ChoiceInput(0, 1);
+            if (choice == 0)
             {
                 rowChoice = -1;
                 seatChoice = -1;
@@ -194,7 +173,7 @@ namespace cinemaApp
         //reads seat data from storage
         static void ReadSeatFile()
         {
-            string fileName = timeChoice + "-Seats.txt";
+            string fileName = dayOptions[dayChoice] + "/" + timeChoice + "-Seats.txt";
             StreamReader streamreader = new StreamReader(@fileName);
             string line;
             int i = 0;
@@ -216,8 +195,9 @@ namespace cinemaApp
         //saves adjusted seat data in storage
         static void SaveSeatFile()
           {
-            string fileName = timeChoice + "-Seats.txt";
+            string fileName = dayOptions[dayChoice] + "/" + timeChoice + "-Seats.txt";
             string data = "";
+            
 
             for (int i = 0; i < 10; i++)
             {
@@ -259,5 +239,35 @@ namespace cinemaApp
             streamwriter.Write(data);
             streamwriter.Close();
         }
+
+        //loads in movies
+        static void LoadMovies() {
+            //read
+            int count = 0;
+            string[] data;
+            string line;
+            StreamReader streamreader = new StreamReader("filmlist.txt");
+            while (streamreader.EndOfStream == false) {
+                if ((line = streamreader.ReadLine()) == "") {
+                    count++;
+                }
+            }
+
+            streamreader.Close();
+            streamreader = new StreamReader("filmlist.txt");
+            while (streamreader.EndOfStream == false) {
+                int i = 0;
+                data = new string[8];
+                while ((line = streamreader.ReadLine()) != "") {
+                    data[i] = line;
+                    i++;
+                }
+                if (data[5] == timeOptions[timeChoice]) {
+                    movieOptions.Add(data[0]);
+                }
+            }
+            streamreader.Close();
+        }
+
     }
 }

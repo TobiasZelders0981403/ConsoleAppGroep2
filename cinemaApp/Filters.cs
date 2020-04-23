@@ -27,7 +27,7 @@ namespace cinemaApp {
             streamreader = new StreamReader("filmlist.txt");
             while (streamreader.EndOfStream == false) {
                 i = 0;
-                data = new string[7];
+                data = new string[8];
                 while ((line = streamreader.ReadLine()) != "") {
                     data[i] = line;
                     i++;

@@ -3,7 +3,8 @@ filmName
 Dope Movie
 action
 08-07-2002
-13:00
+12:00
+room1
 1
 
 newMovie
@@ -11,7 +12,8 @@ newMovie
 Also a dope movie
 comedy
 08-07-2002
-13:00
+12:00
+room2
 2
 
 film4
@@ -19,7 +21,8 @@ film4
 dope
 action
 07-08-2049
-13:00
+12:00
+room3
 3
 
 anotherMovie
@@ -28,6 +31,7 @@ dope
 thriller
 2006
 14:00
+room1
 4
 
 AnotherMovieName
@@ -36,6 +40,7 @@ Just another movie
 comedy
 23-04-2012
 14:00
+room2
 5
 
 moviename4
@@ -44,5 +49,24 @@ dope
 comedy
 23-04-1999
 14:00
+room3
 6
+
+yetanothermovie
+3
+cute
+comedy
+04-04-2019
+16:00
+Room3
+7
+
+ANOTHERMOVIE
+3
+ok
+action
+04-04-12312
+16:00
+Room2
+8
 

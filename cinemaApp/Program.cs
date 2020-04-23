@@ -6,8 +6,6 @@ namespace cinemaApp
     {
         static void Main(string[] args)
         {
-            Films.FilmMain();
-            Navigation.ManagerNavigation();
             User user = new User();
             Console.WriteLine("Please pick a option.\n1: Login.\n2: Register.\n3: Continue as guest.\n0: exit");
             int choice = ChoiceInput(0, 3);
@@ -28,7 +26,7 @@ namespace cinemaApp
             } else if (user.username == "caterer") {
                 Navigation.CatererNavigation();
             } else {
-                Navigation.CustomerNavigation();
+                Navigation.CustomerNavigation(user);
             }
             //Login(user);
             //Register(user);

@@ -18,6 +18,8 @@ namespace cinemaApp {
         static string filmList;
         static string FullList;
         static string filmID;
+        static string Room;
+        static List<string> SelectableRooms = new List<string> { "Room1", "Room2", "Room3" };
         static List<string> timeOptions = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00" };
 
 
@@ -60,10 +62,12 @@ namespace cinemaApp {
             Release = Program.StringCheck();
             Console.WriteLine("Select time:");
             timeSelection();
+            Console.WriteLine("Select room:");
+            RoomSelection();
             Console.WriteLine("Enter film ID:");
             IDSelection();
 
-            filmList += filmName + "\n" + filmAge + "\n" + filmDescription + "\n" + Genre + "\n" + Release + "\n" + Time + "\n" + filmID + "\n";
+            filmList += filmName + "\n" + filmAge + "\n" + filmDescription + "\n" + Genre + "\n" + Release + "\n" + Time + "\n" + Room + "\n" + filmID + "\n";
 
             StreamWriter sw = new StreamWriter(@"filmlist.txt", append: true);
             sw.WriteLine(filmList);
@@ -88,11 +92,27 @@ namespace cinemaApp {
             int choice = Program.ChoiceInput(0, movieList.Length - 1);
             //edit
             Console.WriteLine("\nWhat would you like to edit?");
-            for (int k = 0; k < 7; k++) {
+            for (int k = 0; k < 8; k++) {
                 Console.WriteLine($"{k}: {movieList[choice][k]}");
             }
-            int choice2 = Program.ChoiceInput(0, 6);
-            string newString = Console.ReadLine();
+            int choice2 = Program.ChoiceInput(0, 7);
+            string newString = "";
+            if (choice2 == 0) {
+                newString = Program.StringCheck();
+            } else if (choice2 == 1) {
+                newString = AgeCheck();
+            } else if (choice2 == 2 || choice2 == 3 || choice2 ==4) {
+                newString = Program.StringCheck();
+            } else if (choice2 == 5) {
+                timeSelection();
+                newString = Time;
+            } else if (choice2 == 6) {
+                RoomSelection();
+                newString = Room;
+            } else if (choice2 == 7) {
+                IDSelection();
+                newString = filmID;
+            }
             movieList[choice][choice2] = newString;
             //save
             SaveMovies();
@@ -136,7 +156,7 @@ namespace cinemaApp {
             streamreader = new StreamReader("filmlist.txt");
             while (streamreader.EndOfStream == false) {
                 int i = 0;
-                data = new string[7];
+                data = new string[8];
                 while ((line = streamreader.ReadLine()) != "") {
                     data[i] = line;
                     i++;
@@ -167,14 +187,16 @@ namespace cinemaApp {
 
         static void timeSelection() {
             int j = 0;
+            List<string> timeOptions2 = new List<string>(); 
             for (int index = 0; index < timeOptions.Count; index++) {
                 if (TimeCheck(timeOptions[index])) {
+                    timeOptions2.Add(timeOptions[index]);
                     Console.WriteLine($"{j}: {timeOptions[index]}");
                     j++;
                 }
             }
             int choice = Program.ChoiceInput(0, j);
-            Time = timeOptions[choice];
+            Time = timeOptions2[choice];
         }
 
         static bool TimeCheck(string time) {
@@ -192,6 +214,36 @@ namespace cinemaApp {
             }
         }
 
+        static void RoomSelection() {
+            List<string> RoomList = new List<string>();
+            List<string> RoomList2 = new List<string>();
+            int count = 0;
+            for (int i = 0; i < movieList.Length; i++) {
+                if (movieList[i][5] == Time) {
+                    RoomList.Add(movieList[i][6]);
+                }
+            }
+            string data = "";
+            for (int i = 0; i < SelectableRooms.Count; i++) {
+                bool used = false;
+                for (int j = 0; j < RoomList.Count; j++) {
+                    if (SelectableRooms[i] == RoomList[j]) {
+                        used = true;
+                    }
+                }
+                if (!used) {
+                    RoomList2.Add(SelectableRooms[i]);
+                    data += $"{count}: {SelectableRooms[i]}\n";
+                    count++;
+                }
+            }
+
+            Console.WriteLine(data);
+            int choice = Program.ChoiceInput(0, count-1);
+            Room = RoomList2[choice];
+
+        }
+
         static void IDSelection() {
             string input = Console.ReadLine();
             while (IDCheck(input) || string.IsNullOrWhiteSpace(input)) {
@@ -205,7 +257,7 @@ namespace cinemaApp {
             //stel zit erin --> return true
             ReadMovies();
             for (int i = 0; i < movieList.Length; i++) {
-                if (movieList[i][6] == input) {
+                if (movieList[i][7] == input) {
                     return true;
                 }
             }
