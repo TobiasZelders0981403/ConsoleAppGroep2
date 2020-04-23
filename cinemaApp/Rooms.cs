@@ -244,7 +244,7 @@ namespace cinemaApp {
 
             while (busy)
             {
-                Console.WriteLine("Which room would you like to acess: \nRoom 1\nRoom 2\nRoom 3");
+                Console.WriteLine("\nWhich room would you like to acess: \nRoom 1\nRoom 2\nRoom 3");
                 Console.WriteLine("Type in 1, 2 or 3");
                 Console.WriteLine("Press q to exit...");
                 var roomChoice = Console.ReadKey().Key;
@@ -268,7 +268,7 @@ namespace cinemaApp {
                 }
                 else
                 {
-                    Console.WriteLine("Please type choose between 1, 2 or 3");
+                    Console.WriteLine("\nPlease type choose between 1, 2 or 3");
                 }
 
             }

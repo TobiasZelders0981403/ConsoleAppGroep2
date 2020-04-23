@@ -20,7 +20,7 @@ namespace cinemaApp {
         }
 
         public static void GenreFilter(User user) {
-            Console.WriteLine("\nEnter the genre you want to search by (no caps):");
+            Console.WriteLine("\nEnter the genre you want to search by:");
             genre = Console.ReadLine();
             Console.WriteLine();
             //readfile
@@ -35,7 +35,7 @@ namespace cinemaApp {
                 //ageCheck
                 int.TryParse(data[1], out checkedAge);
                 //output
-                if (genre == data[3]) {
+                if (genre.ToLower() == data[3].ToLower()) {
                     AgeFilter(user);
                     count++;
                 }

@@ -6,10 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace cinemaApp {
-    public class Films
-    {
+    public class Films {
+        static string[][] movieList;
         static string input;
-        static string input2;
         static string filmName;
         static string filmAge;
         static string filmDescription;
@@ -17,22 +16,16 @@ namespace cinemaApp {
         static string Release;
         static string Time;
         static string filmList;
-        static string Replacement;
-        static string Edit;
         static string FullList;
         static string filmID;
-        static string Delete;
-        static int BIndex;
-        static int EIndex;
-        
+        static List<string> timeOptions = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00" };
 
-        public static void FilmMain()
-        {
+
+        public static void FilmMain() {
             MovieChoice();
         }
 
-        static void MovieChoice()
-        {
+        static void MovieChoice() {
             Console.WriteLine("What would you like to do? Please type 1-3 and press Enter to continue.");
             Console.WriteLine("1: Add film.");
             Console.WriteLine("2: Edit film.");
@@ -42,129 +35,192 @@ namespace cinemaApp {
             ChoiceAction();
         }
 
-        static void ChoiceAction()
-        {
+        static void ChoiceAction() {
             if (input == "1") {
                 AddMovie();
-            }
-            else if (input == "2") {
+            } else if (input == "2") {
                 EditMovie();
-            }
-            else if (input == "3"){
+            } else if (input == "3") {
                 RemoveMovie();
-            }
-            else {
+            } else {
                 MovieChoice();
             }
         }
 
-        static void AddMovie()
-        {
+        static void AddMovie() {
             Console.WriteLine("Enter film name:");
-            filmName = Console.ReadLine();
-            Console.WriteLine("Enter age:");
-            filmAge = Console.ReadLine();
+            filmName = Program.StringCheck();
+            Console.WriteLine("Enter age (min is 3):");
+            filmAge = AgeCheck();
             Console.WriteLine("Enter film description:");
-            filmDescription = Console.ReadLine();
-            Console.WriteLine("Enter film genre (no caps):");
-            Genre = Console.ReadLine();
+            filmDescription = Program.StringCheck();
+            Console.WriteLine("Enter film genre:");
+            Genre = Program.StringCheck();
             Console.WriteLine("Enter release date:");
-            Release = Console.ReadLine();
-            Console.WriteLine("Enter time:");
-            Time = Console.ReadLine();
+            Release = Program.StringCheck();
+            Console.WriteLine("Select time:");
+            timeSelection();
             Console.WriteLine("Enter film ID:");
-            filmID = Console.ReadLine();
+            IDSelection();
 
             filmList += filmName + "\n" + filmAge + "\n" + filmDescription + "\n" + Genre + "\n" + Release + "\n" + Time + "\n" + filmID + "\n";
 
             StreamWriter sw = new StreamWriter(@"filmlist.txt", append: true);
-                sw.WriteLine(filmList);
-                sw.Close();
+            sw.WriteLine(filmList);
+            sw.Close();
             filmList = "";
             FullList = "\n" + File.ReadAllText(@"filmlist.txt");
             Console.WriteLine(FullList);
-
-            Console.WriteLine("Would you like to continue? Y/N?");
-                input = Console.ReadLine();
-            if (input == "Y")
-            {
-                AddMovie();
-            }
-            else if (input == "N") {
-                Console.WriteLine("Would you like to do something else? Y/N?");
-                input = Console.ReadLine();
-                if (input == "Y")
-                {
-                    MovieChoice();
-                }
+            Console.WriteLine("Would you like to do something else? Y/N?");
+            input = Console.ReadLine();
+            if (input == "Y") {
+                MovieChoice();
             }
         }
 
-        static void EditMovie()
-        {
-            Edit = File.ReadAllText(@"filmlist.txt");
-            Console.WriteLine(Edit);
-            Console.WriteLine("What would you like to edit?");
-            input = Console.ReadLine();
-            Replacement = Edit.Replace(input, Console.ReadLine());
-            StreamWriter sw = new StreamWriter(@"filmlist.txt");
-            sw.WriteLine(Replacement);
-            sw.Close();
-            Edit = "";
-
-            Console.WriteLine("Would you like to continue? Y/N?");
-            input = Console.ReadLine();
-            if (input == "Y")
-            {
-                EditMovie();
+        static void EditMovie() {
+            ReadMovies();
+            //choice
+            Console.WriteLine("\nWhat movie would you like to edit?.");
+            for (int i = 0; i < movieList.Length; i++) {
+                Console.WriteLine($"{i}: {movieList[i][0]} , {movieList[i][5]}");
             }
-            else if (input == "N")
-            {
-                Console.WriteLine("Would you like to do something else? Y/N?");
-                input = Console.ReadLine();
-                if (input == "Y")
-                {
-                    MovieChoice();
-                }
+            int choice = Program.ChoiceInput(0, movieList.Length - 1);
+            //edit
+            Console.WriteLine("\nWhat would you like to edit?");
+            for (int k = 0; k < 7; k++) {
+                Console.WriteLine($"{k}: {movieList[choice][k]}");
+            }
+            int choice2 = Program.ChoiceInput(0, 6);
+            string newString = Console.ReadLine();
+            movieList[choice][choice2] = newString;
+            //save
+            SaveMovies();
+            Console.WriteLine("Would you like to do something else? Y/N?");
+            input = Console.ReadLine();
+            if (input == "Y") {
+                MovieChoice();
             }
         }
-        static void RemoveMovie()
-        {
+        static void RemoveMovie() {
+            ReadMovies();
             Console.WriteLine("What movie would you like to remove?");
-            Edit = File.ReadAllText(@"filmlist.txt");
-            Console.WriteLine(Edit);
-            input = Console.ReadLine();
-            Console.WriteLine("Until where would you like to remove? (Copy exact phrase)");
-            input2 = Console.ReadLine();
+            for (int i = 0; i < movieList.Length; i++) {
+                Console.WriteLine($"{i}: {movieList[i][0]} , {movieList[i][5]}");
+            }
+            int choice = Program.ChoiceInput(0, movieList.Length - 1);
 
-            if (Edit.Contains(input))
-            {
-                BIndex = Edit.IndexOf(input);
-                EIndex = Edit.IndexOf(input2, BIndex);
-                Delete = Edit.Remove(BIndex, EIndex+6);
-           
-                StreamWriter sw = new StreamWriter(@"filmlist.txt");
-                sw.WriteLine(Delete);
-                sw.Close();
-                Delete = "";
-                BIndex = 0;
-                EIndex = 0;
-            }
-            Console.WriteLine("Would you like to continue? Y/N?");
+            movieList[choice] = null;
+            SaveMovies();
+            Console.WriteLine("Would you like to do something else? Y/N?");
             input = Console.ReadLine();
-            if (input == "Y")
-            {
-                RemoveMovie();
+            if (input == "Y") {
+                MovieChoice();
             }
-            else if (input == "N")
-            {
-                Console.WriteLine("Would you like to do something else? Y/N?");
-                input = Console.ReadLine();
-                if (input == "Y")
-                {
-                    MovieChoice();
+        }
+
+        static void ReadMovies() {
+            //read
+            int count = 0;
+            string[] data;
+            string line;
+            StreamReader streamreader = new StreamReader("filmlist.txt");
+            while (streamreader.EndOfStream == false) {
+                if ((line = streamreader.ReadLine()) == "") {
+                    count++;
                 }
             }
+            movieList = new string[count][];
+            int j = 0;
+            streamreader.Close();
+            streamreader = new StreamReader("filmlist.txt");
+            while (streamreader.EndOfStream == false) {
+                int i = 0;
+                data = new string[7];
+                while ((line = streamreader.ReadLine()) != "") {
+                    data[i] = line;
+                    i++;
+                }
+                movieList[j] = data;
+                j++;
+            }
+            streamreader.Close();
+        }
+
+        static void SaveMovies() {
+            string data = "";
+            for (int i = 0; i < movieList.Length; i++) {
+                if (movieList[i] == null) { } else {
+                    for (int j = 0; j < movieList[i].Length; j++) {
+                        data += movieList[i][j] + "\n";
+                    }
+                    if (i != movieList.Length - 1) {
+                        data += "\n";
+                    }
+                }
+            }
+
+            StreamWriter streamwriter = new StreamWriter(@"filmlist.txt");
+            streamwriter.WriteLine(data);
+            streamwriter.Close();
+        }
+
+        static void timeSelection() {
+            int j = 0;
+            for (int index = 0; index < timeOptions.Count; index++) {
+                if (TimeCheck(timeOptions[index])) {
+                    Console.WriteLine($"{j}: {timeOptions[index]}");
+                    j++;
+                }
+            }
+            int choice = Program.ChoiceInput(0, j);
+            Time = timeOptions[choice];
+        }
+
+        static bool TimeCheck(string time) {
+            ReadMovies();
+            int count = 0;
+            for (int i = 0; i < movieList.Length; i++) {
+                if (movieList[i][5] == time) {
+                    count++;
+                }
+            }
+            if (count < 3) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        static void IDSelection() {
+            string input = Console.ReadLine();
+            while (IDCheck(input) || string.IsNullOrWhiteSpace(input)) {
+                Console.WriteLine("ID is already taken or invalid. Please enter a different film ID");
+                input = Console.ReadLine();
+            }
+            filmID = input;
+        }
+
+        static bool IDCheck(string input) {
+            //stel zit erin --> return true
+            ReadMovies();
+            for (int i = 0; i < movieList.Length; i++) {
+                if (movieList[i][6] == input) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        static string AgeCheck() {
+            int check;
+            string ageInput = Console.ReadLine();
+            int.TryParse(ageInput, out check);
+            while (check < 3) {
+                Console.WriteLine("Invalid Input! Please enter age:");
+                ageInput = Console.ReadLine();
+                int.TryParse(ageInput, out check);
+            }
+            return ageInput;
         }
     }
 }

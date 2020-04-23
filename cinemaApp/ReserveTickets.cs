@@ -15,7 +15,8 @@ namespace cinemaApp
         static string[][] Room1Seats = new string[10][];
         static string[][] Room2Seats = new string[15][];
         static string[][] Room3Seats = new string[25][];
-        static List<string> timeOptions = new List<string>() { "13:00", "14:00" };
+        static List<string> dayOptions = new List<string>() { "monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+        static List<string> timeOptions = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00"};
         static int timeLen = timeOptions.Count;
         static string[][] movieOptions = { new string[] { "up", "aladin", "lion king" }, new string[] { "aladin", "lion king", "up" } };
         static string movieOptionString = "";
@@ -47,16 +48,7 @@ namespace cinemaApp
                 timeOptionString += i.ToString() + ":  " + timeOptions[i] + "\n";
             }
             Console.WriteLine("Please select a option.");
-            Console.WriteLine(timeOptionString);
-            string choiceInput = Console.ReadLine();
-            int.TryParse(choiceInput, out checkedChoice);
-            while (!(0 <= checkedChoice && checkedChoice < timeLen) || string.IsNullOrWhiteSpace(choiceInput))
-            {
-                Console.WriteLine("Invalid Input! Please enter your option:");
-                choiceInput = Console.ReadLine();
-                int.TryParse(choiceInput, out checkedChoice);
-            }
-            timeChoice = checkedChoice;
+            timeChoice = Program.ChoiceInput(0,timeLen);
         }
 
         //checks if input is valid

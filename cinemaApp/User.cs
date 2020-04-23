@@ -67,6 +67,12 @@ namespace cinemaApp
             }
             streamreader.Close();
         }
+
+        public void ContinueAsGuest() {
+            username = "Guest";
+            password = "Guest";
+            age = 18;
+        }
         
         //AccountVerify will check if the entered username and password are inside the made lists and if they belong together
         public void VerifyLogin()
