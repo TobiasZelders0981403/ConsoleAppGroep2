@@ -28,9 +28,6 @@ namespace cinemaApp {
             }
             Environment.Exit(0);
             //MUST HAVES
-            //see sale data
-            //adjust seat prices
-            //add and delete films
             //see all reservations
 
             //SHOULD HAVES
@@ -78,8 +75,7 @@ namespace cinemaApp {
             while (choice != 0) {
                 if (choice == 1) {
                     //show all movies
-                    string FullList = "\n" + File.ReadAllText(@"filmlist.txt");
-                    Console.WriteLine(FullList);
+                    Filters.AgeFilter(user);
                 } else if (choice == 2) {
                     //search by genre
                     Filters.GenreFilter(user);
@@ -97,6 +93,9 @@ namespace cinemaApp {
                 choice = Program.ChoiceInput(0, 6);
             }
             Environment.Exit(0);
+            //Must Haves
+            //Look at Shopping cart
+
             //COULD HAVES
             //comment
         }

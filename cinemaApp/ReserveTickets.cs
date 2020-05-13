@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Reflection.PortableExecutable;
+using System.Linq;
 
 namespace cinemaApp
 {
@@ -12,26 +14,37 @@ namespace cinemaApp
         // Room 2 : 15 rows of 20 seats [15][20]
         // Rooom 3 : 25 rows of 25 seats [25][25]
 
-        static string[][] Room1Seats = new string[10][];
-        static string[][] Room2Seats = new string[15][];
-        static string[][] Room3Seats = new string[25][];
+        static string[][] RoomSeats;
         static List<string> dayOptions = new List<string>() { "monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-        static List<string> timeOptions = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00"};
-        static int timeLen = timeOptions.Count;
-        static List<string> movieOptions = new List<string>();
-        static string movieOptionString = "";
+        static List<string> timeOptions;
+        static List<string> timeTemplate = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00" };
+        static List<string> movieOptions;
+        static List<string> rooms = new List<string>();
         static int dayChoice;
         static int timeChoice;
         static int movieChoice;
         static int rowChoice = -1;
         static int seatChoice = -1;
+        static string room;
+        static bool full = true;
 
         //input
         public static void ReserveTicketsMain(User user)
         {
-            //select day
+            movieOptions = new List<string>();
+            timeOptions = new List<string>();
+
+            LoadMovies(user);
+            MovieSelection();
+
             DaySelection();
 
+            LoadTimeOptions();
+            TimeSelection(); //includes room
+
+            SeatSelection();
+            /*
+            
             //select time
             TimeSelection();
 
@@ -40,188 +53,205 @@ namespace cinemaApp
 
             //select seat(s)
             SeatSelection(user);
+            */
+            }
+
+        static void MovieSelection() {
+            Console.WriteLine("\nPlease select a movie.");
+            for (int i = 0; i < movieOptions.Count; i++) {
+                Console.WriteLine($"{i}: {movieOptions[i]}");
+            }
+            movieChoice = Program.ChoiceInput(0, movieOptions.Count);
         }
 
         static void DaySelection() {
             Console.WriteLine("\nPlease select a day.");
-            for (int i =0; i < dayOptions.Count; i++) {
+            for (int i = 0; i < dayOptions.Count; i++) {
                 Console.WriteLine($"{i}: {dayOptions[i]}");
             }
             dayChoice = Program.ChoiceInput(0, 6);
         }
 
-        //checks if input is valid
-        static void TimeSelection()
-        {
+        static void TimeSelection() {
             Console.WriteLine("Please select a time.");
-            for (int i = 0; i < timeLen; i++)
-            {
+            for (int i = 0; i < timeOptions.Count; i++) {
                 Console.WriteLine($"{i}: {timeOptions[i]}");
             }
-            timeChoice = Program.ChoiceInput(0,timeLen);
+            int choice = Program.ChoiceInput(0, timeOptions.Count - 1);
+            timeChoice = timeTemplate.IndexOf(timeOptions[choice]);
+            room = rooms[choice];
         }
 
-        //checks if input is valid
-        static void MovieSelection()
-        {
-            LoadMovies();
-            Console.WriteLine("\nPlease select a movie.");
-            for (int i = 0; i < movieOptions.Count; i++)
-            {
-                Console.WriteLine($"{i}: {movieOptions[i]}");
+        static void SeatSelection() {
+            int rowMax;
+            int seatsPerRow;
+            if (room == "room1") {
+                rowMax = 10;
+                seatsPerRow = 15;
+                RoomSeats = new string[10][];
+            } else if (room == "room2") {
+                rowMax = 15;
+                seatsPerRow = 20;
+                RoomSeats = new string[15][];
+            } else {
+                rowMax = 25;
+                seatsPerRow = 25;
+                RoomSeats = new string[25][];
             }
-            movieChoice = Program.ChoiceInput(0,movieOptions.Count);
-        }
+            
+            while (TakenOrNot(rowChoice, seatChoice)) {
+                ReadSeatFile();
+                ReadSeats(rowMax, seatsPerRow);
 
-        //lets the user select seats
-        static void SeatSelection(User user)
-        {
-            int rowMax = 10;
-            int seatsPerRow = 15;
-            string[][] roomSeats = Room1Seats;
-            ReadSeats(rowMax, seatsPerRow, roomSeats);
-                while (TakenOrNot(roomSeats, rowChoice, seatChoice)){
-                    if (movieChoice == 1)
-                    {
-                        rowMax = 15;
-                        seatsPerRow = 20;
-                        roomSeats = Room2Seats;
-                    }
-                    else if (movieChoice == 2)
-                    {
-                        rowMax = 25;
-                        seatsPerRow = 25;
-                        roomSeats = Room3Seats;
-                    }
+                if (!full) {
                     Console.WriteLine("Please Select a row:");
-                    rowChoice = Program.ChoiceInput(0,rowMax - 1);
+                    rowChoice = Program.ChoiceInput(0, rowMax - 1);
 
                     Console.WriteLine("Please select a seat:");
                     seatChoice = Program.ChoiceInput(0, seatsPerRow - 1);
+                } else {
+                    break;
                 }
-            roomSeats[rowChoice][seatChoice] = "1";
+            }
+
+            RoomSeats[rowChoice][seatChoice] = "1";
             SaveSeatFile();
-            AddToShoppingCart(user);
-            Options(user);
+            Options();
+        }
+
+
+        static void Options() {
+            //options
+            Console.WriteLine("\n0: Select another seat\n1: Quit");
+            int choice = Program.ChoiceInput(0, 1);
+            if (choice == 0) {
+                rowChoice = -1;
+                seatChoice = -1;
+                SeatSelection();
+            }
         }
 
         //checks if a seat is taken
-        static bool TakenOrNot(string[][] roomSeats, int row, int seat)
-        {
+        static bool TakenOrNot(int row, int seat) {
             if (row < 0 || seat < 0) {
                 return true;
-            } else if (roomSeats[row][seat] == "1")
-            {
+            } else if (RoomSeats[row][seat] == "1") {
                 Console.WriteLine("This seat is taken. Please try again");
                 return true;
-            } else
-            {
+            } else {
                 return false;
             }
         }
 
-        //ending options
-        static void Options(User user)
-        {
-            //options
-            Console.WriteLine("0: Select another seat\n1: Quit");
-            int choice = Program.ChoiceInput(0, 1);
-            if (choice == 0)
-            {
-                rowChoice = -1;
-                seatChoice = -1;
-                SeatSelection(user);
+        static void ReadSeats(int rowMax, int seatsPerRow) {
+            for (int i =0; i < RoomSeats.Length; i++) {
+                if (RoomSeats[i].Contains("0")) {
+                    full = false;
+                }
             }
 
-        }
-
-        //shows seat data from storage
-        static void ReadSeats(int rowMax, int seatsPerRow, string[][] roomSeats)
-        {
-            ReadSeatFile();
-
-            string data = "";
-
-            for (int i = 0; i < rowMax; i++)
-            {
-                if (i < 10)
-                {
-                    data += $"row {i}:  ";
-                }
-                else
-                {
-                    data += $"row {i}: ";
-
-                }
-                for (int j = 0; j < seatsPerRow; j++)
-                {
-                    if (roomSeats[i][j] == "1")
-                    {
-                        data += "_ ";
+            if (full) {
+                Console.WriteLine("There are no seats available at this day and time.\nPlease select another day/time.");
+            } else {
+                string data = "";
+                for (int i = 0; i < rowMax; i++) {
+                    if (i < 10) {
+                        data += $"row {i}:  ";
+                    } else {
+                        data += $"row {i}: ";
                     }
-                    else
-                    {
-                        data += $"{j} ";
+                    for (int j = 0; j < seatsPerRow; j++) {
+                        if (RoomSeats[i][j] == "1") {
+                            data += "__ ";
+                        } else {
+                            data += $"{j} ";
+                        }
                     }
+                    data += "\n";
                 }
-                data += "\n";
+                Console.WriteLine(data);
             }
-            Console.WriteLine(data);
-
         }
 
-        //reads seat data from storage
-        static void ReadSeatFile()
-        {
+        static void ReadSeatFile() {
             string fileName = dayOptions[dayChoice] + "/" + timeChoice + "-Seats.txt";
             StreamReader streamreader = new StreamReader(@fileName);
             string line;
             int i = 0;
-            while ((line = streamreader.ReadLine()) != null)
-            {
-                string[] components = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (i < 10) {
-                    Room1Seats[i] = components;
-                } else if (i < 25) {
-                    Room2Seats[i - 10] = components;
-                } else if (i < 50) {
-                    Room3Seats[i - 25] = components;
+            int index = 0;
+            int start;
+            int stop;
+            if (room == "room1") {
+                start = 0;
+                stop = 10;
+            } else if (room == "room2") {
+                start = 10;
+                stop = 25;
+            } else {
+                start = 25;
+                stop = 50;
+            }
+
+            while ((line = streamreader.ReadLine()) != null) {
+                if (i >= start && i < stop) {
+                    string[] components = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    RoomSeats[index] = components;
+                    index++;
                 }
                 i++;
             }
             streamreader.Close();
         }
 
-        //saves adjusted seat data in storage
-        static void SaveSeatFile()
-          {
+        static void SaveSeatFile() {
+            //Read File
             string fileName = dayOptions[dayChoice] + "/" + timeChoice + "-Seats.txt";
+            StreamReader streamreader = new StreamReader(@fileName);
+            string line;
+            string[][] allSeats = new string[50][];
+            int i = 0;
+            int index = 0;
+            int start;
+            int stop;
+            if (room == "room1") {
+                start = 0;
+                stop = 10;
+            } else if (room == "room2") {
+                start = 10;
+                stop = 25;
+            } else {
+                start = 25;
+                stop = 50;
+            }
+            while ((line = streamreader.ReadLine()) != null) {
+                string[] components = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                allSeats[i] = components;
+                if (i >= start && i < stop) {
+                    allSeats[i] = RoomSeats[index];
+                    index++;
+                }
+                i++;
+            }
+            streamreader.Close();
+
             string data = "";
-            
-
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 15; j++)
-                {
-                    data += Room1Seats[i][j] + " ";
+            for (i = 0; i < 10; i++) {
+                for (int j = 0; j < 15; j++) {
+                    data += allSeats[i][j] + " ";
                 }
                 data += "\n";
             }
 
-            for (int i = 0; i < 15; i++)
-            {
-                for (int j = 0; j < 20; j++)
-                {
-                    data += Room2Seats[i][j] + " ";
+            for (i = 10; i < 25; i++) {
+                for (int j = 0; j < 20; j++) {
+                    data += allSeats[i][j] + " ";
                 }
                 data += "\n";
             }
 
-            for (int i = 0; i < 25; i++)
-            {
-                for (int j = 0; j < 25; j++)
-                {
-                    data += Room3Seats[i][j] + " ";
+            for (i = 25; i < 50; i++) {
+                for (int j = 0; j < 25; j++) {
+                    data += allSeats[i][j] + " ";
                 }
                 data += "\n";
             }
@@ -230,31 +260,12 @@ namespace cinemaApp
             streamwriter.Close();
         }
 
-        //adds chocen tickets to the shopping cart
-        static void AddToShoppingCart(User user)
-        {
-            string fileName = user.username + "-ShoppingCart.txt";
-            StreamWriter streamwriter = new StreamWriter(@fileName, append: true);
-            string data = $"Time: {timeOptions[timeChoice]}\nMovie: {movieOptions[timeChoice][movieChoice]}\nRow: {rowChoice}, Seat: {seatChoice}\n";
-            streamwriter.Write(data);
-            streamwriter.Close();
-        }
-
-        //loads in movies
-        static void LoadMovies() {
+        static void LoadMovies(User user) {
             //read
-            int count = 0;
             string[] data;
             string line;
+            int checkedAge;
             StreamReader streamreader = new StreamReader("filmlist.txt");
-            while (streamreader.EndOfStream == false) {
-                if ((line = streamreader.ReadLine()) == "") {
-                    count++;
-                }
-            }
-
-            streamreader.Close();
-            streamreader = new StreamReader("filmlist.txt");
             while (streamreader.EndOfStream == false) {
                 int i = 0;
                 data = new string[8];
@@ -262,12 +273,31 @@ namespace cinemaApp
                     data[i] = line;
                     i++;
                 }
-                if (data[5] == timeOptions[timeChoice]) {
+                int.TryParse(data[1], out checkedAge);
+                if (user.age >= checkedAge && (!movieOptions.Contains(data[0]))) {
                     movieOptions.Add(data[0]);
                 }
             }
             streamreader.Close();
         }
 
+        static void LoadTimeOptions() {
+            string[] data;
+            string line;
+            StreamReader streamreader = new StreamReader("filmlist.txt");
+            while (streamreader.EndOfStream == false) {
+                int i = 0;
+                data = new string[8];
+                while ((line = streamreader.ReadLine()) != "") {
+                    data[i] = line;
+                    i++;
+                }
+                if (data[0] == movieOptions[movieChoice]) {
+                    timeOptions.Add(data[5]);
+                    rooms.Add(data[6]);
+                }
+            }
+            streamreader.Close();
+        }
     }
 }

@@ -195,8 +195,12 @@ namespace cinemaApp {
                     j++;
                 }
             }
-            int choice = Program.ChoiceInput(0, j);
-            Time = timeOptions2[choice];
+            if (j != 0) {
+                int choice = Program.ChoiceInput(0, j);
+                Time = timeOptions2[choice];
+            } else {
+                Console.WriteLine("There are no rooms left at this day.");
+            }
         }
 
         static bool TimeCheck(string time) {
@@ -238,10 +242,13 @@ namespace cinemaApp {
                 }
             }
 
-            Console.WriteLine(data);
-            int choice = Program.ChoiceInput(0, count-1);
-            Room = RoomList2[choice];
-
+            if (count != 0) {
+                Console.WriteLine(data);
+                int choice = Program.ChoiceInput(0, count - 1);
+                Room = RoomList2[choice];
+            } else {
+                Console.WriteLine("Als rooms are taken at this time.");
+            }
         }
 
         static void IDSelection() {
