@@ -71,7 +71,8 @@ namespace cinemaApp
         public void ContinueAsGuest() {
             username = "Guest";
             password = "Guest";
-            age = 18;
+            CheckAge();
+            age = checkedage;
         }
         
         //AccountVerify will check if the entered username and password are inside the made lists and if they belong together
@@ -97,10 +98,10 @@ namespace cinemaApp
         //checks if age is numeric
         public void CheckAge()
         {
-            Console.WriteLine("Please enter your age:");
+            Console.WriteLine("Please enter your age (you must be 12 or older):");
             string ageInput = Console.ReadLine();
             int.TryParse(ageInput, out checkedage);
-            while (checkedage <= 0)
+            while (checkedage <= 11)
             {
                 Console.WriteLine("Invalid Input! Please enter your age:");
                 ageInput = Console.ReadLine();

@@ -1,3 +1,0 @@
-Time: 12:00
-Movie: f
-Row: 0, Seat: 1
