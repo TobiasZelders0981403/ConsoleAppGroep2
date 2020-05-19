@@ -306,12 +306,13 @@ namespace cinemaApp
         static void SaveToShoppingCart(User user) {
             if (user.username != "Guest") {
                 string filename = $"{user.username}-ShoppingCart.txt";
-                string data = $"{movieOptions[movieChoice]} {dayOptions[dayChoice]} {timeOptions[timeChoice]} {room} {rowChoice} {seatChoice}\n";
+                string data = $"{movieOptions[movieChoice]} {dayOptions[dayChoice]} {timeTemplate[timeChoice]} {room} {rowChoice} {seatChoice}\n";
                 StreamWriter streamwriter = new StreamWriter(@filename, append: true);
                 streamwriter.Write(data);
                 streamwriter.Close();
             } else {
-                user.shoppingCart.Add(new List<string> { movieOptions[movieChoice], dayOptions[dayChoice], timeOptions[timeChoice], room, rowChoice.ToString(), seatChoice.ToString()});
+                List<string> data = new List<string> { movieOptions[movieChoice], dayOptions[dayChoice], timeTemplate[timeChoice], room, rowChoice.ToString(), seatChoice.ToString() };
+                user.shoppingCart.Add(data);
             }
         }
     }
