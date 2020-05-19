@@ -42,7 +42,7 @@ namespace cinemaApp
             LoadTimeOptions();
             TimeSelection(); //includes room
 
-            SeatSelection();
+            SeatSelection(user);
             /*
             
             //select time
@@ -82,7 +82,7 @@ namespace cinemaApp
             room = rooms[choice];
         }
 
-        static void SeatSelection() {
+        static void SeatSelection(User user) {
             int rowMax;
             int seatsPerRow;
             if (room == "room1") {
@@ -115,19 +115,20 @@ namespace cinemaApp
             }
 
             RoomSeats[rowChoice][seatChoice] = "1";
+            SaveToShoppingCart(user);
             SaveSeatFile();
-            Options();
+            Options(user);
         }
 
 
-        static void Options() {
+        static void Options(User user) {
             //options
             Console.WriteLine("\n0: Select another seat\n1: Quit");
             int choice = Program.ChoiceInput(0, 1);
             if (choice == 0) {
                 rowChoice = -1;
                 seatChoice = -1;
-                SeatSelection();
+                SeatSelection(user);
             }
         }
 
@@ -162,7 +163,7 @@ namespace cinemaApp
                     }
                     for (int j = 0; j < seatsPerRow; j++) {
                         if (RoomSeats[i][j] == "1") {
-                            data += "__ ";
+                            data += "_ ";
                         } else {
                             data += $"{j} ";
                         }
@@ -253,7 +254,9 @@ namespace cinemaApp
                 for (int j = 0; j < 25; j++) {
                     data += allSeats[i][j] + " ";
                 }
-                data += "\n";
+                if (i != 49) {
+                    data += "\n";
+                }
             }
             StreamWriter streamwriter = new StreamWriter(@fileName);
             streamwriter.WriteLine(data);
@@ -298,6 +301,18 @@ namespace cinemaApp
                 }
             }
             streamreader.Close();
+        }
+
+        static void SaveToShoppingCart(User user) {
+            if (user.username != "Guest") {
+                string filename = $"{user.username}-ShoppingCart.txt";
+                string data = $"{movieOptions[movieChoice]} {dayOptions[dayChoice]} {timeOptions[timeChoice]} {room} {rowChoice} {seatChoice}\n";
+                StreamWriter streamwriter = new StreamWriter(@filename, append: true);
+                streamwriter.Write(data);
+                streamwriter.Close();
+            } else {
+                user.shoppingCart.Add(new List<string> { movieOptions[movieChoice], dayOptions[dayChoice], timeOptions[timeChoice], room, rowChoice.ToString(), seatChoice.ToString()});
+            }
         }
     }
 }
