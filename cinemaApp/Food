@@ -1,29 +1,36 @@
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+
+namespace Cinema_
+{
     public class Food
     {
 
-
-        public int id;
-        public string name;
-        public string category;
-        public string subCategory;
-        public string size;
-        public double price;
-
-        public static List<Food> menu = new List<Food>();
+        public static int LastID = 0;
+        public int id { get; set; }
+        public string name { get; set; }
+        public string category { get; set; }
+        public string subCategory { get; set; }
+        public string size { get; set; }
+        public double price { get; set; }
 
 
-
-        public Food(int Id, string Snackname, string cat, string subCat, string Size, double price)
+        public Food(string Snackname, string cat, string subCat, string Size, double price)
         {
-            this.id = Id;
+            this.id = LastID;
             this.name = Snackname;
             this.category = cat;
             this.subCategory = subCat;
             this.size = Size;
             this.price = price;
+            LastID = id + 1;
         }
 
-        static double convertPrice(string p)
+        public static double convertPrice(string p)
         {
             double priceDouble = 0;
             try
@@ -49,650 +56,121 @@
             return priceDouble;
         }
 
-        public static void display(Food searched)
+        public static string getCategory()
         {
-            Console.WriteLine();
-            Console.WriteLine("Item Id: " + searched.id);
-            Console.WriteLine("Name: " + searched.name);
-            Console.WriteLine("Category: " + searched.category);
-            Console.WriteLine("Sub-category: " + searched.subCategory);
-            Console.WriteLine("Size: " + searched.size);
-            Console.WriteLine("Price: " + searched.price);
-        }
-
-        static void searchCategory(List<Food> menu)
-        {
-            Console.WriteLine("Search: ");
-            string search = Console.ReadLine().ToLower();
-            foreach (var food in menu)
+            Console.WriteLine("\nThe category:\n1. Snack\n2. Drink");
+            //string category;
+            string choice = Console.ReadLine();
+            int ch = 0;
+            //int ch = Console.Read();
+            int.TryParse(choice, out ch);
+            if (ch == 1)
             {
-                if (food.category.ToLower().Contains(search))
-                {
-                    display(food);
-                }
+                return "Snack";
+            }
+            else if (ch == 2)
+            {
+                return "Drink";
+            }
+            else
+            {
+                Console.WriteLine("Choose between 1 and 2.");
+                return getCategory();
             }
         }
 
-        static void searchsubCategory(List<Food> menu)
+        public static string getSubCategory(string cat)
         {
-            Console.WriteLine("Search: ");
-            string search = Console.ReadLine().ToLower();
-            foreach (var food in menu)
+            string[] snacksSubs = { "Popcorn", "Sweets", "Hot Dog", "Nachos", "Pizza" };
+            string[] drinkSubs = { "Water", "Soda", "Juice", "Milkshake", "Slushie" };
+            if (cat == "Snack")
             {
-                if (food.subCategory.ToLower().Contains(search))
+                int c = 1;
+                Console.WriteLine("\nThe sub-category:");
+                for (int i = 0; i < snacksSubs.Length; i++)
                 {
-                    display(food);
+                    Console.WriteLine(c + ". " + snacksSubs[i]);
+                    c++;
                 }
-            }
-        }
+                string choice = Console.ReadLine();
+                int ch = 0;
+                bool convert = int.TryParse(choice, out ch);
 
-        static void searchName(List<Food> menu)
-        {
-            Console.WriteLine("Search: ");
-            string search = Console.ReadLine().ToLower();
-            foreach (var food in menu)
-            {
-                if (food.name.ToLower().Contains(search))
+                if (convert && ch - 1 >= 0 && ch - 1 < snacksSubs.Length)
                 {
-                    display(food);
-                }
-            }
-
-        }
-
-        public static void search(List<Food> menu)
-        {
-            bool busy = true;
-            while (busy)
-            {
-                Console.WriteLine("search by name(1), category(2) or sub-category(3)\nPress q to quit...");
-                var choice = Console.ReadKey().Key;
-                if (choice == ConsoleKey.Q)
-                {
-                    busy = false;
-                    break;
-                }
-                else if (choice == ConsoleKey.D1)
-                {
-                    searchName(menu);
-                }
-                else if (choice == ConsoleKey.D2)
-                {
-                    searchCategory(menu);
-                }
-                else if (choice == ConsoleKey.D3)
-                {
-                    searchsubCategory(menu);
+                    return snacksSubs[ch - 1];
                 }
                 else
                 {
-                    Console.WriteLine("Please choose a number between 1 and 3");
+                    Console.WriteLine("Invalid input");
+                    return getSubCategory(cat);
                 }
             }
-        }
 
-        public static void overview(List<Food> menu)
-        {
-            Console.WriteLine();
-            foreach (var food in menu)
+            else if (cat == "Drink")
             {
-                display(food);
+                int c = 1;
+                Console.WriteLine("The sub-category:");
+                for (int i = 0; i < drinkSubs.Length; i++)
+                {
+                    Console.WriteLine(c + ". " + drinkSubs[i]);
+                    c++;
+                }
+                string choice = Console.ReadLine();
+                int ch = 0;
+                bool convert = int.TryParse(choice, out ch);
+
+                if (convert && ch - 1 >= 0 && ch - 1 < drinkSubs.Length)
+                {
+                    return drinkSubs[ch - 1];
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input");
+                    return getSubCategory(cat);
+                }
+
             }
+            return "";
         }
 
-        public static void addItem(List<Food> menu)
+        public static string getSize()
         {
-            Console.WriteLine("\nAdd item:");
-            Console.WriteLine("The name:");
-            string name = Console.ReadLine();
-
-            Console.WriteLine("The category(snack or drink):");
-            string category = Console.ReadLine();
-
-            Console.WriteLine("The sub-category(popcorn, chocolate, soda etc):");
-            string subCat = Console.ReadLine();
-
-            Console.WriteLine("The size(S, M, L and XL):");
+            Console.WriteLine("The size:\n(S, M, L and XL) or press enter to leave empty");
+            string[] sizes = { "S", "M", "L", "XL", "", " " };
             string size = Console.ReadLine();
-
-            Console.WriteLine("The price:");
-            string price = Console.ReadLine();
-            double userPrice = convertPrice(price);
-
-            string varName = size + " " + name;
-            int id = menu.Count;
-
-
-            var newFood = new Food(id, varName, category, subCat, size, userPrice);
-            menu.Add(newFood);
-
-
-        }
-
-        public static List<Food> editItem(List<Food> menu)
-        {
-            Console.WriteLine();
-            List<Food> newMenu = new List<Food>();
-            bool busy = true;
-
-            while (busy)
+            if (sizes.Contains(size))
             {
-                overview(menu);
-                Console.WriteLine("Enter the id of the product you want to delete.\nPress q to quit....");
-                var idDelete = Console.ReadLine();
-
-                int id;
-                //int id = Convert.ToInt32(idDelete);
-                bool sucess = Int32.TryParse(idDelete, out id);
-
-                if ((sucess) & (id <= menu.Count) & (id >= 0))
-                {
-
-                    Console.WriteLine("Type 'y' to change 'n' to leave be");
-
-                    bool changeName = false;
-                    string newName = "";
-                    Console.WriteLine("\nChange name? ");
-                    var choice = Console.ReadKey().Key;
-                    if (choice == ConsoleKey.Y)
-                    {
-                        Console.WriteLine("New name: ");
-                        newName = Console.ReadLine();
-                        changeName = true;
-                    }
-
-                    bool changeCat = false;
-                    string newCat = "";
-                    Console.WriteLine("\nChange category?");
-                    choice = Console.ReadKey().Key;
-                    if (choice == ConsoleKey.Y)
-                    {
-                        Console.WriteLine("New category: ");
-                        newCat = Console.ReadLine();
-                        changeCat = true;
-                    }
-
-                    bool changeSub = false;
-                    string newSub = "";
-                    Console.WriteLine("\nChange sub-category?");
-                    choice = Console.ReadKey().Key;
-                    if (choice == ConsoleKey.Y)
-                    {
-                        Console.WriteLine("New sub-category: ");
-                        newSub = Console.ReadLine();
-                        changeSub = true;
-                    }
-
-                    bool changeSize = false;
-                    string newSize = "";
-                    Console.WriteLine("\nChange size?");
-                    choice = Console.ReadKey().Key;
-                    if (choice == ConsoleKey.Y)
-                    {
-                        Console.WriteLine("New size: ");
-                        newSize = Console.ReadLine();
-                        changeSize = true;
-                    }
-
-                    bool changePrice = false;
-                    string newPrice = "";
-                    Console.WriteLine("\nChange price?");
-                    choice = Console.ReadKey().Key;
-                    if (choice == ConsoleKey.Y)
-                    {
-                        Console.WriteLine("New price: ");
-                        newPrice = Console.ReadLine();
-                        changePrice = true;
-                    }
-
-                    foreach (var food in menu)
-                    {
-                        if (id == food.id)
-                        {
-                            if (changeName)
-                            {
-                                food.name = newName;
-                            }
-
-                            if (changeCat)
-                            {
-                                food.category = newCat;
-                            }
-
-                            if (changeSub)
-                            {
-                                food.subCategory = newSub;
-                            }
-
-                            if (changeSize)
-                            {
-                                food.size = newSize;
-                            }
-
-                            if (changePrice)
-                            {
-                                food.price = convertPrice(newPrice);
-                            }
-                        }
-                    }
-
-
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input");
-                    return editItem(menu);
-                }
-                return newMenu;
+                return size;
             }
-            return newMenu;
-        }
 
-        public static List<Food> Delete(List<Food> menu)
-        {
-            Console.WriteLine();
-            List<Food> newMenu = new List<Food>();
-            bool busy = true;
-
-            while (busy)
+            else
             {
-                overview(menu);
-                Console.WriteLine("Enter the id of the product you want to delete");
-                var idDelete = Console.ReadLine();
-
-                int id;
-                //int id = Convert.ToInt32(idDelete);
-                bool sucess = Int32.TryParse(idDelete, out id);
-
-                if ((sucess) & (id <= menu.Count) & (id >= 0))
-                {
-
-                    Console.WriteLine();
-                    foreach (var food in menu)
-                    {
-                        if (food.id != id)
-                        {
-                            newMenu.Add(food);
-                        }
-                    }
-
-                    foreach (var food in newMenu)
-                    {
-                        if (food.id > id)
-                        {
-                            food.id--;
-                        }
-
-                        return newMenu;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input");
-                    return Delete(menu);
-                }
-                return newMenu;
+                Console.WriteLine("Invalid input");
+                return getSize();
             }
-            return newMenu;
 
         }
 
-
-
-        public static void Caterer()
+        public void display()
         {
-            bool busy = true;
-            //List<Food> menu = new List<Food>();
-
-            while (busy)
+            Console.WriteLine("-----");
+            Console.WriteLine("Item Id: " + this.id + ". Name: " + this.name);
+            Console.WriteLine("Category: " + this.category + ". Sub-category: " + this.subCategory);
+            if (this.size == "" || this.size == " ")
             {
-
-                Console.WriteLine("\nWhat do you wanna do?\nSee all avalaible items(1).\nAdd a new item(2).\nEdit an item(3).\nRemove an item(4).\nSearch for an item(5)\nPress q to quit...");
-                var userChoice = Console.ReadKey().Key;
-
-                if (userChoice == ConsoleKey.Q)
-                {
-                    busy = false;
-                    break;
-                }
-                else if (userChoice == ConsoleKey.D1)
-                {
-                    overview(menu);
-                }
-                else if (userChoice == ConsoleKey.D2)
-                {
-                    addItem(menu);
-                }
-                else if (userChoice == ConsoleKey.D3)
-                {
-                    menu = editItem(menu);
-                }
-                else if (userChoice == ConsoleKey.D4)
-                {
-                    menu = Delete(menu);
-                }
-                else if (userChoice == ConsoleKey.D5)
-                {
-                    search(menu);
-                }
-                else
-                {
-                    Console.WriteLine("Please choose between 1, 2, 3 and 4");
-                }
-
+                Console.WriteLine("Price: " + this.price);
             }
+            else
+            {
+                Console.WriteLine("Size: " + this.size + ". Price: " + this.price);
+            }
+            Console.WriteLine("-----");
         }
+
+
+
+
 
     }
-
-    public class FoodOrder
-    {
-        static List<FoodOrder> FoodOrders = new List<FoodOrder>();
-        static List<FoodOrder> FoodOrdersCaterToDo = new List<FoodOrder>();
-        static List<FoodOrder> FoodOrdersCaterDone = new List<FoodOrder>();
-        int OrderId;
-        List<Food> Order = new List<Food>();
-        string Day;
-        int Hour;
-        int Minute;
-        string UserName;
-        bool Paid;
-
-        public FoodOrder(int orderid, List<Food> order, string day, int hour, int minute, string username, bool paid)
-        {
-            this.OrderId = orderid;
-            this.Order = order;
-            this.Day = day;
-            this.Hour = hour;
-            this.Minute = minute;
-            this.UserName = username;
-            this.Paid = paid;
-        }
-
-        public static string day()
-        {
-            string[] days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-            Console.WriteLine("\nThe Day: ");
-            int i = 1;
-            foreach (string d in days)
-            {
-                Console.WriteLine(i + " " + d);
-                i++;
-            }
-            Console.WriteLine("Choose number between 1 and 7: ");
-            string chosen = Console.ReadLine();
-            int chose = Convert.ToInt32(chosen);
-            if (chose > 0 && chose < 8)
-            {
-                return days[chose - 1];
-            }
-            else
-            {
-                Console.WriteLine("Invalid input. Please choose a number between 1 and 7");
-                return day();
-            }
-        }
-
-        public static int hour()
-        {
-            Console.Write("\nHour(9-23): ");
-            string userHour = Console.ReadLine();
-            int h = Convert.ToInt32(userHour);
-            if (h < 9 || h > 23)
-            {
-                Console.WriteLine("Invalid input. Choose hour between 9 and 23");
-                return hour();
-            }
-            else
-            {
-                return h;
-            }
-        }
-
-        public static int minute()
-        {
-            Console.Write("\nMinute(0-60): ");
-            string um = Console.ReadLine();
-            int userMinute = Convert.ToInt32(um);
-            if (userMinute < 0 || userMinute > 60)
-            {
-                Console.WriteLine("Invalid input. Choose hour between 0 and 60");
-                return minute();
-            }
-            else
-            {
-                return userMinute;
-            }
-        }
-
-        public static void addFood()
-        {
-            bool items = true;
-            List<Food> userOrder = new List<Food>();
-            while (items)
-            {
-                Console.WriteLine("Enter the product id or press q to quit...");
-                int userId;
-                string idStr = Console.ReadLine();
-                if (idStr == "q")
-                {
-                    items = false;
-                    break;
-                }
-                bool sucess = Int32.TryParse(idStr, out userId);
-
-                if ((sucess) & (userId <= Food.menu.Count) & (userId >= 0))
-                {
-                    Console.WriteLine("You selected: ");
-                    foreach (var food in Food.menu)
-                    {
-                        if (food.id == userId)
-                        {
-                            Food.display(food);
-                            userOrder.Add(food);
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input");
-                    addFood();
-                }
-                string userName = "default";// Use user class (get)
-
-                Console.WriteLine("When do you want it to be ready?\n");
-
-                string userDay = day();
-
-                Console.WriteLine("The time: ");
-                int userHour = hour();
-                int userMinute = minute();
-                int id = FoodOrders.Count;
-
-
-                FoodOrders.Add(new FoodOrder(id, userOrder, userDay, userHour, userMinute, userName, false));
-                FoodOrdersCaterToDo.Add(new FoodOrder(id, userOrder, userDay, userHour, userMinute, userName, false));
-            }
-        }
-
-        public static void seeCart()
-        {
-            string username = "default";
-            List<FoodOrder> userOrders = new List<FoodOrder>();
-            foreach (var order in FoodOrders)
-            {
-                if (order.UserName == username)
-                {
-                    userOrders.Add(order);
-                }
-            }
-
-            double price = 0;
-            Console.WriteLine("In your cart");
-            foreach (var o in userOrders)
-            {
-                o.Paid = true;
-                foreach (var p in o.Order)
-                {
-                    price += p.price;
-                    Console.Write(p.name + " ");
-                }
-            }
-            Console.WriteLine("Total price: " + price);
-        }
-
-        public static void checkout()
-        {
-            //collect orders of username
-            string username = "default";
-            List<FoodOrder> userOrders = new List<FoodOrder>();
-            foreach (var order in FoodOrders)
-            {
-                if (order.UserName == username)
-                {
-                    userOrders.Add(order);
-                }
-            }
-
-            double price = 0;
-            Console.WriteLine("In your cart");
-            foreach (var o in userOrders)
-            {
-                o.Paid = true;
-                foreach (var p in o.Order)
-                {
-                    price += p.price;
-                    Console.Write(p.name + " ");
-                }
-            }
-            Console.WriteLine("Total price: " + price);
-            Console.WriteLine("Confirming purchase...");
-
-        }
-
-        public static void caterView()
-        {
-            Console.WriteLine("To see uncompleted orders press 1" + "\nTo see completed orders press 2");
-            var choice = Console.ReadKey().Key;
-
-            if (choice == ConsoleKey.D1)
-            {
-                Console.WriteLine("Orders not completed");
-                foreach (var o in FoodOrdersCaterToDo)
-                {
-                    Console.WriteLine("Time: " + o.Hour + ":" + o.Minute);
-                    foreach (var p in o.Order)
-                    {
-                        Food.display(p);
-                    }
-                }
-            }
-
-            else if (choice == ConsoleKey.D2)
-            {
-                Console.WriteLine("Orders completed");
-                foreach (var o in FoodOrdersCaterDone)
-                {
-                    Console.WriteLine("Time: " + o.Hour + ":" + o.Minute);
-                    foreach (var p in o.Order)
-                    {
-                        Food.display(p);
-                    }
-                }
-            }
-        }
-
-        public static void isDone()
-        {
-            Console.WriteLine("Enter Order Id: ");
-            var idDelete = Console.ReadLine();
-            List<FoodOrder> holder = new List<FoodOrder>();
-            int id;
-            bool sucess = Int32.TryParse(idDelete, out id);
-
-            if ((sucess) & (id <= FoodOrdersCaterToDo.Count) & (id >= 0))
-            {
-                Console.WriteLine();
-                foreach (var f in FoodOrdersCaterToDo)
-                {
-                    if (f.OrderId == id)
-                    {
-                        FoodOrdersCaterDone.Add(f);
-                    }
-                    if (f.OrderId != id)
-                    {
-                        holder.Add(f);
-                    }
-                }
-
-                foreach (var g in holder)
-                {
-                    if (g.OrderId > id)
-                    {
-                        g.OrderId--;
-                    }
-                }
-            }
-            FoodOrders = holder;
-        }
-
-        public static void Cater()
-        {
-            bool busy = true;
-
-            while (busy)
-            {
-                Console.WriteLine("View Orders(1)\nAdd item to done(2)\npress q to quit....");
-                var choice = Console.ReadKey().Key;
-                if (choice == ConsoleKey.Q)
-                {
-                    busy = false;
-                    break;
-                }
-                else if (choice == ConsoleKey.D1)
-                {
-                    caterView();
-                }
-                else if (choice == ConsoleKey.D2)
-                {
-                    isDone();
-                }
-            }
-        }
-
-        public static void Costumer()
-        {
-            bool busy = true;
-
-            while (busy)
-            {
-                Console.WriteLine("Hi, what do you wanna do?\nSee menu(1)\nSearch menu(2)\nSee what's in your cart(3)\nAdd something to cart(4)\nCheckout(5)");
-                var choice = Console.ReadKey().Key;
-                if (choice == ConsoleKey.Q)
-                {
-                    busy = false;
-                    break;
-                }
-                else if (choice == ConsoleKey.D1)
-                {
-                    Food.overview(Food.menu);
-                }
-                else if (choice == ConsoleKey.D2)
-                {
-                    Food.search(Food.menu);
-                }
-                else if (choice == ConsoleKey.D3)
-                {
-                    seeCart();
-                }
-                else if (choice == ConsoleKey.D4)
-                {
-                    addFood();
-                }
-                else if (choice == ConsoleKey.D5)
-                {
-                    checkout();
-                }
-            }
-        }
-    }
+}
