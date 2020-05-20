@@ -1,36 +1,73 @@
-﻿﻿using System;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+// The code i made for the caterer and the seat prices
 // Three movie rooms 150 seats, 300 seats and 500 seats
 // Room 1 : 10 rows of 15 seats
 // Room 2 : 15 rows of 20 seats
 // Rooom 3 : 25 rows of 25 seats
 
-namespace cinemaApp {
+namespace Cinema_
+{
+
     class Rooms
     {
-        public double[,] seatPrices;
+        public double[][] seatPrices { get; set; }
 
 
-        public Rooms(double[,] seats)
+        public Rooms(int rows, int seats)
         {
-            this.seatPrices = seats;
+            double[][] jaggedArray = new double[rows][];
+            for (int i = 0; i < jaggedArray.Length; i++)
+            {
+                jaggedArray[i] = new double[seats];
+            }
+            this.seatPrices = jaggedArray;
+        }
 
+        public Rooms(double[][] arr)
+        {
+            this.seatPrices = arr;
         }
 
         public void overview()
         {
             Console.WriteLine();
-            for (int j = 0; j < seatPrices.GetLength(0); j++)
+            for (int j = 0; j < seatPrices.Length; j++)
             {
-                for (int i = 0; i < seatPrices.GetLength(1); i++)
+                for (int i = 0; i < seatPrices[0].Length; i++)
                 {
                     int currentRow = j + 1;
                     int currentSeat = i + 1;
-                    Console.Write("Row_" + currentRow + " Seat_" + currentSeat + " = " + seatPrices[j, i] + "  ");
+                    Console.Write("Row_" + currentRow + " Seat_" + currentSeat + " = " + seatPrices[j][i] + "  ");
                 }
                 Console.WriteLine("\n");
             }
         }
 
+        public void overviewRow()
+        {
+            Console.WriteLine("Which row?");
+            string row = Console.ReadLine();
+            bool b = Int32.TryParse(row, out int j);
+            if (b)
+            {
+                for (int i = 0; i < seatPrices[0].Length; i++)
+                {
+                    int currentRow = j + 1;
+                    int currentSeat = i + 1;
+                    Console.Write("Row_" + currentRow + " Seat_" + currentSeat + " = " + seatPrices[j][i] + "  ");
+                }
+                Console.WriteLine("\n");
+            }
+            else
+            {
+                Console.WriteLine("Row doesn't exist");
+            }
+        }
 
         public void setPriceSeat()
         {
@@ -47,9 +84,9 @@ namespace cinemaApp {
                 setPriceSeat();
                 return;
             }
-            while (intRow <= 0 || intRow > seatPrices.GetLength(0) + 1)
+            while (intRow <= 0 || intRow > seatPrices.Length + 1)
             {
-                Console.WriteLine("There are only " + seatPrices.GetLength(0) + " rows");
+                Console.WriteLine("There are only " + seatPrices.Length + " rows");
                 Console.WriteLine("Which row?");
                 userRow = Console.ReadLine();
                 intRow = Convert.ToInt32(userRow);
@@ -68,9 +105,9 @@ namespace cinemaApp {
                 setPriceSeat();
                 return;
             }
-            while (intSeat <= 0 || intSeat > seatPrices.GetLength(1) + 1)
+            while (intSeat <= 0 || intSeat > seatPrices[0].Length + 1)
             {
-                Console.WriteLine("There are only " + seatPrices.GetLength(1) + " seats");
+                Console.WriteLine("There are only " + seatPrices[0].Length + " seats");
                 Console.WriteLine("Which seat?");
                 userSeat = Console.ReadLine();
                 intSeat = Convert.ToInt32(userSeat);
@@ -97,11 +134,11 @@ namespace cinemaApp {
                 doublePrice = Convert.ToDouble(userPrice);
             }
 
-            for (int j = 0; j < seatPrices.GetLength(0); j++)
+            for (int j = 0; j < seatPrices.Length; j++)
             {
-                for (int i = 0; i < seatPrices.GetLength(1); i++)
+                for (int i = 0; i < seatPrices[0].Length; i++)
                 {
-                    seatPrices[intRow - 1, intSeat - 1] = doublePrice;
+                    seatPrices[intRow - 1][intSeat - 1] = doublePrice;
                 }
             }
 
@@ -123,9 +160,9 @@ namespace cinemaApp {
                 setPriceRow();
                 return;
             }
-            while (intRow <= 0 || intRow > seatPrices.GetLength(0) + 1)
+            while (intRow <= 0 || intRow > seatPrices.Length + 1)
             {
-                Console.WriteLine("There are only " + seatPrices.GetLength(0) + " rows");
+                Console.WriteLine("There are only " + seatPrices.Length + " rows");
                 Console.WriteLine("Which row?");
                 userRow = Console.ReadLine();
                 intRow = Convert.ToInt32(userRow);
@@ -152,9 +189,9 @@ namespace cinemaApp {
                 doublePrice = Convert.ToDouble(userPrice);
             }
 
-            for (int i = 0; i < seatPrices.GetLength(1); i++)
+            for (int i = 0; i < seatPrices[0].Length; i++)
             {
-                seatPrices[intRow - 1, i] = doublePrice;
+                seatPrices[intRow - 1][i] = doublePrice;
             }
 
             Console.WriteLine("You changed row " + userRow + " prices to " + userPrice);
@@ -185,11 +222,11 @@ namespace cinemaApp {
                 doublePrice = Convert.ToDouble(userPrice);
             }
 
-            for (int j = 0; j < seatPrices.GetLength(0); j++)
+            for (int j = 0; j < seatPrices.Length; j++)
             {
-                for (int i = 0; i < seatPrices.GetLength(1); i++)
+                for (int i = 0; i < seatPrices[0].Length; i++)
                 {
-                    seatPrices[j, i] = doublePrice;
+                    seatPrices[j][i] = doublePrice;
                 }
             }
 
@@ -198,10 +235,10 @@ namespace cinemaApp {
 
         public void setPriceMiddle()
         {
-            int midRow = seatPrices.GetLength(0) / 2;
-            int slackRow = seatPrices.GetLength(0) / 5;
-            int midSeat = seatPrices.GetLength(0) / 2;
-            int slackSeat = seatPrices.GetLength(0) / 6;
+            int midRow = seatPrices.Length / 2;
+            int slackRow = seatPrices.Length / 5;
+            int midSeat = seatPrices.Length / 2;
+            int slackSeat = seatPrices.Length / 6;
 
             Console.WriteLine("\nWhat price?");
             string userPrice = Console.ReadLine();
@@ -228,73 +265,39 @@ namespace cinemaApp {
             {
                 for (int j = midSeat - slackSeat; j <= midSeat + slackSeat; j++)
                 {
-                    seatPrices[i, j] = doublePrice;
+                    seatPrices[i][j] = doublePrice;
                 }
             }
 
             Console.WriteLine("You have changed middle seat prices to " + userPrice);
-        }
-    }
-
-    public class RoomOptions
-    {
-        public static void RoomOptionsMain()
-        {
-            bool busy = true;
-
-            while (busy)
-            {
-                Console.WriteLine("\nWhich room would you like to acess: \nRoom 1\nRoom 2\nRoom 3");
-                Console.WriteLine("Type in 1, 2 or 3");
-                Console.WriteLine("Press q to exit...");
-                var roomChoice = Console.ReadKey().Key;
-
-                if (roomChoice == ConsoleKey.Q)
-                {
-                    busy = false;
-                    break;
-                }
-                else if (roomChoice == ConsoleKey.D1)
-                {
-                    roomOne();
-                }
-                else if (roomChoice == ConsoleKey.D2)
-                {
-                    roomTwo();
-                }
-                else if (roomChoice == ConsoleKey.D3)
-                {
-                    roomThree();
-                }
-                else
-                {
-                    Console.WriteLine("\nPlease type choose between 1, 2 or 3");
-                }
-
-            }
         }
 
         static void displayOptions(int rows, int seats)
         {
             Console.WriteLine("\nThis room has " + rows + " rows with " + seats + " seats");
             Console.WriteLine("what would you like to do.\nYou can: \n" +
-                "-See an overview of all seat prices(1)\n" +
-                "-Set price individual seat(2)\n" +
-                "-Set price for a whole row(3)\n" +
-                "-Set price for the whole room(4)\n" +
-                "-Set price for the middle seats(5)\n" +
+                "1. See an overview of all seat prices\n" +
+                "2. Set price individual seat\n" +
+                "3. Set price for a whole row\n" +
+                "4. Set price for the whole room\n" +
+                "5. Set price for the middle seats\n" +
                 "Press q to exit");
         }
 
         static void roomOne()
         {
-            var room1 = new Rooms(new double[10, 15]);
+            double[][] jaggedArray = new double[10][];
+            for (int i = 0; i < jaggedArray.Length; i++)
+            {
+                jaggedArray[i] = new double[15];
+            }
+            var room1 = new Rooms(jaggedArray);
             bool busy = true;
 
             while (busy)
             {
 
-                displayOptions(room1.seatPrices.GetLength(0), room1.seatPrices.GetLength(1));
+                displayOptions(room1.seatPrices.Length, room1.seatPrices[0].Length);
 
                 var operation = Console.ReadKey().Key;
 
@@ -329,13 +332,18 @@ namespace cinemaApp {
 
         static void roomTwo()
         {
-            var room2 = new Rooms(new double[15, 20]);
+            double[][] jaggedArray = new double[15][];
+            for (int i = 0; i < jaggedArray.Length; i++)
+            {
+                jaggedArray[i] = new double[20];
+            }
+            var room2 = new Rooms(jaggedArray);
             bool busy = true;
 
             while (busy)
             {
 
-                displayOptions(room2.seatPrices.GetLength(0), room2.seatPrices.GetLength(1));
+                displayOptions(room2.seatPrices.Length, room2.seatPrices[0].Length);
 
                 var operation = Console.ReadKey().Key;
 
@@ -370,13 +378,19 @@ namespace cinemaApp {
 
         static void roomThree()
         {
-            var room3 = new Rooms(new double[25, 25]);
+            double[][] jaggedArray = new double[25][];
+            for (int i = 0; i < jaggedArray.Length; i++)
+            {
+                jaggedArray[i] = new double[25];
+            }
+            var room3 = new Rooms(jaggedArray);
+
             bool busy = true;
 
             while (busy)
             {
 
-                displayOptions(room3.seatPrices.GetLength(0), room3.seatPrices.GetLength(1));
+                displayOptions(room3.seatPrices.Length, room3.seatPrices[0].Length);
 
                 var operation = Console.ReadKey().Key;
 
@@ -409,5 +423,78 @@ namespace cinemaApp {
             }
         }
 
+        public static void Manager()
+        {
+            bool busy = true;
+            while (busy)
+            {
+                Console.WriteLine("\nWhich rooms would you like to acess: \nRoom 1\nRoom 2\nRoom 3");
+                Console.WriteLine("Type in 1, 2 or 3");
+                Console.WriteLine("Press q to exit...");
+                var roomChoice = Console.ReadKey().Key;
+
+                if (roomChoice == ConsoleKey.Q)
+                {
+                    busy = false;
+                    break;
+                }
+                else if (roomChoice == ConsoleKey.D1)
+                {
+                    roomOne();
+                }
+                else if (roomChoice == ConsoleKey.D2)
+                {
+                    roomTwo();
+                }
+                else if (roomChoice == ConsoleKey.D3)
+                {
+                    roomThree();
+                }
+                else
+                {
+                    Console.WriteLine("Please type choose between 1, 2 or 3");
+                }
+
+            }
+        }
+
+
+
     }
+
+    /*
+    public class Test
+    {
+        public static void Main(string[] args)
+        {
+
+            bool busy = true;
+            while (busy)
+            {
+                Console.WriteLine("\n1.Rooms\n2.Food menu\n3.Orders Caterer\n4.Order costumer");
+                var doChoice = Console.ReadKey().Key;
+                if (doChoice == ConsoleKey.D1)
+                {
+                    Rooms.Manager();
+                }
+
+                else if (doChoice == ConsoleKey.D2)
+                {
+                    Food.Caterer();
+                }
+                else if (doChoice == ConsoleKey.D3)
+                {
+                    FoodOrder.Cater();
+                }
+                else if (doChoice == ConsoleKey.D4)
+                {
+                    FoodOrder.Costumer();
+                }
+                else
+                {
+                    busy = false;
+                }
+            }
+        }
+    }*/
 }
