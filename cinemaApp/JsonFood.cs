@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Cinema_
+namespace cinemaApp
 {
-    class Program
+    class jsonFood
     {
-        static void Main(string[] args)
+        public static void jsonFoodMain()
         {
 
             string fileName = "food.json";
 
-            string rawJson = File.ReadAllText(fileName);
+            string rawJson = File.ReadAllText(@fileName);
 
             List<Food> menu = JsonConvert.DeserializeObject<List<Food>>(rawJson);
 

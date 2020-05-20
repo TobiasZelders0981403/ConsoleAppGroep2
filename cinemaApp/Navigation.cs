@@ -68,13 +68,8 @@ namespace cinemaApp {
                 if (choice == 1) {
                     //adjust menu
 
-                    List<Food> menu = new List<Food>();
-                    FoodManager manager = new FoodManager(menu);
-                    manager.Caterer();
+                    jsonFood.jsonFoodMain();
 
-
-
-                    Console.WriteLine("NOT IMPLEMENTED YET");
                 } else if (choice == 2) {
                     //Look at all orders
                     Console.WriteLine("NOT IMPLEMENTED YET");

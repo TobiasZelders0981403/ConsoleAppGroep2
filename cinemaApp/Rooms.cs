@@ -34,16 +34,16 @@ namespace cinemaApp {
         public void overview()
         {
             Console.WriteLine();
-            for (int j = 0; j < seatPrices.Length; j++)
-            {
-                for (int i = 0; i < seatPrices[0].Length; i++)
-                {
-                    int currentRow = j + 1;
+            string data = "";
+            for (int j = 0; j < seatPrices.Length; j++) {
+                data += $"{j}: ";
+                for (int i = 0; i < seatPrices[0].Length; i++) {
                     int currentSeat = i + 1;
-                    Console.Write("Row_" + currentRow + " Seat_" + currentSeat + " = " + seatPrices[j][i] + "  ");
+                    data += $"{seatPrices[j][i]} ";
                 }
-                Console.WriteLine("\n");
+                data += "\n";
             }
+            Console.WriteLine(data);
         }
 
         public void overviewRow()
