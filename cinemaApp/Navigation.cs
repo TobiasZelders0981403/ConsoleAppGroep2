@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace cinemaApp {
     class Navigation {
@@ -15,7 +16,7 @@ namespace cinemaApp {
                     UserData.ShowSaleData();
                 } else if (choice == 2) {
                     //adjust seat prices
-                    RoomOptions.RoomOptionsMain();
+                    Rooms.Manager();
                 } else if (choice == 3) {
                     //add, edit or remove films
                     Films.FilmMain();
@@ -61,13 +62,36 @@ namespace cinemaApp {
         }
 
         public static void CatererNavigation() {
-            //MUST HAVES
-            //see all food orders
-            //Add, edit or remove products from menu
+            Console.WriteLine("\nPlease pick a option.\n1: Adjust / look at the menu.\n2: Look at all orders.\n3 Look at the expected amount of customers.");
+            int choice = Program.ChoiceInput(0, 3);
+            while (choice != 0) {
+                if (choice == 1) {
+                    //adjust menu
 
-            //SHOULD HAVES
-            //see expected amount of customers
-        }
+                    List<Food> menu = new List<Food>();
+                    FoodManager manager = new FoodManager(menu);
+                    manager.Caterer();
+
+
+
+                    Console.WriteLine("NOT IMPLEMENTED YET");
+                } else if (choice == 2) {
+                    //Look at all orders
+                    Console.WriteLine("NOT IMPLEMENTED YET");
+                } else if (choice == 3) {
+                    //look at expected customers
+                    expected.ExpectedCustomers();
+                }
+                Console.WriteLine("\nPlease pick a option.\n1: Adjust / look at the menu.\n2: Look at all orders.\n3 Look at the expected amount of customers.");
+                choice = Program.ChoiceInput(0, 3);
+            }
+                //MUST HAVES
+                //see all food orders
+                //Add, edit or remove products from menu
+
+                //SHOULD HAVES
+                //see expected amount of customers
+            }
 
         public static void CustomerNavigation(User user) {
             Console.WriteLine("\nPlease pick a option.\n1: Look at all movies.\n2: Search by genre.\n3: Look at future movies.\n4: Order food\n5: Reserve tickets.\n6: Go to shopping cart.\n0: Exit application.");
@@ -88,6 +112,7 @@ namespace cinemaApp {
                     ReserveTickets.ReserveTicketsMain(user);
                 } else if (choice == 6) {
                     //shopping cart
+                    Console.WriteLine("NOT IMPLEMENTED YET");
                 }
                 Console.WriteLine("\nPlease pick a option.\n1: Look at all movies.\n2: Search by genre.\n3: Look at future movies.\n4: Order food\n5: Reserve tickets.\n6: Go to shopping cart.\n0: Exit application.");
                 choice = Program.ChoiceInput(0, 6);

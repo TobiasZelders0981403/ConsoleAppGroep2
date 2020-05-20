@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Cinema_
+namespace cinemaApp
 {
     public class Food
     {

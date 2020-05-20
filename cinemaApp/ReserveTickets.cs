@@ -193,7 +193,7 @@ namespace cinemaApp
                 stop = 50;
             }
 
-            while ((line = streamreader.ReadLine()) != null) {
+            while (!string.IsNullOrWhiteSpace(line = streamreader.ReadLine())) {
                 if (i >= start && i < stop) {
                     string[] components = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                     RoomSeats[index] = components;
@@ -291,7 +291,7 @@ namespace cinemaApp
             while (streamreader.EndOfStream == false) {
                 int i = 0;
                 data = new string[8];
-                while ((line = streamreader.ReadLine()) != "") {
+                while (!string.IsNullOrWhiteSpace(line = streamreader.ReadLine())) {
                     data[i] = line;
                     i++;
                 }

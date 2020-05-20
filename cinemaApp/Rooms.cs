@@ -1,17 +1,15 @@
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
+using Newtonsoft.Json;
 // The code i made for the caterer and the seat prices
 // Three movie rooms 150 seats, 300 seats and 500 seats
 // Room 1 : 10 rows of 15 seats
 // Room 2 : 15 rows of 20 seats
 // Rooom 3 : 25 rows of 25 seats
 
-namespace Cinema_
-{
+namespace cinemaApp {
 
     class Rooms
     {
