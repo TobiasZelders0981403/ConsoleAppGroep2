@@ -29,21 +29,22 @@ namespace cinemaApp
             } else {
                 Navigation.CustomerNavigation(user);
             }
-            //Login(user);
-            //Register(user);
-            //ReserveTickets.ReserveTicketsMain(user);
-            //UserData.UserDataMain();
-            //RoomOptions.RoomOptionsMain();
-            //Films.FilmMain();
-            //Filters.GenreFilter(user);
             Console.Read();
         }
 
         static void Login(User user)
         {
-            while (user.accountVerified == false)
-            {
                 user.VerifyLogin();
+            if (user.accountVerified == false) {
+                Console.WriteLine("\nIncorrect! Please pick a option\n1: Try again.\n2: Register a new account.\n0: Exit");
+                int loginChoice = ChoiceInput(0, 2);
+                if (loginChoice == 0) {
+                    Environment.Exit(0);
+                } else if (loginChoice == 1) {
+                    Login(user);
+                } else if (loginChoice == 2) {
+                    user.CreateAccount();
+                }
             }
         }
 
