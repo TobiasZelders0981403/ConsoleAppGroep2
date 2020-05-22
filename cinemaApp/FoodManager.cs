@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Cinema_
-{
+namespace cinemaApp {
     class FoodManager
     {
         public List<Food> Menu;

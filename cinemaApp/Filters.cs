@@ -65,7 +65,7 @@ namespace cinemaApp {
         private static string SelectGenre(User user) {
             List<string> genreList = new List<string>();
             //readfile
-            streamreader = new StreamReader("filmlist.txt");
+            streamreader = new StreamReader(@"filmlist.txt");
             while (streamreader.EndOfStream == false) {
                 i = 0;
                 data = new string[8];

@@ -39,8 +39,8 @@ AnotherMovieName
 Just another movie
 comedy
 23-04-2012
-14:00
-room2
+16:00
+Room1
 5
 
 moviename4

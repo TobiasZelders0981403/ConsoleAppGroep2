@@ -7,9 +7,9 @@ namespace cinemaApp
 {
     class expected
     {
-        static void Main(string[] args)
+        public static void ExpectedCustomers()
         {
-            using (var reader = new StreamReader(@"C:\Users\admin\Documents\school\project b\schetsen\SaleDataInput1.csv"))
+            using (var reader = new StreamReader(@"SaleDataInput1.csv"))
             {
                 var A = 0;
                 var B = 0;
