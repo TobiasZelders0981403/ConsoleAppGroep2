@@ -156,7 +156,7 @@ namespace cinemaApp
             } else {
                 string data = "";
                 for (int i = 0; i < rowMax; i++) {
-                    if (i < 10) {
+                    if (i < 9) {
                         data += $"row {i + 1}:  ";
                     } else {
                         data += $"row {i + 1}: ";
@@ -169,7 +169,7 @@ namespace cinemaApp
                                 data += "_ ";
                             }
                         } else {
-                            data += $"{j} ";
+                            data += $"{j + 1} ";
                         }
                     }
                     data += "\n";
@@ -228,7 +228,7 @@ namespace cinemaApp
                 start = 25;
                 stop = 50;
             }
-            while ((line = streamreader.ReadLine()) != null) {
+            while (!string.IsNullOrWhiteSpace(line = streamreader.ReadLine())) {
                 string[] components = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 allSeats[i] = components;
                 if (i >= start && i < stop) {
@@ -276,7 +276,7 @@ namespace cinemaApp
             while (streamreader.EndOfStream == false) {
                 int i = 0;
                 data = new string[8];
-                while ((line = streamreader.ReadLine()) != "") {
+                while (!string.IsNullOrWhiteSpace(line = streamreader.ReadLine())) {
                     data[i] = line;
                     i++;
                 }
