@@ -58,7 +58,7 @@ namespace cinemaApp
 
         public static string getCategory()
         {
-            Console.WriteLine("\nThe category:\n1. Snack\n2. Drink");
+            Console.WriteLine("\nThe category:\n[1] Snack\n[2] Drink");
             //string category;
             string choice = Console.ReadLine();
             int ch = 0;
@@ -74,7 +74,7 @@ namespace cinemaApp
             }
             else
             {
-                Console.WriteLine("Choose between 1 and 2.");
+                Console.WriteLine("Choose between [1] and [2]");
                 return getCategory();
             }
         }
@@ -89,7 +89,7 @@ namespace cinemaApp
                 Console.WriteLine("\nThe sub-category:");
                 for (int i = 0; i < snacksSubs.Length; i++)
                 {
-                    Console.WriteLine(c + ". " + snacksSubs[i]);
+                    Console.WriteLine($"[{c}] {snacksSubs[i]}");
                     c++;
                 }
                 string choice = Console.ReadLine();
@@ -113,7 +113,7 @@ namespace cinemaApp
                 Console.WriteLine("The sub-category:");
                 for (int i = 0; i < drinkSubs.Length; i++)
                 {
-                    Console.WriteLine(c + ". " + drinkSubs[i]);
+                    Console.WriteLine($"[{c}] drinkSubs[i]");
                     c++;
                 }
                 string choice = Console.ReadLine();
