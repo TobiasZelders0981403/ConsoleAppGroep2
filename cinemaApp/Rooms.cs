@@ -36,7 +36,7 @@ namespace cinemaApp {
             Console.WriteLine();
             string data = "";
             for (int j = 0; j < seatPrices.Length; j++) {
-                data += $"{j}: ";
+                data += $"[{j}] ";
                 for (int i = 0; i < seatPrices[0].Length; i++) {
                     int currentSeat = i + 1;
                     data += $"{seatPrices[j][i]} ";
@@ -274,12 +274,12 @@ namespace cinemaApp {
         {
             Console.WriteLine("\nThis room has " + rows + " rows with " + seats + " seats");
             Console.WriteLine("what would you like to do.\nYou can: \n" +
-                "1. See an overview of all seat prices\n" +
-                "2. Set price individual seat\n" +
-                "3. Set price for a whole row\n" +
-                "4. Set price for the whole room\n" +
-                "5. Set price for the middle seats\n" +
-                "Press q to exit");
+                "[1] See an overview of all seat prices\n" +
+                "[2] Set price individual seat\n" +
+                "[3] Set price for a whole row\n" +
+                "[4] Set price for the whole room\n" +
+                "[5] Set price for the middle seats\n" +
+                "[0] Exit");
         }
 
         static void roomOne()
@@ -427,8 +427,8 @@ namespace cinemaApp {
             while (busy)
             {
                 Console.WriteLine("\nWhich rooms would you like to acess: \nRoom 1\nRoom 2\nRoom 3");
-                Console.WriteLine("Type in 1, 2 or 3");
-                Console.WriteLine("Press q to exit...");
+                Console.WriteLine("Type in [1], [2] or [3]");
+                Console.WriteLine("Press [0] to exit.");
                 var roomChoice = Console.ReadKey().Key;
 
                 if (roomChoice == ConsoleKey.Q)
@@ -450,7 +450,7 @@ namespace cinemaApp {
                 }
                 else
                 {
-                    Console.WriteLine("Please type choose between 1, 2 or 3");
+                    Console.WriteLine("Please choose between [1], [2] or [3]");
                 }
 
             }

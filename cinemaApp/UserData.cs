@@ -25,7 +25,7 @@ namespace cinemaApp
                 //today = DateTime.Now;
                 Console.WriteLine("\nPlease select the day.");
                 for (int i = 0; i < dayOptions.Count; i++) {
-                    Console.WriteLine($"{i}: {dayOptions[i]}");
+                    Console.WriteLine($"[{i}] {dayOptions[i]}");
                 }
                 Day = dayOptions[Program.ChoiceInput(0, 6)];
 

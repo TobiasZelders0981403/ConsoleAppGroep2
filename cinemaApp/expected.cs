@@ -24,7 +24,7 @@ namespace cinemaApp
 
                 }
                 var expected = (A + B + C) / 3;
-                Console.WriteLine("The expected amount of customers: " + expected);
+                Console.WriteLine("\nThe expected amount of customers: " + expected);
 
             }
         }

@@ -81,7 +81,7 @@ namespace cinemaApp {
             streamreader.Close();
 
             for (int i =0; i < genreList.Count; i++) {
-                Console.WriteLine($"{i}: {genreList[i]}.");
+                Console.WriteLine($"[{i}] {genreList[i]}.");
             }
             int choice = Program.ChoiceInput(0, genreList.Count);
             //selection
