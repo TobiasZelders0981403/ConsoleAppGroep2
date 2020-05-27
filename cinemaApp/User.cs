@@ -92,9 +92,6 @@ namespace cinemaApp
                 Console.WriteLine("You have logged in succesfully!");
                 int.TryParse(ageList[usernames.IndexOf(username)], out checkedage);
                 this.age = checkedage;
-            } else
-            {
-                Console.WriteLine("Incorrect, Please try again!");
             }
         }
 

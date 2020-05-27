@@ -29,9 +29,9 @@ namespace cinemaApp {
 
         static void MovieChoice() {
             Console.WriteLine("What would you like to do? Please type 1-3 and press Enter to continue.");
-            Console.WriteLine("1: Add film.");
-            Console.WriteLine("2: Edit film.");
-            Console.WriteLine("3: Remove film.");
+            Console.WriteLine("[1] Add film.");
+            Console.WriteLine("[2] Edit film.");
+            Console.WriteLine("[3] Remove film.");
 
             input = Console.ReadLine();
             ChoiceAction();
@@ -87,13 +87,13 @@ namespace cinemaApp {
             //choice
             Console.WriteLine("\nWhat movie would you like to edit?.");
             for (int i = 0; i < movieList.Length; i++) {
-                Console.WriteLine($"{i}: {movieList[i][0]} , {movieList[i][5]}");
+                Console.WriteLine($"[{i}] {movieList[i][0]} , {movieList[i][5]}");
             }
             int choice = Program.ChoiceInput(0, movieList.Length - 1);
             //edit
             Console.WriteLine("\nWhat would you like to edit?");
             for (int k = 0; k < 8; k++) {
-                Console.WriteLine($"{k}: {movieList[choice][k]}");
+                Console.WriteLine($"[{k}] {movieList[choice][k]}");
             }
             int choice2 = Program.ChoiceInput(0, 7);
             string newString = "";
@@ -116,7 +116,7 @@ namespace cinemaApp {
             movieList[choice][choice2] = newString;
             //save
             SaveMovies();
-            Console.WriteLine("Would you like to do something else? Y/N?");
+            Console.WriteLine("Would you like to do something else? [Y]/[N]?");
             input = Console.ReadLine();
             if (input == "Y") {
                 MovieChoice();
@@ -126,13 +126,13 @@ namespace cinemaApp {
             ReadMovies();
             Console.WriteLine("What movie would you like to remove?");
             for (int i = 0; i < movieList.Length; i++) {
-                Console.WriteLine($"{i}: {movieList[i][0]} , {movieList[i][5]}");
+                Console.WriteLine($"[{i}] {movieList[i][0]} , {movieList[i][5]}");
             }
             int choice = Program.ChoiceInput(0, movieList.Length - 1);
 
             movieList[choice] = null;
             SaveMovies();
-            Console.WriteLine("Would you like to do something else? Y/N?");
+            Console.WriteLine("Would you like to do something else? [Y]/[N]?");
             input = Console.ReadLine();
             if (input == "Y") {
                 MovieChoice();
@@ -191,7 +191,7 @@ namespace cinemaApp {
             for (int index = 0; index < timeOptions.Count; index++) {
                 if (TimeCheck(timeOptions[index])) {
                     timeOptions2.Add(timeOptions[index]);
-                    Console.WriteLine($"{j}: {timeOptions[index]}");
+                    Console.WriteLine($"[{j}] {timeOptions[index]}");
                     j++;
                 }
             }
@@ -237,7 +237,7 @@ namespace cinemaApp {
                 }
                 if (!used) {
                     RoomList2.Add(SelectableRooms[i]);
-                    data += $"{count}: {SelectableRooms[i]}\n";
+                    data += $"[{count}] {SelectableRooms[i]}\n";
                     count++;
                 }
             }
@@ -247,14 +247,14 @@ namespace cinemaApp {
                 int choice = Program.ChoiceInput(0, count - 1);
                 Room = RoomList2[choice];
             } else {
-                Console.WriteLine("Als rooms are taken at this time.");
+                Console.WriteLine("All rooms are taken at this time.");
             }
         }
 
         static void IDSelection() {
             string input = Console.ReadLine();
             while (IDCheck(input) || string.IsNullOrWhiteSpace(input)) {
-                Console.WriteLine("ID is already taken or invalid. Please enter a different film ID");
+                Console.WriteLine("This ID is already taken or invalid. Please enter a different film ID");
                 input = Console.ReadLine();
             }
             filmID = input;

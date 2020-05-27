@@ -8,8 +8,8 @@ namespace cinemaApp {
     class Navigation {
 
         public static void OwnerNavigation() {
-            Console.WriteLine("\nPlease pick a option.\n1: Look at sale data.\n2: Adjust seat prices.\n3: Add, Edit or Remove Films\n4: See all Reservations.\n0: Exit application.");
-            int choice = Program.ChoiceInput(0,4);
+            Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Adjust seat prices.\n[3] Add, edit or remove Films\n[4] See all Reservations.\n[5] Look at the expected amount of customers.\n[0] Exit application.");
+            int choice = Program.ChoiceInput(0,5);
             while (choice != 0) {
                 if (choice == 1) {
                     //look at sale data
@@ -21,26 +21,26 @@ namespace cinemaApp {
                     //add, edit or remove films
                     Films.FilmMain();
                 } else if (choice == 4) {
-                    //see amount of customers
+                    //see all reservations
                     Console.WriteLine("NOT IMPLEMENTED YET");
+                } else if (choice == 5) {
+                    //look at expected customers
+                    expected.ExpectedCustomers();
                 }
-                Console.WriteLine("\nPlease pick a option.\n1: Look at sale data.\n2: Adjust seat prices.\n3: Add, Edit or Remove Films\n4: See all Reservations.\n0: Exit application.");
-                choice = Program.ChoiceInput(0, 4);
+                Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Adjust seat prices.\n[3] Add, edit or remove Films\n[4] See all Reservations.\n[5] Look at the expected amount of customers.\n[0] Exit application.");
+                choice = Program.ChoiceInput(0, 5);
             }
             Environment.Exit(0);
             //MUST HAVES
             //see all reservations
-
-            //SHOULD HAVES
-            //see epected amount of customers
 
             //COULD
             //reply to comments
         }
 
         public static void ManagerNavigation() {
-            Console.WriteLine("\nPlease pick a option.\n1: Look at sale data.\n2: Input sale data.\n3: See all reservations.\n0: Exit application.");
-            int choice = Program.ChoiceInput(0, 3);
+            Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Input sale data.\n[3] See all reservations.\n[4] Look at the expected amount of customers.\n[0] Exit application.");
+            int choice = Program.ChoiceInput(0, 4);
             while (choice != 0) {
                 if (choice == 1) {
                     //show sale data
@@ -51,25 +51,23 @@ namespace cinemaApp {
                 } else if (choice == 3) {
                     //see all reservations
                     Console.WriteLine("NOT IMPLEMENTED YET");
+                } else if (choice == 4) {
+                    //look at expected customers
+                    expected.ExpectedCustomers();
                 }
-                Console.WriteLine("\nPlease pick a option.\n1: Look at sale data.\n2: Input sale data.\n3: See all reservations.\n0: Exit application.");
-                choice = Program.ChoiceInput(0, 3);
+                Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Input sale data.\n[3] See all reservations.\n[4] Look at the expected amount of customers.\n[0] Exit application.");
+                choice = Program.ChoiceInput(0, 4);
             }
             Environment.Exit(0);
-
-            //SHOULD HAVES
-            //see amount of customers
         }
 
         public static void CatererNavigation() {
-            Console.WriteLine("\nPlease pick a option.\n1: Adjust / look at the menu.\n2: Look at all orders.\n3 Look at the expected amount of customers.");
+            Console.WriteLine("\nPlease pick a option.\n[1] Adjust / look at the menu.\n[2] Look at all orders.\n[3] Look at the expected amount of customers.\n[0] Exit application.");
             int choice = Program.ChoiceInput(0, 3);
             while (choice != 0) {
                 if (choice == 1) {
                     //adjust menu
-
-                    jsonFood.jsonFoodMain();
-
+                    Console.WriteLine("NOT IMPLEMENTED YET");
                 } else if (choice == 2) {
                     //Look at all orders
                     Console.WriteLine("NOT IMPLEMENTED YET");
@@ -77,19 +75,16 @@ namespace cinemaApp {
                     //look at expected customers
                     expected.ExpectedCustomers();
                 }
-                Console.WriteLine("\nPlease pick a option.\n1: Adjust / look at the menu.\n2: Look at all orders.\n3 Look at the expected amount of customers.");
+                Console.WriteLine("\nPlease pick a option.\n[1] Adjust / look at the menu.\n[2] Look at all orders.\n[3] Look at the expected amount of customers.\n[0] Exit application.");
                 choice = Program.ChoiceInput(0, 3);
             }
-                //MUST HAVES
-                //see all food orders
-                //Add, edit or remove products from menu
-
-                //SHOULD HAVES
-                //see expected amount of customers
-            }
+            //MUST HAVES
+            //Add, edit or remove products from menu
+            //see all food orders
+        }
 
         public static void CustomerNavigation(User user) {
-            Console.WriteLine("\nPlease pick a option.\n1: Look at all movies.\n2: Search by genre.\n3: Look at future movies.\n4: Order food\n5: Reserve tickets.\n6: Go to shopping cart.\n0: Exit application.");
+            Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at future movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to shopping cart.\n[0] Exit application.");
             int choice = Program.ChoiceInput(0, 6);
             while (choice != 0) {
                 if (choice == 1) {
@@ -101,15 +96,15 @@ namespace cinemaApp {
                 } else if (choice == 3) {
                     //look at futute movies
                 } else if (choice == 4) {
-                    //order food
-                } else if (choice == 5) {
                     //reserve tickets
                     ReserveTickets.ReserveTicketsMain(user);
+                } else if (choice == 5) {
+                    //order food
                 } else if (choice == 6) {
                     //shopping cart
                     Console.WriteLine("NOT IMPLEMENTED YET");
                 }
-                Console.WriteLine("\nPlease pick a option.\n1: Look at all movies.\n2: Search by genre.\n3: Look at future movies.\n4: Order food\n5: Reserve tickets.\n6: Go to shopping cart.\n0: Exit application.");
+                Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at future movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to shopping cart.\n[0] Exit application.");
                 choice = Program.ChoiceInput(0, 6);
             }
             Environment.Exit(0);

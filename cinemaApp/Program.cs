@@ -7,8 +7,9 @@ namespace cinemaApp
     {
         static void Main(string[] args)
         {
+            Console.Title = "Cinema Application.";
             User user = new User();
-            Console.WriteLine("Please pick a option.\n1: Login.\n2: Register.\n3: Continue as guest.\n0: exit");
+            Console.WriteLine("Please pick a option.\n[1] Login.\n[2] Register.\n[3] Continue as guest.\n[0] exit");
             int choice = ChoiceInput(0, 3);
             if (choice == 1) {
                Login(user);
@@ -29,21 +30,22 @@ namespace cinemaApp
             } else {
                 Navigation.CustomerNavigation(user);
             }
-            //Login(user);
-            //Register(user);
-            //ReserveTickets.ReserveTicketsMain(user);
-            //UserData.UserDataMain();
-            //RoomOptions.RoomOptionsMain();
-            //Films.FilmMain();
-            //Filters.GenreFilter(user);
             Console.Read();
         }
 
         static void Login(User user)
         {
-            while (user.accountVerified == false)
-            {
                 user.VerifyLogin();
+            if (user.accountVerified == false) {
+                Console.WriteLine("\nIncorrect! Please pick a option\n[1] Try again.\n[2] Register a new account.\n[0] Exit");
+                int loginChoice = ChoiceInput(0, 2);
+                if (loginChoice == 0) {
+                    Environment.Exit(0);
+                } else if (loginChoice == 1) {
+                    Login(user);
+                } else if (loginChoice == 2) {
+                    user.CreateAccount();
+                }
             }
         }
 

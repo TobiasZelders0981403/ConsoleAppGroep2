@@ -65,7 +65,7 @@ namespace cinemaApp {
         private static string SelectGenre(User user) {
             List<string> genreList = new List<string>();
             //readfile
-            streamreader = new StreamReader("filmlist.txt");
+            streamreader = new StreamReader(@"filmlist.txt");
             while (streamreader.EndOfStream == false) {
                 i = 0;
                 data = new string[8];
@@ -81,7 +81,7 @@ namespace cinemaApp {
             streamreader.Close();
 
             for (int i =0; i < genreList.Count; i++) {
-                Console.WriteLine($"{i}: {genreList[i]}.");
+                Console.WriteLine($"[{i}] {genreList[i]}.");
             }
             int choice = Program.ChoiceInput(0, genreList.Count);
             //selection

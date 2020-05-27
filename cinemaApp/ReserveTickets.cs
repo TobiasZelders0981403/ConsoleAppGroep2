@@ -59,7 +59,7 @@ namespace cinemaApp
         static void MovieSelection() {
             Console.WriteLine("\nPlease select a movie.");
             for (int i = 0; i < movieOptions.Count; i++) {
-                Console.WriteLine($"{i}: {movieOptions[i]}");
+                Console.WriteLine($"[{i}] {movieOptions[i]}");
             }
             movieChoice = Program.ChoiceInput(0, movieOptions.Count);
         }
@@ -67,7 +67,7 @@ namespace cinemaApp
         static void DaySelection() {
             Console.WriteLine("\nPlease select a day.");
             for (int i = 0; i < dayOptions.Count; i++) {
-                Console.WriteLine($"{i}: {dayOptions[i]}");
+                Console.WriteLine($"[{i}] {dayOptions[i]}");
             }
             dayChoice = Program.ChoiceInput(0, 6);
         }
@@ -75,7 +75,7 @@ namespace cinemaApp
         static void TimeSelection() {
             Console.WriteLine("Please select a time.");
             for (int i = 0; i < timeOptions.Count; i++) {
-                Console.WriteLine($"{i}: {timeOptions[i]}");
+                Console.WriteLine($"[{i}] {timeOptions[i]}");
             }
             int choice = Program.ChoiceInput(0, timeOptions.Count - 1);
             timeChoice = timeTemplate.IndexOf(timeOptions[choice]);
@@ -105,10 +105,10 @@ namespace cinemaApp
 
                 if (!full) {
                     Console.WriteLine("Please Select a row:");
-                    rowChoice = Program.ChoiceInput(0, rowMax - 1);
+                    rowChoice = Program.ChoiceInput(1, rowMax) - 1;
 
                     Console.WriteLine("Please select a seat:");
-                    seatChoice = Program.ChoiceInput(0, seatsPerRow - 1);
+                    seatChoice = Program.ChoiceInput(1, seatsPerRow) - 1;
                 } else {
                     break;
                 }
@@ -123,9 +123,9 @@ namespace cinemaApp
 
         static void Options(User user) {
             //options
-            Console.WriteLine("\n0: Select another seat\n1: Quit");
+            Console.WriteLine("\n[1] Select another seat\n[0] Quit");
             int choice = Program.ChoiceInput(0, 1);
-            if (choice == 0) {
+            if (choice == 1) {
                 rowChoice = -1;
                 seatChoice = -1;
                 SeatSelection(user);
@@ -156,16 +156,20 @@ namespace cinemaApp
             } else {
                 string data = "";
                 for (int i = 0; i < rowMax; i++) {
-                    if (i < 10) {
-                        data += $"row {i}:  ";
+                    if (i < 9) {
+                        data += $"row {i + 1}:  ";
                     } else {
-                        data += $"row {i}: ";
+                        data += $"row {i + 1}: ";
                     }
                     for (int j = 0; j < seatsPerRow; j++) {
                         if (RoomSeats[i][j] == "1") {
-                            data += "_ ";
+                            if (j > 9) {
+                                data += "__ ";
+                            } else {
+                                data += "_ ";
+                            }
                         } else {
-                            data += $"{j} ";
+                            data += $"{j + 1} ";
                         }
                     }
                     data += "\n";
@@ -224,7 +228,7 @@ namespace cinemaApp
                 start = 25;
                 stop = 50;
             }
-            while ((line = streamreader.ReadLine()) != null) {
+            while (!string.IsNullOrWhiteSpace(line = streamreader.ReadLine())) {
                 string[] components = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 allSeats[i] = components;
                 if (i >= start && i < stop) {
@@ -272,7 +276,7 @@ namespace cinemaApp
             while (streamreader.EndOfStream == false) {
                 int i = 0;
                 data = new string[8];
-                while ((line = streamreader.ReadLine()) != "") {
+                while (!string.IsNullOrWhiteSpace(line = streamreader.ReadLine())) {
                     data[i] = line;
                     i++;
                 }

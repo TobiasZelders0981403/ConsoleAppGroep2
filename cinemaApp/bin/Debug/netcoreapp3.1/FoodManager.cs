@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace cinemaApp
-{
+namespace cinemaApp {
     class FoodManager
     {
         public List<Food> Menu;
@@ -58,7 +57,7 @@ namespace cinemaApp
             bool busy = true;
             while (busy)
             {
-                Console.WriteLine("search by name(1), category(2) or sub-category(3)\nPress q to quit...");
+                Console.WriteLine("[1] search by name, [2] category or [3] sub-category\nPress [0] to quit.");
                 var choice = Console.ReadKey().Key;
                 if (choice == ConsoleKey.Q)
                 {
@@ -79,7 +78,7 @@ namespace cinemaApp
                 }
                 else
                 {
-                    Console.WriteLine("Please choose a number between 1 and 3");
+                    Console.WriteLine("Please choose a number between [1] and [3]");
                 }
             }
         }
@@ -127,7 +126,7 @@ namespace cinemaApp
             while (busy)
             {
                 overview();
-                Console.WriteLine("Enter the id of the product you want to edit.\nPress q to quit....");
+                Console.WriteLine("Enter the id of the product you want to edit.\nPress [0] to quit....");
                 var idDelete = Console.ReadLine();
 
                 int id;
@@ -137,7 +136,7 @@ namespace cinemaApp
                 if ((sucess) & (id <= this.Menu.Count) & (id >= 0))
                 {
 
-                    Console.WriteLine("Type 'y' to change 'n' to leave be");
+                    Console.WriteLine("Type [y] to change [n] to leave be");
 
                     bool changeName = false;
                     string newName = "";
@@ -293,7 +292,7 @@ namespace cinemaApp
             while (busy)
             {
 
-                Console.WriteLine("\nWhat do you wanna do?\n1. See all avalaible items\n2. Add a new item\n3. Edit an item\n4. Remove an item\n5. Search for an item(5)\nPress q to quit...");
+                Console.WriteLine("\nWhat do you wanna do?\n[1] See all avalaible items\n[2] Add a new item\n[3] Edit an item\n[4] Remove an item\n[5] Search for an item\nPress [0] to quit.");
                 var userChoice = Console.ReadKey().Key;
 
                 if (userChoice == ConsoleKey.Q)
@@ -323,7 +322,7 @@ namespace cinemaApp
                 }
                 else
                 {
-                    Console.WriteLine("Please choose between 1, 2, 3 and 4");
+                    Console.WriteLine("Please choose between [1], [2], [3] and [4]");
                 }
 
             }
