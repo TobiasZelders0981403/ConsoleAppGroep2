@@ -48,21 +48,6 @@ namespace CinemaApp
                     }
                 }
             }
-            }
-
-            else if (choice == ConsoleKey.D2)
-            {
-                Console.WriteLine("\nOrders completed:");
-                foreach (var fo in Orders)
-                {
-                    if (fo.Made)
-                    {
-                        Console.WriteLine(fo.OrderId);
-                        fo.displayTime();
-                        fo.Order.overview();
-                    }
-                }
-            }
         }
 
         public void isDone()
@@ -72,7 +57,7 @@ namespace CinemaApp
             int id;
             bool sucess = Int32.TryParse(idDelete, out id);
 
-            if ((sucess) & (id <= Orders.Count) & (id >= 0))
+            if ((sucess) & (id <= ID.orderMax()) & (id >= 0))
             {
                 Console.WriteLine();
                 foreach (var f in Orders)
@@ -92,7 +77,7 @@ namespace CinemaApp
             int id;
             bool sucess = Int32.TryParse(idDelete, out id);
 
-            if ((sucess) & (id <= Orders.Count) & (id >= 0))
+            if ((sucess) & (id <= ID.orderMax()) & (id >= 0))
             {
                 Console.WriteLine();
                 FoodOrder toRemove = null;
@@ -138,6 +123,5 @@ namespace CinemaApp
             File.WriteAllText(fileName, newJson);
         }
     }
-
 }
 
