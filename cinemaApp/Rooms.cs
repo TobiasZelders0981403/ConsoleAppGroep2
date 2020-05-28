@@ -1,15 +1,17 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
+
 // The code i made for the caterer and the seat prices
 // Three movie rooms 150 seats, 300 seats and 500 seats
 // Room 1 : 10 rows of 15 seats
 // Room 2 : 15 rows of 20 seats
 // Rooom 3 : 25 rows of 25 seats
 
-namespace cinemaApp {
+namespace CinemaApp
+{
 
     class Rooms
     {
@@ -31,19 +33,24 @@ namespace cinemaApp {
             this.seatPrices = arr;
         }
 
+        public Rooms(Rooms r)
+        {
+            this.seatPrices = r.seatPrices;
+        }
+
         public void overview()
         {
             Console.WriteLine();
-            string data = "";
-            for (int j = 0; j < seatPrices.Length; j++) {
-                data += $"[{j}] ";
-                for (int i = 0; i < seatPrices[0].Length; i++) {
+            for (int j = 0; j < seatPrices.Length; j++)
+            {
+                for (int i = 0; i < seatPrices[0].Length; i++)
+                {
+                    int currentRow = j + 1;
                     int currentSeat = i + 1;
-                    data += $"{seatPrices[j][i]} ";
+                    Console.Write("R-" + currentRow + " S-" + currentSeat + " = " + seatPrices[j][i] + " || ");
                 }
-                data += "\n";
+                Console.WriteLine("\n");
             }
-            Console.WriteLine(data);
         }
 
         public void overviewRow()
@@ -274,27 +281,28 @@ namespace cinemaApp {
         {
             Console.WriteLine("\nThis room has " + rows + " rows with " + seats + " seats");
             Console.WriteLine("what would you like to do.\nYou can: \n" +
-                "[1] See an overview of all seat prices\n" +
-                "[2] Set price individual seat\n" +
-                "[3] Set price for a whole row\n" +
-                "[4] Set price for the whole room\n" +
-                "[5] Set price for the middle seats\n" +
-                "[0] Exit");
+                "1. See an overview of all seat prices\n" +
+                "2. See an overview of prices of a row\n"+
+                "3. Set price individual seat\n" +
+                "4. Set price for a whole row\n" +
+                "5. Set price for the whole room\n" +
+                "6. Set price for the middle seats\n" +
+                "Press q to exit");
         }
 
         static void roomOne()
         {
-            double[][] jaggedArray = new double[10][];
-            for (int i = 0; i < jaggedArray.Length; i++)
-            {
-                jaggedArray[i] = new double[15];
-            }
-            var room1 = new Rooms(jaggedArray);
+
+            string fileName = "roomOne.json";
+            string rawJson = File.ReadAllText(fileName);
+            double[][] jsonArray = JsonConvert.DeserializeObject<double[][]>(rawJson);
+            
+            var room1 = new Rooms(jsonArray);
             bool busy = true;
 
             while (busy)
             {
-
+                Console.WriteLine("\nRoom 1");
                 displayOptions(room1.seatPrices.Length, room1.seatPrices[0].Length);
 
                 var operation = Console.ReadKey().Key;
@@ -310,37 +318,43 @@ namespace cinemaApp {
                 }
                 else if (operation == ConsoleKey.D2)
                 {
-                    room1.setPriceSeat();
+                    room1.overviewRow();
                 }
                 else if (operation == ConsoleKey.D3)
                 {
-                    room1.setPriceRow();
+                    room1.setPriceSeat();
                 }
                 else if (operation == ConsoleKey.D4)
                 {
-                    room1.setPriceRoom();
+                    room1.setPriceRow();
                 }
                 else if (operation == ConsoleKey.D5)
+                {
+                    room1.setPriceRoom();
+                }
+                else if (operation == ConsoleKey.D6)
                 {
                     room1.setPriceMiddle();
                 }
 
             }
+
+            string newJson = JsonConvert.SerializeObject(room1.seatPrices);
+            File.WriteAllText("roomOne.json", newJson);
         }
 
         static void roomTwo()
         {
-            double[][] jaggedArray = new double[15][];
-            for (int i = 0; i < jaggedArray.Length; i++)
-            {
-                jaggedArray[i] = new double[20];
-            }
-            var room2 = new Rooms(jaggedArray);
+            string fileName = "roomTwo.json";
+            string rawJson = File.ReadAllText(fileName);
+            double[][] jsonArray = JsonConvert.DeserializeObject<double[][]>(rawJson);
+
+            var room2 = new Rooms(jsonArray);
             bool busy = true;
 
             while (busy)
             {
-
+                Console.WriteLine("\nRoom 2");
                 displayOptions(room2.seatPrices.Length, room2.seatPrices[0].Length);
 
                 var operation = Console.ReadKey().Key;
@@ -356,38 +370,43 @@ namespace cinemaApp {
                 }
                 else if (operation == ConsoleKey.D2)
                 {
-                    room2.setPriceSeat();
+                    room2.overviewRow();
                 }
                 else if (operation == ConsoleKey.D3)
                 {
-                    room2.setPriceRow();
+                    room2.setPriceSeat();
                 }
                 else if (operation == ConsoleKey.D4)
                 {
-                    room2.setPriceRoom();
+                    room2.setPriceRow();
                 }
                 else if (operation == ConsoleKey.D5)
+                {
+                    room2.setPriceRoom();
+                }
+                else if (operation == ConsoleKey.D6)
                 {
                     room2.setPriceMiddle();
                 }
 
             }
+            string newJson = JsonConvert.SerializeObject(room2.seatPrices);
+            File.WriteAllText("roomTwo.json", newJson);
         }
 
         static void roomThree()
         {
-            double[][] jaggedArray = new double[25][];
-            for (int i = 0; i < jaggedArray.Length; i++)
-            {
-                jaggedArray[i] = new double[25];
-            }
-            var room3 = new Rooms(jaggedArray);
+            string fileName = "roomThree.json";
+            string rawJson = File.ReadAllText(fileName);
+            double[][] jsonArray = JsonConvert.DeserializeObject<double[][]>(rawJson);
+
+            var room3 = new Rooms(jsonArray);
 
             bool busy = true;
 
             while (busy)
             {
-
+                Console.WriteLine("\nRoom 3");
                 displayOptions(room3.seatPrices.Length, room3.seatPrices[0].Length);
 
                 var operation = Console.ReadKey().Key;
@@ -403,22 +422,28 @@ namespace cinemaApp {
                 }
                 else if (operation == ConsoleKey.D2)
                 {
-                    room3.setPriceSeat();
+                    room3.overviewRow();
                 }
                 else if (operation == ConsoleKey.D3)
                 {
-                    room3.setPriceRow();
+                    room3.setPriceSeat();
                 }
                 else if (operation == ConsoleKey.D4)
                 {
-                    room3.setPriceRoom();
+                    room3.setPriceRow();
                 }
                 else if (operation == ConsoleKey.D5)
+                {
+                    room3.setPriceRoom();
+                }
+                else if (operation == ConsoleKey.D6)
                 {
                     room3.setPriceMiddle();
                 }
 
             }
+            string newJson = JsonConvert.SerializeObject(room3.seatPrices);
+            File.WriteAllText("roomThree.json", newJson);
         }
 
         public static void Manager()
@@ -427,8 +452,8 @@ namespace cinemaApp {
             while (busy)
             {
                 Console.WriteLine("\nWhich rooms would you like to acess: \nRoom 1\nRoom 2\nRoom 3");
-                Console.WriteLine("Type in [1], [2] or [3]");
-                Console.WriteLine("Press [0] to exit.");
+                Console.WriteLine("Type in 1, 2 or 3");
+                Console.WriteLine("Press q to exit...");
                 var roomChoice = Console.ReadKey().Key;
 
                 if (roomChoice == ConsoleKey.Q)
@@ -450,7 +475,7 @@ namespace cinemaApp {
                 }
                 else
                 {
-                    Console.WriteLine("Please choose between [1], [2] or [3]");
+                    Console.WriteLine("Please type choose between 1, 2 or 3");
                 }
 
             }
