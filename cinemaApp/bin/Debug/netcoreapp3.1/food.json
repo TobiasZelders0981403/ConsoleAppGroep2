@@ -1,1 +1,34 @@
-[]
+[
+    {
+        "id": 0,
+        "name": " BBQ hotdog",
+        "category": "Snack",
+        "subCategory": "Hot Dog",
+        "size": "",
+        "price": 6.5
+    },
+    {
+        "id": 1,
+        "name": "M Fernandes cherry",
+        "category": "Drink",
+        "subCategory": "Soda",
+        "size": "M",
+        "price": 2.5
+    },
+    {
+        "id": 2,
+        "name": "M Hawaii pizza",
+        "category": "Snack",
+        "subCategory": "Pizza",
+        "size": "M",
+        "price": 20.0
+    },
+    {
+        "id": 3,
+        "name": "M Spa blauw",
+        "category": "Drink",
+        "subCategory": "Water",
+        "size": "M",
+        "price": 3.02
+    }
+]
