@@ -1,30 +1,20 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
-namespace Cinema_
+namespace CinemaApp
 {
     class CatererFoodOrder
     {
-        public List<FoodOrder> ToDo;
-        public List<FoodOrder> Done;
+        public List<FoodOrder> Orders;
 
-        public CatererFoodOrder(List<FoodOrder> td, List<FoodOrder> d)
+        public CatererFoodOrder(List<FoodOrder> orders)
         {
-            this.ToDo = td;
-            this.Done = d;
+            this.Orders = orders;
         }
 
-        public CatererFoodOrder(List<FoodOrder> td)
-        {
-            this.Done = new List<FoodOrder>();
-        }
-
-        public CatererFoodOrder()
-        {
-            this.ToDo = new List<FoodOrder>(); 
-            this.Done = new List<FoodOrder>();
-        }
 
         public void caterView()
         {
@@ -34,93 +24,90 @@ namespace Cinema_
             if (choice == ConsoleKey.D1)
             {
                 Console.WriteLine("\nOrders not completed:");
-                foreach (var o in ToDo)
+                foreach (var fo in Orders)
                 {
-                    if (o.Minute < 10)
+                    if (!fo.Made)
                     {
-                        Console.WriteLine("Time: " + o.Hour + ": 0" + o.Minute);
+                        Console.WriteLine(fo.OrderId);
+                        if (fo.Minute < 10)
+                        {
+                            Console.WriteLine("Time: " + fo.Hour + ": 0" + fo.Minute);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Time: " + fo.Hour + ":" + fo.Minute);
+                        }
+
+                        fo.Order.overview();
                     }
-                    else
-                    {
-                        Console.WriteLine("Time: " + o.Hour + ":" + o.Minute);
-                    }
-                    o.Order.overview();
-                    /*
-                    foreach (var p in o.Order)
-                    {
-                        Console.WriteLine("Order Id: ", o.OrderId);
-                        p.display();
-                    }
-                    */
                 }
             }
 
             else if (choice == ConsoleKey.D2)
             {
                 Console.WriteLine("\nOrders completed:");
-                foreach (var o in Done)
+                foreach (var fo in Orders)
                 {
-                    if (o.Minute < 10)
+                    if (fo.Made)
                     {
-                        Console.WriteLine("Time: " + o.Hour + ": 0" + o.Minute);
+                        Console.WriteLine(fo.OrderId);
+                        fo.displayTime();
+                        fo.Order.overview();
                     }
-                    else
-                    {
-                        Console.WriteLine("Time: " + o.Hour + ":" + o.Minute);
-                    }
-                    o.Order.overview();
-                    /*
-                    foreach (var p in o.Order)
-                    {
-                        Console.WriteLine("Order Id: ", o.OrderId);
-                        p.display();
-                    }
-                    */
                 }
             }
         }
+
         public void isDone()
         {
             Console.WriteLine("\nEnter Order Id: ");
             var idDelete = Console.ReadLine();
-            List<FoodOrder> holder = new List<FoodOrder>();
             int id;
             bool sucess = Int32.TryParse(idDelete, out id);
 
-            if ((sucess) & (id <= ToDo.Count) & (id >= 0))
+            if ((sucess) & (id <= Orders.Count) & (id >= 0))
             {
                 Console.WriteLine();
-                foreach (var f in ToDo)
+                foreach (var f in Orders)
                 {
                     if (f.OrderId == id)
                     {
-                        Done.Add(f);
-                    }
-                    if (f.OrderId != id)
-                    {
-                        holder.Add(f);
-                    }
-                }
-
-                foreach (var g in holder)
-                {
-                    if (g.OrderId > id)
-                    {
-                        g.OrderId--;
-
+                        f.Made = true;
                     }
                 }
             }
-            ToDo = holder;
         }
-        public void Cater()
-        {
 
+        public void pickedUp()
+        {
+            Console.WriteLine("\nEnter Order Id: ");
+            var idDelete = Console.ReadLine();
+            int id;
+            bool sucess = Int32.TryParse(idDelete, out id);
+
+            if ((sucess) & (id <= Orders.Count) & (id >= 0))
+            {
+                Console.WriteLine();
+                FoodOrder toRemove = null;
+                foreach (var f in Orders)
+                {
+                    toRemove = f;
+                }
+                Orders.Remove(toRemove);
+            }
+        }
+
+        public static void Caterer()
+        {
+            string fileName = "allOrders.json";
+            string rawJson = File.ReadAllText(fileName);
+            List<FoodOrder> all = JsonConvert.DeserializeObject<List<FoodOrder>>(rawJson);
+            var allOrders = new CatererFoodOrder(all);
             bool busy = true;
 
             while (busy)
             {
-                Console.WriteLine("\n1.View Orders\n2.Add item to done\npress q to quit....");
+                Console.WriteLine("\n1.View Orders\n2.Add item to done\n3. Remove a picked up order\npress q to quit....");
                 var choice = Console.ReadKey().Key;
                 if (choice == ConsoleKey.Q)
                 {
@@ -129,14 +116,21 @@ namespace Cinema_
                 }
                 else if (choice == ConsoleKey.D1)
                 {
-                    caterView();
+                    allOrders.caterView();
                 }
                 else if (choice == ConsoleKey.D2)
                 {
-                    isDone();
+                    allOrders.isDone();
+                }
+                else if (choice == ConsoleKey.D3)
+                {
+                    allOrders.pickedUp();
                 }
             }
+            string newJson = JsonConvert.SerializeObject(all);
+            File.WriteAllText(fileName, newJson);
         }
-
     }
+
 }
+
