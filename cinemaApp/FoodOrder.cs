@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Cinema_
+namespace CinemaApp
 {
     public class FoodOrder
     {
@@ -19,6 +19,7 @@ namespace Cinema_
         public int Minute;
         public string UserName;
         public bool Paid;
+        public bool Made;
 
         public FoodOrder(FoodMenu order, string day, int hour, int minute)
         {
@@ -29,10 +30,9 @@ namespace Cinema_
             this.Minute = minute;
             this.UserName = "default";//User.username
             this.Paid = false;
+            this.Made = false;
             LastId = OrderId + 1;
         }
-
-  
 
         public static string day()
         {
@@ -60,7 +60,7 @@ namespace Cinema_
 
         public static int hour()
         {
-            Console.Write("\nHour(9-23): ");
+            Console.Write("Hour(9-23): ");
             string userHour = Console.ReadLine();
             int h = Convert.ToInt32(userHour);
             if (h < 9 || h > 23)
@@ -76,7 +76,7 @@ namespace Cinema_
 
         public static int minute()
         {
-            Console.Write("\nMinute(0-60): ");
+            Console.Write("Minute(0-60): ");
             string um = Console.ReadLine();
             int userMinute = Convert.ToInt32(um);
             if (userMinute < 0 || userMinute > 60)
@@ -87,6 +87,18 @@ namespace Cinema_
             else
             {
                 return userMinute;
+            }
+        }
+
+        public void displayTime()
+        {
+            if (Minute < 10)
+            {
+                Console.WriteLine("Time: " + Hour + ": 0" + Minute);
+            }
+            else
+            {
+                Console.WriteLine("Time: " + Hour + ":" + Minute);
             }
         }
 
@@ -190,5 +202,7 @@ namespace Cinema_
             }
             return new FoodOrder(new FoodMenu(userOrder), day(), hour(), minute());
         }
+
+        //public static 
     }
 }
