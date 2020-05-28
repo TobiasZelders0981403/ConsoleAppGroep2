@@ -9,8 +9,6 @@ namespace CinemaApp
     public class FoodOrder
     {
 
-        static int LastId;
-
         public int OrderId;
         //public FoodMenu menu;
         public FoodMenu Order;
@@ -23,7 +21,7 @@ namespace CinemaApp
 
         public FoodOrder(FoodMenu order, string day, int hour, int minute)
         {
-            this.OrderId = LastId;
+            this.OrderId = ID.orderId();
             this.Order = order;
             this.Day = day;
             this.Hour = hour;
@@ -31,7 +29,7 @@ namespace CinemaApp
             this.UserName = "default";//User.username
             this.Paid = false;
             this.Made = false;
-            LastId = OrderId + 1;
+            
         }
 
         public static string day()
@@ -94,11 +92,11 @@ namespace CinemaApp
         {
             if (Minute < 10)
             {
-                Console.WriteLine("Time: " + Hour + ": 0" + Minute);
+                Console.WriteLine(Day + " " + Hour + ": 0" + Minute);
             }
             else
             {
-                Console.WriteLine("Time: " + Hour + ":" + Minute);
+                Console.WriteLine(Day + " " + Hour + ":" + Minute);
             }
         }
 
@@ -185,7 +183,7 @@ namespace CinemaApp
                     }
                     bool sucess = Int32.TryParse(idStr, out userId);
 
-                    if ((sucess) & (userId <= menu.Count) & (userId >= 0))
+                    if ((sucess) & (userId <= ID.foodMax()) & (userId >= 0))
                     {
                         Console.WriteLine("You selected: ");
                         foreach (var food in menu)
