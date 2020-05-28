@@ -38,6 +38,11 @@ namespace CinemaApp
             this.seatPrices = r.seatPrices;
         }
 
+        public double getSeatPrice(int r, int s)
+        {
+            return seatPrices[r][s];
+        }
+        
         public void overview()
         {
             Console.WriteLine();
