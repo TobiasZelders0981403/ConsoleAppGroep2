@@ -164,34 +164,45 @@ namespace CinemaApp
             List<Food> userOrder = new List<Food>();
             while (items)
             {
-                Console.WriteLine("\nEnter the product id or press q to quit...");
-                int userId;
-                string idStr = Console.ReadLine();
-                if (idStr == "q")
+                bool addFood = true;
+                while (addFood)
                 {
-                    items = false;
-                    break;
-                }
-                bool sucess = Int32.TryParse(idStr, out userId);
-
-                if ((sucess) & (userId <= menu.Count) & (userId >= 0))
-                {
-                    Console.WriteLine("You selected: ");
-                    foreach (var food in menu)
+                    Console.WriteLine("\nEnter the product id or press q to quit...");
+                    int userId;
+                    string idStr = Console.ReadLine();
+                    if (idStr == "q")
                     {
-                        if (food.id == userId)
+                        if (userOrder.Count == 0)
                         {
-                            food.display();
-                            userOrder.Add(food);
+                            items = false;
+                            break;
+                        }
+                        else
+                        {
+                            addFood = false;
+                            break;
                         }
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input");
-                    Add();
-                }
+                    bool sucess = Int32.TryParse(idStr, out userId);
 
+                    if ((sucess) & (userId <= menu.Count) & (userId >= 0))
+                    {
+                        Console.WriteLine("You selected: ");
+                        foreach (var food in menu)
+                        {
+                            if (food.id == userId)
+                            {
+                                food.display();
+                                userOrder.Add(food);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input");
+                        Add();
+                    }
+                }
                 Console.WriteLine("When do you want it to be ready?\n");
                 string userDay = day();
 
