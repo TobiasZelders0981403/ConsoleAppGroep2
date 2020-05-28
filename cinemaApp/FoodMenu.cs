@@ -127,7 +127,7 @@ namespace CinemaApp
             foreach (var p in Menu)
             {
                 price += p.price;
-                Console.Write(p.name + ". ");
+                Console.Write(p.name + " || ");
             }
             Console.WriteLine("Price: " + price);
         }
