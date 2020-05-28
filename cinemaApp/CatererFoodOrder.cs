@@ -18,7 +18,7 @@ namespace CinemaApp
 
         public void caterView()
         {
-            Console.WriteLine("\nTo see uncompleted orders press 1" + "\nTo see completed orders press 2");
+            Console.WriteLine("\n1. Uncompleted orders" + "\n2. Completed orders");
             var choice = Console.ReadKey().Key;
 
             if (choice == ConsoleKey.D1)
@@ -28,19 +28,26 @@ namespace CinemaApp
                 {
                     if (!fo.Made)
                     {
-                        Console.WriteLine(fo.OrderId);
-                        if (fo.Minute < 10)
-                        {
-                            Console.WriteLine("Time: " + fo.Hour + ": 0" + fo.Minute);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Time: " + fo.Hour + ":" + fo.Minute);
-                        }
-
+                        Console.WriteLine("\nOrder id: " + fo.OrderId);
+                        fo.displayTime();
                         fo.Order.overview();
                     }
                 }
+            }
+
+            else if (choice == ConsoleKey.D2)
+            {
+                Console.WriteLine("\nOrders completed:");
+                foreach (var fo in Orders)
+                {
+                    if (fo.Made)
+                    {
+                        Console.WriteLine("\nOrder id: " + fo.OrderId);
+                        fo.displayTime();
+                        fo.Order.overview();
+                    }
+                }
+            }
             }
 
             else if (choice == ConsoleKey.D2)
@@ -107,7 +114,7 @@ namespace CinemaApp
 
             while (busy)
             {
-                Console.WriteLine("\n1.View Orders\n2.Add item to done\n3. Remove a picked up order\npress q to quit....");
+                Console.WriteLine("\n1. View Orders\n2. Add item to done\n3. Remove a picked up order\npress q to quit....");
                 var choice = Console.ReadKey().Key;
                 if (choice == ConsoleKey.Q)
                 {
