@@ -19,9 +19,7 @@ namespace cinemaApp
 
             string newJson = JsonConvert.SerializeObject(menu);
 
-            FoodManager manager = new FoodManager(menu);
-
-            manager.Caterer();
+            FoodMenu.Caterer();
 
             File.WriteAllText(fileName, newJson);
 

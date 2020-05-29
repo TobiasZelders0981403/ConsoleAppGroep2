@@ -1,13 +1,17 @@
+using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
-namespace cinemaApp {
-    class FoodManager
+namespace cinemaApp
+{
+    public class FoodMenu
     {
         public List<Food> Menu;
 
-        public FoodManager(List<Food> menu)
+        public FoodMenu(List<Food> menu)
         {
             this.Menu = menu;
         }
@@ -57,7 +61,7 @@ namespace cinemaApp {
             bool busy = true;
             while (busy)
             {
-                Console.WriteLine("[1] search by name, [2] category or [3] sub-category\nPress [0] to quit.");
+                Console.WriteLine("search by name(1), category(2) or sub-category(3)\nPress q to quit...");
                 var choice = Console.ReadKey().Key;
                 if (choice == ConsoleKey.Q)
                 {
@@ -78,18 +82,54 @@ namespace cinemaApp {
                 }
                 else
                 {
-                    Console.WriteLine("Please choose a number between [1] and [3]");
+                    Console.WriteLine("Please choose a number between 1 and 3");
                 }
             }
         }
 
         public void overview()
         {
+            string[] snacksSubs = { "Popcorn", "Sweets", "Hot Dog", "Nachos", "Pizza" };
+            string[] drinkSubs = { "Water", "Soda", "Juice", "Milkshake", "Slushie" };
             Console.WriteLine();
             foreach (var food in this.Menu)
             {
-                food.display();
+                if(food.category == "Snack")
+                {
+                    for (int i = 0; i < snacksSubs.Length; i++)
+                    {
+                        if (food.subCategory == snacksSubs[i])
+                        {
+                            food.display();
+                        }
+                    }
+                }
             }
+
+            foreach (var food in this.Menu)
+            {
+                if (food.category == "Drink")
+                {
+                    for (int i = 0; i < drinkSubs.Length; i++)
+                    {
+                        if (food.subCategory == drinkSubs[i])
+                        {
+                            food.display();
+                        }
+                    }
+                }
+            }
+        }
+
+        public void payOverview() 
+        {
+            double price = 0;
+            foreach (var p in Menu)
+            {
+                price += p.price;
+                Console.Write(p.name + " || ");
+            }
+            Console.WriteLine("Price: " + price);
         }
 
         public void addItem()
@@ -126,7 +166,7 @@ namespace cinemaApp {
             while (busy)
             {
                 overview();
-                Console.WriteLine("Enter the id of the product you want to edit.\nPress [0] to quit....");
+                Console.WriteLine("Enter the id of the product you want to edit.\nPress q to quit....");
                 var idDelete = Console.ReadLine();
 
                 int id;
@@ -136,7 +176,7 @@ namespace cinemaApp {
                 if ((sucess) & (id <= this.Menu.Count) & (id >= 0))
                 {
 
-                    Console.WriteLine("Type [y] to change [n] to leave be");
+                    Console.WriteLine("Type 'y' to change 'n' to leave be");
 
                     bool changeName = false;
                     string newName = "";
@@ -249,30 +289,37 @@ namespace cinemaApp {
         public void Delete()
         {
             Console.WriteLine();
-            List<Food> newMenu = new List<Food>();
             bool busy = true;
 
             while (busy)
             {
                 overview();
-                Console.WriteLine("Enter the id of the product you want to delete");
+                Console.WriteLine("Enter the id of the product you want to delete or q to quit...");
                 var idDelete = Console.ReadLine();
 
                 int id;
                 //int id = Convert.ToInt32(idDelete);
                 bool sucess = Int32.TryParse(idDelete, out id);
 
-                if ((sucess) & (id <= this.Menu.Count) & (id >= 0))
+                if(idDelete == "q")
+                {
+                    busy = false;
+                    break;
+                }
+
+                else if ((sucess) & (id <= this.Menu.Count) & (id >= 0))
                 {
 
                     Console.WriteLine();
+                    Food toRemove = null;
                     foreach (var food in this.Menu)
                     {
                         if (food.id == id)
                         {
-                            this.Menu.Remove(food);
+                            toRemove = food;
                         }
                     }
+                    Menu.Remove(toRemove);
                 }
                 else
                 {
@@ -284,15 +331,27 @@ namespace cinemaApp {
 
         }
 
-        public void Caterer()
+        public static FoodMenu getMenu()
+        {
+            string fileName = "food.json";
+            string rawJson = File.ReadAllText(fileName);
+            List<Food> mainMenu = JsonConvert.DeserializeObject<List<Food>>(rawJson);
+            return new FoodMenu(mainMenu);
+        }
+
+        public static void Caterer()
         {
             bool busy = true;
             //List<Food> menu = new List<Food>();
+            string fileName = "food.json";
+            string rawJson = File.ReadAllText(fileName);
+            List<Food> mainMenu = JsonConvert.DeserializeObject<List<Food>>(rawJson);
+            FoodMenu menu = new FoodMenu(mainMenu);
 
             while (busy)
             {
 
-                Console.WriteLine("\nWhat do you wanna do?\n[1] See all avalaible items\n[2] Add a new item\n[3] Edit an item\n[4] Remove an item\n[5] Search for an item\nPress [0] to quit.");
+                Console.WriteLine("\nWhat do you wanna do?\n1. See all avalaible items\n2. Add a new item\n3. Edit an item\n4. Remove an item\n5. Search for an item(5)\nPress q to quit...");
                 var userChoice = Console.ReadKey().Key;
 
                 if (userChoice == ConsoleKey.Q)
@@ -302,30 +361,32 @@ namespace cinemaApp {
                 }
                 else if (userChoice == ConsoleKey.D1)
                 {
-                    overview();
+                    menu.overview();
                 }
                 else if (userChoice == ConsoleKey.D2)
                 {
-                    addItem();
+                    menu.addItem();
                 }
                 else if (userChoice == ConsoleKey.D3)
                 {
-                    editItem();
+                    menu.editItem();
                 }
                 else if (userChoice == ConsoleKey.D4)
                 {
-                    Delete();
+                    menu.Delete();
                 }
                 else if (userChoice == ConsoleKey.D5)
                 {
-                    search();
+                    menu.search();
                 }
                 else
                 {
-                    Console.WriteLine("Please choose between [1], [2], [3] and [4]");
+                    Console.WriteLine("Please choose between 1, 2, 3 and 4");
                 }
-
             }
+            string newJson = JsonConvert.SerializeObject(mainMenu);
+            File.WriteAllText(fileName, newJson);
         }
     }
+
 }
