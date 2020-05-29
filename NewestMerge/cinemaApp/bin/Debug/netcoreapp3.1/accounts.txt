@@ -1,0 +1,8 @@
+owner owner 0
+manager manager 0
+caterer caterer 0
+user1 user 16
+user2 user 20
+ben ben 17
+scottbrahim cinema 19
+scottfr1908 cinema 19
