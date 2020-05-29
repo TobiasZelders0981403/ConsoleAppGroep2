@@ -11,8 +11,8 @@ namespace cinemaApp
         public static void UserDataInput()
         {
             string Day;
-            string Tickets;
-            string Money;
+            string Tickets = "";
+            string Money = "";
             List<string> dayOptions = new List<string>() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             //DateTime today;
             using (DataTable dt = new DataTable("sales"))
@@ -23,20 +23,59 @@ namespace cinemaApp
                 dt.Columns.Add("Money", typeof(string));
 
                 //today = DateTime.Now;
+                //testing input
+                
                 Console.WriteLine("\nPlease select the day.");
                 for (int i = 0; i < dayOptions.Count; i++) {
                     Console.WriteLine($"[{i}] {dayOptions[i]}");
                 }
                 Day = dayOptions[Program.ChoiceInput(0, 6)];
+                
+                
+                //testing input
+                int testcount = 0;
+                int hulpTickets;
+                int hulpMoney;
+                while (testcount == 0)
+                {
+                    Console.WriteLine("How many tickets were sold?");
+                    Tickets = Console.ReadLine();
 
-                Console.WriteLine("How many tickets were sold?");
-                Tickets = Console.ReadLine();
+                    try
+                    {
+                        hulpTickets = int.Parse(Tickets);
+                        testcount = 1;
+                        Console.WriteLine("good");
+                    }
 
-                Console.WriteLine("How much money is made?");
-                Money = Console.ReadLine();
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Invalid input, try again!");
+                    }
+                }
+                //testing input
+                while (testcount == 1)
+                {
+                    Console.WriteLine("How much money is made?");
+                    Money = Console.ReadLine();
+
+                    try
+                    {
+                        hulpMoney = int.Parse(Money);
+                        testcount = 2;
+                        Console.WriteLine("good");
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Invalid input, try again!");
+                    }
+                
+                    
+                }
 
 
 
+                
                 using (StreamWriter sw = File.AppendText("SaleDataInput1.csv"))
                 {
                     sw.WriteLine(Day + ";" + Tickets + ";" + Money);
