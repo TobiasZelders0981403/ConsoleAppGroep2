@@ -10,7 +10,7 @@ using System.Linq;
 // Room 2 : 15 rows of 20 seats
 // Rooom 3 : 25 rows of 25 seats
 
-namespace CinemaApp
+namespace cinemaApp
 {
 
     class Rooms
@@ -46,16 +46,19 @@ namespace CinemaApp
         public void overview()
         {
             Console.WriteLine();
+            string s = "";
             for (int j = 0; j < seatPrices.Length; j++)
             {
+                int currentRow = j + 1;
+                s += $"R-{currentRow}:";
                 for (int i = 0; i < seatPrices[0].Length; i++)
                 {
-                    int currentRow = j + 1;
                     int currentSeat = i + 1;
-                    Console.Write("R-" + currentRow + " S-" + currentSeat + " = " + seatPrices[j][i] + " || ");
+                    s += $" S{currentSeat} = {seatPrices[j][i]}";
                 }
-                Console.WriteLine("\n");
+                s += "\n";
             }
+            Console.WriteLine(s);
         }
 
         public void overviewRow()
@@ -67,9 +70,9 @@ namespace CinemaApp
             {
                 for (int i = 0; i < seatPrices[0].Length; i++)
                 {
-                    int currentRow = j + 1;
+                    int currentRow = j;
                     int currentSeat = i + 1;
-                    Console.Write("Row_" + currentRow + " Seat_" + currentSeat + " = " + seatPrices[j][i] + "  ");
+                    Console.WriteLine($"R{currentRow}: S{currentSeat} = {seatPrices[j-1][i]}");
                 }
                 Console.WriteLine("\n");
             }
@@ -299,7 +302,7 @@ namespace CinemaApp
         {
 
             string fileName = "roomOne.json";
-            string rawJson = File.ReadAllText(fileName);
+            string rawJson = File.ReadAllText(@fileName);
             double[][] jsonArray = JsonConvert.DeserializeObject<double[][]>(rawJson);
             
             var room1 = new Rooms(jsonArray);
