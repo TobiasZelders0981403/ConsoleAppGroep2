@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-<<<<<<< HEAD
 namespace Cinema_
-=======
-namespace cinemaApp
->>>>>>> Ben
 {
     class Points
     {

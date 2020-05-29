@@ -9,8 +9,6 @@ namespace cinemaApp
         {
             Console.Title = "Cinema Application.";
             User user = new User();
-
-            Rooms.Manager();
             Console.WriteLine("Please pick a option.\n[1] Login.\n[2] Register.\n[3] Continue as guest.\n[0] exit");
             int choice = ChoiceInput(0, 3);
             if (choice == 1) {

@@ -4,11 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-<<<<<<< HEAD
 namespace CinemaApp
-=======
-namespace cinemaApp
->>>>>>> Ben
 {
         class CostumerFoodOrder
     {
