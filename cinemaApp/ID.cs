@@ -5,7 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
+<<<<<<< HEAD
 namespace CinemaApp
+=======
+namespace cinemaApp
+>>>>>>> Ben
 {
     class ID
     {

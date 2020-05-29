@@ -67,10 +67,10 @@ namespace cinemaApp {
             while (choice != 0) {
                 if (choice == 1) {
                     //adjust menu
-                    Console.WriteLine("NOT IMPLEMENTED YET");
+                    FoodMenu.Caterer();
                 } else if (choice == 2) {
                     //Look at all orders
-                    Console.WriteLine("NOT IMPLEMENTED YET");
+                    CatererFoodOrder.Caterer();
                 } else if (choice == 3) {
                     //look at expected customers
                     expected.ExpectedCustomers();
@@ -100,6 +100,7 @@ namespace cinemaApp {
                     ReserveTickets.ReserveTicketsMain(user);
                 } else if (choice == 5) {
                     //order food
+                    CostumerFoodOrder.Costumer();
                 } else if (choice == 6) {
                     //shopping cart
                     Console.WriteLine("NOT IMPLEMENTED YET");
