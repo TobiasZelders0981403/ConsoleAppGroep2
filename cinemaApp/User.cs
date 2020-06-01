@@ -21,7 +21,7 @@ namespace cinemaApp
         private List<string> passwords = new List<string>();
         private List<string> ageList = new List<string>();
 
-        public List<List<string>> shoppingCart;
+        public List<string> shoppingCart;
 
         //When a account is made all input will be stored inside accounts.txt and the user will automatically login
         public void CreateAccount()
@@ -73,7 +73,7 @@ namespace cinemaApp
         public void ContinueAsGuest() {
             username = "Guest";
             password = "Guest";
-            shoppingCart = new List<List<string>>();
+            shoppingCart = new List<string>();
             CheckAge();
             age = checkedage;
         }
