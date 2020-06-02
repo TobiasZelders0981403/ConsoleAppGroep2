@@ -52,6 +52,19 @@ namespace cinemaApp
         public static int ChoiceInput(int min, int max) {
             int choice;
             string choiceInput = Console.ReadLine();
+            int Catch = 0;
+            while (Catch == 0)
+            {
+                if (!Int32.TryParse(choiceInput, out choice)) //if not a whole number input give an error
+                {
+                    Console.WriteLine("Invalid Input! Please enter your option:");
+                    choiceInput = Console.ReadLine();
+                }
+                else
+                {
+                    Catch = 1;
+                }
+            }
             int.TryParse(choiceInput, out choice);
             while (max < choice || choice < min || string.IsNullOrWhiteSpace(choiceInput)) {
                 Console.WriteLine("Invalid Input! Please enter your option:");

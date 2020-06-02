@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "NKIskIu2Aa8nlA1xeotQQaY19VxlT+8ZOB/Omk2eDjRxVOu1HeZxwIvOL60OXv01Zyp+tcJzQLdWAuFh7GsvnQ==",
+  "dgSpecHash": "p5r/B1MgAfLcWpRq89jNA9WNj32bf5miqost0X2dZnyHYCLpONx5ZZH609gnrSUCcacnb7+jKllcPZz8c8Xn6A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\bgsta\\OneDrive\\Documenten\\github\\ConsoleAppGroep2\\cinemaApp\\cinemaApp.csproj",
+  "projectFilePath": "C:\\Users\\admin\\Documents\\GitHub\\ConsoleAppGroep2\\cinemaApp\\cinemaApp.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\bgsta\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+    "C:\\Users\\admin\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }
