@@ -291,6 +291,7 @@ namespace cinemaApp
         }
 
         static void LoadTimeOptions() {
+            rooms = new List<string>();
             string[] data;
             string line;
             StreamReader streamreader = new StreamReader("filmlist.txt");
