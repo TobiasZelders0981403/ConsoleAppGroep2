@@ -24,8 +24,8 @@ namespace cinemaApp
         static int dayChoice;
         static int timeChoice;
         static int movieChoice;
-        static int rowChoice = -1;
-        static int seatChoice = -1;
+        static int rowChoice;
+        static int seatChoice;
         static string room;
         static bool full = true;
         static double[][] priceArray;
@@ -33,6 +33,8 @@ namespace cinemaApp
         //input
         public static void ReserveTicketsMain(User user)
         {
+                rowChoice = -1;
+                seatChoice = -1;
             movieOptions = new List<string>();
             timeOptions = new List<string>();
 
