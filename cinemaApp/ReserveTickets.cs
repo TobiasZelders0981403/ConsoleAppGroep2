@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Reflection.PortableExecutable;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace cinemaApp
 {
@@ -23,14 +24,17 @@ namespace cinemaApp
         static int dayChoice;
         static int timeChoice;
         static int movieChoice;
-        static int rowChoice = -1;
-        static int seatChoice = -1;
+        static int rowChoice;
+        static int seatChoice;
         static string room;
         static bool full = true;
+        static double[][] priceArray;
 
         //input
         public static void ReserveTicketsMain(User user)
         {
+                rowChoice = -1;
+                seatChoice = -1;
             movieOptions = new List<string>();
             timeOptions = new List<string>();
 
@@ -289,6 +293,7 @@ namespace cinemaApp
         }
 
         static void LoadTimeOptions() {
+            rooms = new List<string>();
             string[] data;
             string line;
             StreamReader streamreader = new StreamReader("filmlist.txt");
@@ -308,16 +313,42 @@ namespace cinemaApp
         }
 
         static void SaveToShoppingCart(User user) {
-            if (user.username != "Guest") {
-                string filename = $"{user.username}-ShoppingCart.txt";
-                string data = $"{movieOptions[movieChoice]} {dayOptions[dayChoice]} {timeTemplate[timeChoice]} {room} {rowChoice} {seatChoice}\n";
-                StreamWriter streamwriter = new StreamWriter(@filename, append: true);
-                streamwriter.Write(data);
-                streamwriter.Close();
+            if (room == "room1") {
+                string fileName = "roomOne.json";
+                string rawJson = File.ReadAllText(@fileName);
+                priceArray = JsonConvert.DeserializeObject<double[][]>(rawJson);
+            } else if (room == "room2") {
+                string fileName = "roomTwo.json";
+                string rawJson = File.ReadAllText(fileName);
+                priceArray = JsonConvert.DeserializeObject<double[][]>(rawJson);
             } else {
-                List<string> data = new List<string> { movieOptions[movieChoice], dayOptions[dayChoice], timeTemplate[timeChoice], room, rowChoice.ToString(), seatChoice.ToString() };
-                user.shoppingCart.Add(data);
+                string fileName = "roomThree.json";
+                string rawJson = File.ReadAllText(fileName);
+                priceArray = JsonConvert.DeserializeObject<double[][]>(rawJson);
             }
+            string filename = $"{user.username}-ShoppingCart.json";
+            double price = priceArray[rowChoice][seatChoice];
+            string[] s = new string[] {price.ToString(), movieOptions[movieChoice], dayOptions[dayChoice], timeTemplate[timeChoice], room, "row:" + rowChoice.ToString(), "seat:" + seatChoice.ToString()};
+            if (user.username != "Guest") {
+                if (File.Exists(@filename)) {
+                    string rawJSON = File.ReadAllText(filename);
+                    string[][] data = JsonConvert.DeserializeObject<string[][]>(rawJSON);
+                    Array.Resize(ref data, data.Length + 1);
+                    data[data.Length - 1] = s;
+                    string shoppingData = JsonConvert.SerializeObject(data);
+                    File.WriteAllText(filename, shoppingData);
+                } else {
+                    string[][] data = new string[1][] { s };
+                    string shoppingData = JsonConvert.SerializeObject(data);
+                    File.AppendAllText(filename, shoppingData);
+                }
+            } else {
+                user.shoppingCart.Add(s);
+            }
+            /* else {
+                List<string> data = new List<string> { movieOptions[movieChoice], dayOptions[dayChoice], timeTemplate[timeChoice], room, rowChoice.ToString(), seatChoice.ToString()};
+                user.shoppingCart.Add(data);
+            }*/
         }
     }
 }

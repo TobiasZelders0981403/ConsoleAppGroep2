@@ -9,6 +9,7 @@ namespace cinemaApp
         {
             Console.Title = "Cinema Application.";
             User user = new User();
+
             Console.WriteLine("Please pick a option.\n[1] Login.\n[2] Register.\n[3] Continue as guest.\n[0] exit");
             int choice = ChoiceInput(0, 3);
             if (choice == 1) {
@@ -66,7 +67,7 @@ namespace cinemaApp
                 }
             }
             int.TryParse(choiceInput, out choice);
-            while (max < choice || choice < min || string.IsNullOrWhiteSpace(choiceInput)) {
+            while (max < choice || choice < min || string.IsNullOrWhiteSpace(choiceInput) || !int.TryParse(choiceInput, out choice)) {
                 Console.WriteLine("Invalid Input! Please enter your option:");
                 choiceInput = Console.ReadLine();
                 int.TryParse(choiceInput, out choice);
