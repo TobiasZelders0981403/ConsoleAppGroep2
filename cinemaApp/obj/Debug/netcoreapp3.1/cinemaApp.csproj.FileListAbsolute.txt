@@ -28,7 +28,6 @@ C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\obj\Debug\n
 C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.genruntimeconfig.cache
 C:\Users\bgsta\OneDrive\Documenten\github\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.csprojAssemblyReference.cache
 C:\Users\tobiz\OneDrive\Documenten\GitHub\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\Food.cs
-C:\Users\tobiz\OneDrive\Documenten\GitHub\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\FoodManager.cs
 C:\Users\tobiz\OneDrive\Documenten\GitHub\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\cinemaApp.exe
 C:\Users\tobiz\OneDrive\Documenten\GitHub\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\cinemaApp.deps.json
 C:\Users\tobiz\OneDrive\Documenten\GitHub\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\cinemaApp.runtimeconfig.json

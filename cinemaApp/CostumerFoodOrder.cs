@@ -20,7 +20,7 @@ namespace cinemaApp
         {
             this.Orders = new List<FoodOrder>();
         }
-
+        /*
         public void checkout()
         {
             //collect orders of username
@@ -151,8 +151,8 @@ namespace cinemaApp
                 Orders.Remove(temp);
             }
         }
-
-        public static void Costumer()
+        */
+        public static void Costumer(User user)
         {
             bool busy = true;
             var TheMenu = FoodMenu.getMenu();
@@ -166,7 +166,7 @@ namespace cinemaApp
             while (busy)
             {
                 TheMenu.overview();
-                Console.WriteLine("\nHi, what do you wanna do?\n1. See menu\n2. Search menu\n3. See what's in your cart\n4. New food order\n5. Checkout\npress q to quit....");
+                Console.WriteLine("\nHi, what do you wanna do?\n1. See menu\n2. Search menu\n3. New food order\npress q to quit....");
                 var choice = Console.ReadKey().Key;
                 if (choice == ConsoleKey.Q)
                 {
@@ -183,17 +183,8 @@ namespace cinemaApp
                 }
                 else if (choice == ConsoleKey.D3)
                 {
-                    allOrders.seeCart();
-                }
-                else if (choice == ConsoleKey.D4)
-                {
-                    all.Add(FoodOrder.Add());
+                    all.Add(FoodOrder.Add(user));
                     allOrders = new CostumerFoodOrder(all);
-
-                }
-                else if (choice == ConsoleKey.D5)
-                {
-                    allOrders.checkout();
                 }
             }
             string newJson = JsonConvert.SerializeObject(all);

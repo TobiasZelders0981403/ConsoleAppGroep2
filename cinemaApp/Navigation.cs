@@ -100,10 +100,10 @@ namespace cinemaApp {
                     ReserveTickets.ReserveTicketsMain(user);
                 } else if (choice == 5) {
                     //order food
-                    CostumerFoodOrder.Costumer();
+                    CostumerFoodOrder.Costumer(user);
                 } else if (choice == 6) {
                     //shopping cart
-                    Shoppingcart.ShoppingcartNav();
+                    Shoppingcart.ShoppingcartNav(user);
                     Console.WriteLine("NOT IMPLEMENTED YET");
                 }
                 Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at future movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to shopping cart.\n[0] Exit application.");

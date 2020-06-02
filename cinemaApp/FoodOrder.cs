@@ -151,7 +151,7 @@ namespace cinemaApp
             }
         }
 
-        public static FoodOrder Add()
+        public static FoodOrder Add(User user)
         {
             string fileName = "food.json";
             string rawJson = File.ReadAllText(fileName);
@@ -198,7 +198,7 @@ namespace cinemaApp
                     else
                     {
                         Console.WriteLine("Invalid input");
-                        Add();
+                        Add(user);
                     }
                 }
                 Console.WriteLine("When do you want it to be ready?\n");
@@ -207,6 +207,32 @@ namespace cinemaApp
                 Console.WriteLine("The time: ");
                 int userHour = hour();
                 int userMinute = minute();
+                //save to shoppingCart
+
+                string filename = $"{user.username}-ShoppingCart.json";
+                string s = $"user: {user.username} | {userDay} - {userHour}:{userMinute}";
+                for (int i = 0; i < userOrder.Count; i++) {
+                    Food order = userOrder[i];
+                    s += $"\nprice:{order.price}, name:{order.name}, size:{order.size}, category:{order.category} - {order.subCategory}";
+                }
+                if (user.username != "Guest") {
+                    if (File.Exists(@filename)) {
+                        string rawJSON = File.ReadAllText(filename);
+                        string[] data = JsonConvert.DeserializeObject<string[]>(rawJSON);
+                        Array.Resize(ref data, data.Length + 1);
+                        data[data.Length - 1] = s;
+                        string shoppingData = JsonConvert.SerializeObject(data);
+                        File.WriteAllText(filename, shoppingData);
+                    } else {
+                        string[] data = new string[1] { s };
+                        string shoppingData = JsonConvert.SerializeObject(data);
+                        File.AppendAllText(filename, shoppingData);
+                    }
+                } else {
+                    user.shoppingCart.Add(s);
+                }
+
+                //return to Caterers FoodOrders
                 return new FoodOrder(new FoodMenu(userOrder), userDay, userHour, userMinute);
             }
             return new FoodOrder(new FoodMenu(userOrder), day(), hour(), minute());
