@@ -84,8 +84,8 @@ namespace cinemaApp {
         }
 
         public static void CustomerNavigation(User user) {
-            Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at future movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to shopping cart.\n[0] Exit application.");
-            int choice = Program.ChoiceInput(0, 6);
+            Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at future movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to shopping cart.\n[7] VIP.\n[0] Exit application.");
+            int choice = Program.ChoiceInput(0, 7);
             while (choice != 0) {
                 if (choice == 1) {
                     //show all movies
@@ -105,7 +105,10 @@ namespace cinemaApp {
                     //shopping cart
                     Shoppingcart.ShoppingcartNav(user);
                     Console.WriteLine("NOT IMPLEMENTED YET");
+                } else if (choice == 7) { 
+                    VIP.Membership(user);
                 }
+
                 Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at future movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to shopping cart.\n[0] Exit application.");
                 choice = Program.ChoiceInput(0, 6);
             }

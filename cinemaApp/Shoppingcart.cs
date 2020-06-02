@@ -35,7 +35,7 @@ namespace cinemaApp
                         else if (choice2 == 2)
                         {
                             Console.WriteLine("Buy food.");
-                            CostumerFoodOrder.Costumer();
+                            CostumerFoodOrder.Costumer(user);
                         }
                         else if (choice2 == 3)
                         {

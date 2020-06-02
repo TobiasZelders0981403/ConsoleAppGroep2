@@ -43,3 +43,6 @@ C:\Users\tobiz\OneDrive\Documenten\GitHub\ConsoleAppGroep2\cinemaApp\obj\Debug\n
 C:\Users\tobiz\OneDrive\Documenten\GitHub\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.dll
 C:\Users\tobiz\OneDrive\Documenten\GitHub\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.pdb
 C:\Users\tobiz\OneDrive\Documenten\GitHub\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.genruntimeconfig.cache
+C:\Users\admin\Documents\GitHub\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\Food.cs
+C:\Users\admin\Documents\GitHub\ConsoleAppGroep2\cinemaApp\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\admin\Documents\GitHub\ConsoleAppGroep2\cinemaApp\obj\Debug\netcoreapp3.1\cinemaApp.csproj.CopyComplete
