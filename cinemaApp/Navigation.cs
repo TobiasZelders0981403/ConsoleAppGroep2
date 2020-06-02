@@ -100,7 +100,7 @@ namespace cinemaApp {
                     ReserveTickets.ReserveTicketsMain(user);
                 } else if (choice == 5) {
                     //order food
-                    CostumerFoodOrder.Costumer();
+                    CostumerFoodOrder.Costumer(user);
                 } else if (choice == 6) {
                     //shopping cart
                     Shoppingcart.ShoppingcartNav();

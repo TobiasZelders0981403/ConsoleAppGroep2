@@ -5,7 +5,7 @@ using System.IO;
 
 namespace cinemaApp
 {
-    class User
+    public class User
     {
         public string username { get; set; }
         private string password { get; set; }
