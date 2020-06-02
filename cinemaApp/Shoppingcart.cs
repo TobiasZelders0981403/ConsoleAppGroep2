@@ -10,8 +10,9 @@ namespace cinemaApp
         
         public static void ShoppingcartNav(User user)
         {
-            //Eerst current shoppingcart laten zien
-            Console.WriteLine("\nPlease pick a option.\n[1] Checkout.\n[2] Edit shoppingcart.\n[3] Continue shopping.\n[4] Back.");
+            ShoppincartShowItems();
+
+            Console.WriteLine("\nPlease pick a option.\n[1] Checkout.\n[2] Remove item from shoppingcart.\n[3] Continue shopping.\n[4] Back.");
             int choice = Program.ChoiceInput(0, 4);
             while(choice != 0) {
                 if (choice == 1)
@@ -20,7 +21,8 @@ namespace cinemaApp
                 }
                 else if (choice == 2)
                 {
-
+                    Console.WriteLine("\nWhat item would you like to remove from your shoppingcart?\n[B] Back.");
+                    
                 }
                 else if (choice == 3)
                 {
@@ -35,7 +37,7 @@ namespace cinemaApp
                         else if (choice2 == 2)
                         {
                             Console.WriteLine("Buy food.");
-                            CostumerFoodOrder.Costumer();
+                            CostumerFoodOrder.Costumer(user);
                         }
                         else if (choice2 == 3)
                         {
@@ -49,19 +51,28 @@ namespace cinemaApp
                 }  
             }
         }
-        static void ShoppingcartMain()
-        {
-            var ShoppingcartItems = new[] { "Film", "Burger", "Friet", "Water" };
-            foreach (var item in ShoppingcartItems)
-            {
 
+
+        public static void ShoppingcartEdit()
+        {
+            var shoppingcartItems = new[] { "Film", "Burger", "Friet", "Water" };
+            int choiceShoppingcart = Program.ChoiceInput(0, shoppingcartItems.Length);
+            for (int i = 0; i < shoppingcartItems.Length; i++)
+            {
+                Console.WriteLine("[{0}] {1}",i+1,shoppingcartItems[i]);
             }
+            
 
         }
+
+
         static void ShoppincartShowItems()
         {
-            
-            //code connecten aan reservetickets.savetoshoppingcart
+            var ShoppingcartItems = new[] { "Film", "Burger", "Friet", "Water" };
+            for (int i = 0; i < ShoppingcartItems.Length; i++)
+            {
+                Console.WriteLine("[{0}] {1}", i + 1, ShoppingcartItems[i]);
+            }
         }
         static void ShoppingcartCheckout(User user)
         {
