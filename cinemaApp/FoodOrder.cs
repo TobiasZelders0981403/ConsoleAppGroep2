@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace cinemaApp
@@ -44,7 +45,7 @@ namespace cinemaApp
             }
             Console.WriteLine("Choose number between 1 and 7: ");
             string chosen = Console.ReadLine();
-            int chose = Convert.ToInt32(chosen);
+            int chose = Program.ChoiceInput(1,7);
             if (chose > 0 && chose < 8)
             {
                 return days[chose - 1];
@@ -210,21 +211,25 @@ namespace cinemaApp
                 //save to shoppingCart
 
                 string filename = $"{user.username}-ShoppingCart.json";
-                string s = $"user: {user.username} | {userDay} - {userHour}:{userMinute}";
+                string[] s = { user.username, userDay, userHour.ToString(), userMinute.ToString() };
                 for (int i = 0; i < userOrder.Count; i++) {
                     Food order = userOrder[i];
-                    s += $"\nprice:{order.price}, name:{order.name}, size:{order.size}, category:{order.category} - {order.subCategory}";
+                    string[] s2 = { order.price.ToString(), order.name, order.size, order.category, order.subCategory};
+                    List<string> myList = new List<string>();
+                    myList.AddRange(s);
+                    myList.AddRange(s2);
+                    s = myList.ToArray();
                 }
                 if (user.username != "Guest") {
                     if (File.Exists(@filename)) {
                         string rawJSON = File.ReadAllText(filename);
-                        string[] data = JsonConvert.DeserializeObject<string[]>(rawJSON);
+                        string[][] data = JsonConvert.DeserializeObject<string[][]>(rawJSON);
                         Array.Resize(ref data, data.Length + 1);
                         data[data.Length - 1] = s;
                         string shoppingData = JsonConvert.SerializeObject(data);
                         File.WriteAllText(filename, shoppingData);
                     } else {
-                        string[] data = new string[1] { s };
+                        string[][] data = new string[1][] { s };
                         string shoppingData = JsonConvert.SerializeObject(data);
                         File.AppendAllText(filename, shoppingData);
                     }
