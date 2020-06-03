@@ -27,9 +27,9 @@ namespace cinemaApp
                 
                 Console.WriteLine("\nPlease select the day.");
                 for (int i = 0; i < dayOptions.Count; i++) {
-                    Console.WriteLine($"[{i}] {dayOptions[i]}");
+                    Console.WriteLine($"[{i+1}] {dayOptions[i]}");
                 }
-                Day = dayOptions[Program.ChoiceInput(0, 6)];
+                Day = dayOptions[Program.ChoiceInput(1, 7)-1];
                 
                 
                 //testing input
@@ -45,7 +45,7 @@ namespace cinemaApp
                     {
                         hulpTickets = int.Parse(Tickets);
                         testcount = 1;
-                        Console.WriteLine("good");
+                        //Console.WriteLine("good");
                     }
 
                     catch (FormatException)
@@ -63,7 +63,7 @@ namespace cinemaApp
                     {
                         hulpMoney = int.Parse(Money);
                         testcount = 2;
-                        Console.WriteLine("good");
+                        //Console.WriteLine("good");
                     }
                     catch (FormatException)
                     {

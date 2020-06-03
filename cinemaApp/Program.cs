@@ -10,7 +10,7 @@ namespace cinemaApp
             Console.Title = "Cinema Application.";
             User user = new User();
 
-            Console.WriteLine("Please pick a option.\n[1] Login.\n[2] Register.\n[3] Continue as guest.\n[0] exit");
+            Console.WriteLine("Please pick an option.\n[1] Login.\n[2] Register.\n[3] Continue as guest.\n[0] Exit");
             int choice = ChoiceInput(0, 3);
             if (choice == 1) {
                Login(user);
@@ -38,7 +38,7 @@ namespace cinemaApp
         {
                 user.VerifyLogin();
             if (user.accountVerified == false) {
-                Console.WriteLine("\nIncorrect! Please pick a option\n[1] Try again.\n[2] Register a new account.\n[0] Exit");
+                Console.WriteLine("\nIncorrect! Please pick an option\n[1] Try again.\n[2] Register a new account.\n[0] Exit.");
                 int loginChoice = ChoiceInput(0, 2);
                 if (loginChoice == 0) {
                     Environment.Exit(0);
