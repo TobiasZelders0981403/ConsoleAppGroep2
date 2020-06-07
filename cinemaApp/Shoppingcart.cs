@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -7,7 +8,7 @@ namespace cinemaApp
 {
     public class Shoppingcart
     {
-        
+        static string[][] data;
         public static void ShoppingcartNav(User user)
         {
             ShoppincartShowItems();
@@ -36,7 +37,6 @@ namespace cinemaApp
                         }
                         else if (choice2 == 2)
                         {
-                            Console.WriteLine("Buy food.");
                             CostumerFoodOrder.Costumer(user);
                         }
                         else if (choice2 == 3)
@@ -64,15 +64,36 @@ namespace cinemaApp
             
 
         }
+        static void ShoppincartConverter(User user)
+        {
+            string filename = $"{user.username}-ShoppingCart.json";
+            if (user.username != "Guest")
+            {
+                if (File.Exists(@filename))
+                {
+                    string rawJSON = File.ReadAllText(filename);
+                    data = JsonConvert.DeserializeObject<string[][]>(rawJSON);
+                }
+                else {
+                    //user.shoppingCart;
+                }
 
+            }
+        }
 
         static void ShoppincartShowItems()
         {
-            var ShoppingcartItems = new[] { "Film", "Burger", "Friet", "Water" };
-            for (int i = 0; i < ShoppingcartItems.Length; i++)
+            foreach (var item in data)
             {
-                Console.WriteLine("[{0}] {1}", i + 1, ShoppingcartItems[i]);
+                Console.WriteLine(item);
             }
+
+            for (int i = 0; i < 2; i++)
+            {
+            }
+            
+
+
         }
         static void ShoppingcartCheckout(User user)
         {
