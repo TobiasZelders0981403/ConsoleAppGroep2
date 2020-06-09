@@ -1,1 +1,4 @@
-[["102","filmName","monday","12:00","room1","row:0","seat:5"],["user1","Sunday","10","0","2,5","M Fernandes cherry","M","Drink","Soda","20","M Hawaii pizza","M","Snack","Pizza"]]
+[
+  [ "102", "filmName", "monday", "12:00", "room1", "row:0", "seat:5" ],
+  [ "user1", "Sunday", "10", "0", "2,5", "M Fernandes cherry", "M", "Drink", "Soda", "20", "M Hawaii pizza", "M", "Snack", "Pizza" ]
+]
