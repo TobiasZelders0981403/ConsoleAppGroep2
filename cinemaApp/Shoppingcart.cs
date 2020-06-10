@@ -236,7 +236,6 @@ namespace cinemaApp
                 if (int.TryParse(creditcardInput, out int integer) && creditcardInput.Length == creditcardMaxNumbers)
                 {
                     creditcardCheck = true;
-                    Console.WriteLine("True");
                 }
                 else
                 {
