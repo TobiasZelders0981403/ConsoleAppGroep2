@@ -106,6 +106,14 @@ namespace cinemaApp
             }
             string filename = $"{user.username}-ShoppingCart.json";
             int choiceRemove = Program.ChoiceInput(1, data.Length) - 1;
+            //reset removed seats
+                //check if it is a movie
+            if (data[choiceRemove][0] != user.username) {
+                RestoreSeatAvalibility(choiceRemove);
+            }
+            //remove foodOrder for caterer
+
+            //remove item from shopping cart
             data = data.Where(w => w != data[choiceRemove]).ToArray();
             string shoppingData = JsonConvert.SerializeObject(data);
             File.WriteAllText(filename, shoppingData);
@@ -196,6 +204,54 @@ namespace cinemaApp
             Console.WriteLine("Thank you for your purchase!\nHere is your reservation code: (reservation code)");
             Navigation.CustomerNavigation(user);
         }
+
+        static void RestoreSeatAvalibility(int choiceRemove) {
+            List<string> timeTemplate = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00" };
+            string seatFileName = data[choiceRemove][2] + "/" + timeTemplate.IndexOf(data[choiceRemove][3]) + "-Seats.txt";
+            //read file
+            StreamReader streamreader = new StreamReader(seatFileName);
+            string line;
+            int index = 0;
+            string[][] RoomSeats = new string[50][];
+            while (!string.IsNullOrWhiteSpace(line = streamreader.ReadLine())) {
+                string[] components = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                RoomSeats[index] = components;
+                index++;
+            }
+            streamreader.Close();
+            int row, seat;
+            int.TryParse(data[choiceRemove][5], out row);
+            int.TryParse(data[choiceRemove][6], out seat);
+            RoomSeats[row][seat] = "0";
+
+            //save seat
+            StreamWriter streamwriter = new StreamWriter(seatFileName);
+            string s = "";
+            int i;
+            for (i = 0; i < 10; i++) {
+                for (int j = 0; j < 15; j++) {
+                    s += RoomSeats[i][j] + " ";
+                }
+                s += "\n";
+            }
+            for (i = 10; i < 25; i++) {
+                for (int j = 0; j < 20; j++) {
+                    s += RoomSeats[i][j] + " ";
+                }
+                s += "\n";
+            }
+            for (i = 25; i < 50; i++) {
+                for (int j = 0; j < 25; j++) {
+                    s += RoomSeats[i][j] + " ";
+                }
+                if (i != 49) {
+                    s += "\n";
+                }
+            }
+            streamwriter.WriteLine(s);
+            streamwriter.Close();
+        }
+
     }
 }
         
