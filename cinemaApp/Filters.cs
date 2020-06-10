@@ -13,6 +13,7 @@ namespace cinemaApp {
         private static int checkedAge;
         private static string genre;
 
+        //displays all current movies to user
         public static void AgeFilter(User user) {
             //readfile
             int count = 0;
@@ -29,6 +30,7 @@ namespace cinemaApp {
                 if (user.age >= checkedAge) {
                     //output
                     Console.WriteLine("Title: " + data[0] + "\nAge: " + data[1] + "\nDescription: " + data[2] + "\nGenre: " + data[3] + "\nRelease Date: " + data[4] + "\nTime: " + data[5] + ", Room: " + data[6] + "\n");
+                    count++;
                 }
             }
             streamreader.Close();
@@ -37,6 +39,7 @@ namespace cinemaApp {
             }
         }
 
+        //search all current movies by genre
         public static void GenreFilter(User user) {
             //select genre
             genre = SelectGenre(user);
@@ -64,12 +67,14 @@ namespace cinemaApp {
             }
         }
 
+        //a loop for all the options of displaying future movies
         public static void FutureMovies(User user) {
             Console.WriteLine("\nPlease pick a option.\n[1] Look at all future movies.\n[2] Search by genre.\n[3] Exit.");
             int choice = Program.ChoiceInput(1, 2);
             while (choice != 3) {
                 if (choice == 1) {
-                    //look at future movies
+                    //displays all future movies to user
+
                     //readfile
                     int count = 0;
                     streamreader = new StreamReader("futurefilm.txt");
@@ -97,7 +102,8 @@ namespace cinemaApp {
                         choice = Program.ChoiceInput(1, 2);
                     }
                 } else if (choice == 2) {
-                    //search by genre
+                    //search all future movies by genre
+
                     //select genre
                     genre = SelectFutureGenre(user);
                     if (genre != null) {
@@ -129,6 +135,7 @@ namespace cinemaApp {
             }
         }
 
+        //genre selections for current movies
         private static string SelectGenre(User user) {
             List<string> genreList = new List<string>();
             //readfile
@@ -159,6 +166,7 @@ namespace cinemaApp {
             }
         }
 
+        //genre selections for future movies
         private static string SelectFutureGenre(User user) {
             List<string> genreList = new List<string>();
             //readfile

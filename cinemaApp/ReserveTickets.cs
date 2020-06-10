@@ -31,7 +31,6 @@ namespace cinemaApp
         static bool full = true;
         static double[][] priceArray;
 
-        //input
         public static void ReserveTicketsMain(User user)
         {
                 rowChoice = -1;
@@ -39,18 +38,13 @@ namespace cinemaApp
             movieOptions = new List<string>();
             timeOptions = new List<string>();
 
-            //LoadMovies(user);
+            //start the first selection function
             MovieSelection(user);
 
-            //DaySelection();
-
-            //LoadTimeOptions();
-            //TimeSelection(); //includes room
-
-            //SeatSelection(user);
 
             }
 
+        //select a movie
         static void MovieSelection(User user) {
             movieOptions = new List<string>();
             LoadMovies(user);
@@ -66,6 +60,7 @@ namespace cinemaApp
             }
         }
 
+        //select a day
         static void DaySelection(User user) {
             int i;
             Console.WriteLine("\nPlease select a day.");
@@ -81,6 +76,7 @@ namespace cinemaApp
             } else { MovieSelection(user); }
         }
 
+        //select a time (also auto selects the room)
         static void TimeSelection(User user) {
             int i;
             Console.WriteLine("Please select a time.");
@@ -100,6 +96,7 @@ namespace cinemaApp
             } else { DaySelection(user); };
         }
 
+        //select seats
         static void SeatSelection(User user) {
             int rowMax;
             int seatsPerRow;
@@ -162,6 +159,7 @@ namespace cinemaApp
             }
         }
 
+        //reads seats out for user
         static void ReadSeats(int rowMax, int seatsPerRow) {
             for (int i =0; i < RoomSeats.Length; i++) {
                 if (RoomSeats[i].Contains("0")) {
@@ -196,6 +194,7 @@ namespace cinemaApp
             }
         }
 
+        //reads seats file
         static void ReadSeatFile() {
             string fileName = dayOptions[dayChoice] + "/" + timeChoice + "-Seats.txt";
             StreamReader streamreader = new StreamReader(@fileName);
@@ -227,6 +226,7 @@ namespace cinemaApp
             streamreader.Close();
         }
 
+        //saves seat file
         static void SaveSeatFile() {
             //Read File
             string fileName = dayOptions[dayChoice] + "/" + timeChoice + "-Seats.txt";
@@ -286,6 +286,7 @@ namespace cinemaApp
             streamwriter.Close();
         }
 
+        //load all movie titles
         static void LoadMovies(User user) {
             //read
             string[] data;
@@ -307,6 +308,7 @@ namespace cinemaApp
             streamreader.Close();
         }
 
+        //load all options for time
         static void LoadTimeOptions() {
             rooms = new List<string>();
             string[] data;
@@ -327,6 +329,7 @@ namespace cinemaApp
             streamreader.Close();
         }
 
+        //save to shopping cart
         static void SaveToShoppingCart(User user) {
             if (room == "room1") {
                 string fileName = "roomOne.json";

@@ -14,7 +14,6 @@ namespace cinemaApp
             string Tickets;
             string Money;
             List<string> dayOptions = new List<string>() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-            //DateTime today;
             using (DataTable dt = new DataTable("sales"))
             {
 
@@ -22,7 +21,6 @@ namespace cinemaApp
                 dt.Columns.Add("Tickets", typeof(int));
                 dt.Columns.Add("Money", typeof(string));
 
-                //today = DateTime.Now;
                 Console.WriteLine("\nPlease select the day.");
                 for (int i = 0; i < dayOptions.Count; i++) {
                     Console.WriteLine($"[{i}] {dayOptions[i]}");
