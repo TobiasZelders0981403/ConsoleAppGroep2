@@ -289,13 +289,13 @@ namespace cinemaApp
         {
             Console.WriteLine("\nThis room has " + rows + " rows with " + seats + " seats");
             Console.WriteLine("what would you like to do.\nYou can: \n" +
-                "1. See an overview of all seat prices\n" +
-                "2. See an overview of prices of a row\n"+
-                "3. Set price individual seat\n" +
-                "4. Set price for a whole row\n" +
-                "5. Set price for the whole room\n" +
-                "6. Set price for the middle seats\n" +
-                "Press q to exit");
+                "[1] See an overview of all seat prices\n" +
+                "[2] See an overview of prices of a row\n"+
+                "[3] Set price individual seat\n" +
+                "[4] Set price for a whole row\n" +
+                "[5] Set price for the whole room\n" +
+                "[5] Set price for the middle seats\n" +
+                "[0] Exit...");
         }
 
         static void roomOne()
@@ -313,34 +313,33 @@ namespace cinemaApp
                 Console.WriteLine("\nRoom 1");
                 displayOptions(room1.seatPrices.Length, room1.seatPrices[0].Length);
 
-                var operation = Console.ReadKey().Key;
+                var operation = Program.ChoiceInput(1,6);
 
-                if (operation == ConsoleKey.Q)
+                if (operation == 0)
                 {
-                    busy = false;
                     break;
                 }
-                else if (operation == ConsoleKey.D1)
+                else if (operation == 1)
                 {
                     room1.overview();
                 }
-                else if (operation == ConsoleKey.D2)
+                else if (operation == 2)
                 {
                     room1.overviewRow();
                 }
-                else if (operation == ConsoleKey.D3)
+                else if (operation == 3)
                 {
                     room1.setPriceSeat();
                 }
-                else if (operation == ConsoleKey.D4)
+                else if (operation == 4)
                 {
                     room1.setPriceRow();
                 }
-                else if (operation == ConsoleKey.D5)
+                else if (operation == 5)
                 {
                     room1.setPriceRoom();
                 }
-                else if (operation == ConsoleKey.D6)
+                else if (operation == 6)
                 {
                     room1.setPriceMiddle();
                 }
@@ -365,34 +364,33 @@ namespace cinemaApp
                 Console.WriteLine("\nRoom 2");
                 displayOptions(room2.seatPrices.Length, room2.seatPrices[0].Length);
 
-                var operation = Console.ReadKey().Key;
+                var operation = Program.ChoiceInput(1, 6);
 
-                if (operation == ConsoleKey.Q)
+                if (operation == 0)
                 {
-                    busy = false;
                     break;
                 }
-                else if (operation == ConsoleKey.D1)
+                else if (operation == 1)
                 {
                     room2.overview();
                 }
-                else if (operation == ConsoleKey.D2)
+                else if (operation == 2)
                 {
                     room2.overviewRow();
                 }
-                else if (operation == ConsoleKey.D3)
+                else if (operation == 3)
                 {
                     room2.setPriceSeat();
                 }
-                else if (operation == ConsoleKey.D4)
+                else if (operation == 4)
                 {
                     room2.setPriceRow();
                 }
-                else if (operation == ConsoleKey.D5)
+                else if (operation == 5)
                 {
                     room2.setPriceRoom();
                 }
-                else if (operation == ConsoleKey.D6)
+                else if (operation == 6)
                 {
                     room2.setPriceMiddle();
                 }
@@ -417,34 +415,33 @@ namespace cinemaApp
                 Console.WriteLine("\nRoom 3");
                 displayOptions(room3.seatPrices.Length, room3.seatPrices[0].Length);
 
-                var operation = Console.ReadKey().Key;
+                var operation = Program.ChoiceInput(1, 6);
 
-                if (operation == ConsoleKey.Q)
+                if (operation == 0)
                 {
-                    busy = false;
                     break;
                 }
-                else if (operation == ConsoleKey.D1)
+                else if (operation == 1)
                 {
                     room3.overview();
                 }
-                else if (operation == ConsoleKey.D2)
+                else if (operation == 2)
                 {
                     room3.overviewRow();
                 }
-                else if (operation == ConsoleKey.D3)
+                else if (operation == 3)
                 {
                     room3.setPriceSeat();
                 }
-                else if (operation == ConsoleKey.D4)
+                else if (operation == 4)
                 {
                     room3.setPriceRow();
                 }
-                else if (operation == ConsoleKey.D5)
+                else if (operation == 5)
                 {
                     room3.setPriceRoom();
                 }
-                else if (operation == ConsoleKey.D6)
+                else if (operation == 6)
                 {
                     room3.setPriceMiddle();
                 }
