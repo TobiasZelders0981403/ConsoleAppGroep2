@@ -214,7 +214,7 @@ namespace cinemaApp
                 string[] s = { user.username, userDay, userHour.ToString(), userMinute.ToString() };
                 for (int i = 0; i < userOrder.Count; i++) {
                     Food order = userOrder[i];
-                    string[] s2 = { order.price.ToString(), order.name, order.size, order.category, order.subCategory};
+                    string[] s2 = { order.price.ToString(), order.name, order.size};
                     List<string> myList = new List<string>();
                     myList.AddRange(s);
                     myList.AddRange(s2);
