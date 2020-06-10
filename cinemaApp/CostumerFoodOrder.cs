@@ -171,7 +171,9 @@ namespace cinemaApp
                 if (choice == 0)
                 {
                     busy = false;
+                    Navigation.CustomerNavigation(user);
                     break;
+                    
                 }
                 else if (choice == 1)
                 {
