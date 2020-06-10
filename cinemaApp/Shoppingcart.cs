@@ -154,6 +154,7 @@ namespace cinemaApp
         static void ShoppingcartCheckout(User user)
         {
             double totalCheckout = 0;
+            double currentMoviePrice;
             int count = 4;
             for (int i = 0; i < data.Length; i++)
             {
@@ -167,9 +168,10 @@ namespace cinemaApp
                             count += 5;
                         }
                     }
-                    else if (Double.TryParse(data[i][0],out totalCheckout))
+                    else if (j==0)
                     {
-                        totalCheckout += double.Parse(data[i][0]);
+                        Double.TryParse(data[i][0], out currentMoviePrice);
+                        totalCheckout += currentMoviePrice;
                     }
                 }
 
