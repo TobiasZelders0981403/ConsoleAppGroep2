@@ -20,14 +20,14 @@ namespace cinemaApp
         public bool Paid;
         public bool Made;
 
-        public FoodOrder(FoodMenu order, string day, int hour, int minute)
+        public FoodOrder(FoodMenu order, string day, int hour, int minute, string un)
         {
             this.OrderId = ID.orderId();
             this.Order = order;
             this.Day = day;
             this.Hour = hour;
             this.Minute = minute;
-            this.UserName = "default";//User.username
+            this.UserName = un;
             this.Paid = false;
             this.Made = false;
             
@@ -44,49 +44,22 @@ namespace cinemaApp
                 i++;
             }
             Console.WriteLine("Choose number between 1 and 7: ");
-            string chosen = Console.ReadLine();
             int chose = Program.ChoiceInput(1,7);
-            if (chose > 0 && chose < 8)
-            {
-                return days[chose - 1];
-            }
-            else
-            {
-                Console.WriteLine("Invalid input. Please choose a number between 1 and 7");
-                return day();
-            }
+            return days[chose-1];
         }
 
         public static int hour()
         {
             Console.Write("Hour(9-23): ");
-            string userHour = Console.ReadLine();
-            int h = Convert.ToInt32(userHour);
-            if (h < 9 || h > 23)
-            {
-                Console.WriteLine("Invalid input. Choose hour between 9 and 23");
-                return hour();
-            }
-            else
-            {
-                return h;
-            }
+            int hour = Program.ChoiceInput(9, 23);
+            return hour;
         }
 
         public static int minute()
         {
             Console.Write("Minute(0-60): ");
-            string um = Console.ReadLine();
-            int userMinute = Convert.ToInt32(um);
-            if (userMinute < 0 || userMinute > 60)
-            {
-                Console.WriteLine("Invalid input. Choose hour between 0 and 60");
-                return minute();
-            }
-            else
-            {
-                return userMinute;
-            }
+            int min = Program.ChoiceInput(0, 60);
+            return min;
         }
 
         public void displayTime()
@@ -166,21 +139,12 @@ namespace cinemaApp
                 bool addFood = true;
                 while (addFood)
                 {
-                    Console.WriteLine("\nEnter the product id or press q to quit...");
+                    Console.WriteLine("\nEnter the product id or press q to continue...");
                     int userId;
                     string idStr = Console.ReadLine();
                     if (idStr == "q")
                     {
-                        if (userOrder.Count == 0)
-                        {
-                            items = false;
-                            break;
-                        }
-                        else
-                        {
-                            addFood = false;
-                            break;
-                        }
+                        break;
                     }
                     bool sucess = Int32.TryParse(idStr, out userId);
 
@@ -202,6 +166,10 @@ namespace cinemaApp
                         Add(user);
                     }
                 }
+                if(userOrder.Count == 0)
+                {
+                    break;
+                }
                 Console.WriteLine("When do you want it to be ready?\n");
                 string userDay = day();
 
@@ -214,7 +182,7 @@ namespace cinemaApp
                 string[] s = { user.username, userDay, userHour.ToString(), userMinute.ToString() };
                 for (int i = 0; i < userOrder.Count; i++) {
                     Food order = userOrder[i];
-                    string[] s2 = { order.price.ToString(), order.name, order.size};
+                    string[] s2 = { order.price.ToString(), order.name, order.size, order.category, order.subCategory};
                     List<string> myList = new List<string>();
                     myList.AddRange(s);
                     myList.AddRange(s2);
@@ -238,11 +206,11 @@ namespace cinemaApp
                 }
 
                 //return to Caterers FoodOrders
-                return new FoodOrder(new FoodMenu(userOrder), userDay, userHour, userMinute);
+                return new FoodOrder(new FoodMenu(userOrder), userDay, userHour, userMinute, user.username);
             }
-            return new FoodOrder(new FoodMenu(userOrder), day(), hour(), minute());
+            return null;
         }
 
-        //public static 
+        
     }
 }
