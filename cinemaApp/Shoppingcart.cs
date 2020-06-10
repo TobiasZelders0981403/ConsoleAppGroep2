@@ -11,10 +11,12 @@ namespace cinemaApp
     public class Shoppingcart
     {
         static string[][] data;
+
         public static void ShoppingcartNav(User user)
         {
             ShoppincartConverter(user);
-            ShoppincartShowItems(user);
+            seeCart(user);
+            //ShoppincartShowItems(user);
 
             Console.WriteLine("\nPlease pick a option.\n[1] Checkout.\n[2] Remove item from shoppingcart.\n[3] Continue shopping.\n[4] Back.");
             int choice = Program.ChoiceInput(0, 4);
@@ -159,6 +161,11 @@ namespace cinemaApp
             }
 
         }
+        public static void ReservationCode(User user)
+        {
+            int reservationCode;
+
+        }
         static void ShoppingcartCheckout(User user)
         {
             double totalCheckout = 0;
@@ -252,6 +259,36 @@ namespace cinemaApp
             }
             streamwriter.WriteLine(s);
             streamwriter.Close();
+        }
+        public static void seeCart(User user)
+        {
+            string fileName = "allOrders.json";
+            string rawJson = File.ReadAllText(fileName);
+            List<FoodOrder> all = JsonConvert.DeserializeObject<List<FoodOrder>>(rawJson);
+            var allOrders = new CostumerFoodOrder(all);
+
+            string username = user.username;
+            List<FoodOrder> userOrders = new List<FoodOrder>();
+            foreach (var order in all)
+            {
+                if (order.UserName == username && !order.Paid && !order.Made)
+                {
+                    userOrders.Add(order);
+                }
+            }
+
+
+
+            Console.WriteLine("\nIn your cart");
+            foreach (var fo in userOrders)
+            {
+                Console.WriteLine("\nOrder id: " + fo.OrderId);
+                fo.displayTime();
+                fo.Order.payOverview();
+            }
+
+
+
         }
 
     }
