@@ -18,10 +18,10 @@ namespace cinemaApp
 
         public void caterView()
         {
-            Console.WriteLine("\n1. Uncompleted orders" + "\n2. Completed orders");
-            var choice = Console.ReadKey().Key;
+            Console.WriteLine("\n[1] Uncompleted orders\n[2] Completed orders\n[0] Exit...");
+            var choice = Program.ChoiceInput(0, 2);
 
-            if (choice == ConsoleKey.D1)
+            if (choice == 1)
             {
                 Console.WriteLine("\nOrders not completed:");
                 foreach (var fo in Orders)
@@ -35,7 +35,7 @@ namespace cinemaApp
                 }
             }
 
-            else if (choice == ConsoleKey.D2)
+            else if (choice == 2)
             {
                 Console.WriteLine("\nOrders completed:");
                 foreach (var fo in Orders)
@@ -49,6 +49,7 @@ namespace cinemaApp
                 }
             }
         }
+
 
         public void isDone()
         {
