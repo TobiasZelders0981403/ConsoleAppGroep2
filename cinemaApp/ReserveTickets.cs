@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection.PortableExecutable;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Xml;
 
 namespace cinemaApp
 {
@@ -30,7 +31,6 @@ namespace cinemaApp
         static bool full = true;
         static double[][] priceArray;
 
-        //input
         public static void ReserveTicketsMain(User user)
         {
                 rowChoice = -1;
@@ -38,54 +38,65 @@ namespace cinemaApp
             movieOptions = new List<string>();
             timeOptions = new List<string>();
 
-            LoadMovies(user);
-            MovieSelection();
+            //start the first selection function
+            MovieSelection(user);
 
-            DaySelection();
 
-            LoadTimeOptions();
-            TimeSelection(); //includes room
-
-            SeatSelection(user);
-            /*
-            
-            //select time
-            TimeSelection();
-
-            //select movie (includes room)
-            MovieSelection();
-
-            //select seat(s)
-            SeatSelection(user);
-            */
             }
 
-        static void MovieSelection() {
+        //select a movie
+        static void MovieSelection(User user) {
+            movieOptions = new List<string>();
+            LoadMovies(user);
+            int i;
             Console.WriteLine("\nPlease select a movie.");
-            for (int i = 0; i < movieOptions.Count; i++) {
+            for (i = 0; i < movieOptions.Count; i++) {
                 Console.WriteLine($"[{i}] {movieOptions[i]}");
             }
+            Console.WriteLine($"[{i}] Go Back.");
             movieChoice = Program.ChoiceInput(0, movieOptions.Count);
+            if (movieChoice != movieOptions.Count) {
+                DaySelection(user);
+            }
         }
 
-        static void DaySelection() {
+        //select a day
+        static void DaySelection(User user) {
+            int i;
             Console.WriteLine("\nPlease select a day.");
-            for (int i = 0; i < dayOptions.Count; i++) {
+            for (i = 0; i < dayOptions.Count; i++) {
                 Console.WriteLine($"[{i}] {dayOptions[i]}");
             }
-            dayChoice = Program.ChoiceInput(0, 6);
+            Console.WriteLine($"[{i}] Go Back.");
+            dayChoice = Program.ChoiceInput(0, 7);
+            if (dayChoice != 7) {
+                timeOptions = new List<string>();
+                LoadTimeOptions();
+                TimeSelection(user);
+            } else { MovieSelection(user); }
         }
 
-        static void TimeSelection() {
+        //select a time (also auto selects the room)
+        static void TimeSelection(User user) {
+            int i;
             Console.WriteLine("Please select a time.");
-            for (int i = 0; i < timeOptions.Count; i++) {
+            for (i = 0; i < timeOptions.Count; i++) {
                 Console.WriteLine($"[{i}] {timeOptions[i]}");
             }
-            int choice = Program.ChoiceInput(0, timeOptions.Count - 1);
-            timeChoice = timeTemplate.IndexOf(timeOptions[choice]);
-            room = rooms[choice];
+            Console.WriteLine($"[{i}] Go Back.");
+            int choice = Program.ChoiceInput(0, timeOptions.Count);
+            if (choice != timeOptions.Count) {
+                timeChoice = timeTemplate.IndexOf(timeOptions[choice]);
+                room = rooms[choice];
+                Console.WriteLine("[0] Select seats.\n[1] Go Back");
+                int choice2 = Program.ChoiceInput(0, 1);
+                if (choice2 != 1) {
+                    SeatSelection(user);
+                } else { TimeSelection(user); }
+            } else { DaySelection(user); };
         }
 
+        //select seats
         static void SeatSelection(User user) {
             int rowMax;
             int seatsPerRow;
@@ -102,7 +113,7 @@ namespace cinemaApp
                 seatsPerRow = 25;
                 RoomSeats = new string[25][];
             }
-            
+
             while (TakenOrNot(rowChoice, seatChoice)) {
                 ReadSeatFile();
                 ReadSeats(rowMax, seatsPerRow);
@@ -148,6 +159,7 @@ namespace cinemaApp
             }
         }
 
+        //reads seats out for user
         static void ReadSeats(int rowMax, int seatsPerRow) {
             for (int i =0; i < RoomSeats.Length; i++) {
                 if (RoomSeats[i].Contains("0")) {
@@ -182,9 +194,11 @@ namespace cinemaApp
             }
         }
 
+        //reads seats file
         static void ReadSeatFile() {
             string fileName = dayOptions[dayChoice] + "/" + timeChoice + "-Seats.txt";
             StreamReader streamreader = new StreamReader(@fileName);
+
             string line;
             int i = 0;
             int index = 0;
@@ -212,6 +226,7 @@ namespace cinemaApp
             streamreader.Close();
         }
 
+        //saves seat file
         static void SaveSeatFile() {
             //Read File
             string fileName = dayOptions[dayChoice] + "/" + timeChoice + "-Seats.txt";
@@ -271,6 +286,7 @@ namespace cinemaApp
             streamwriter.Close();
         }
 
+        //load all movie titles
         static void LoadMovies(User user) {
             //read
             string[] data;
@@ -292,6 +308,7 @@ namespace cinemaApp
             streamreader.Close();
         }
 
+        //load all options for time
         static void LoadTimeOptions() {
             rooms = new List<string>();
             string[] data;
@@ -312,6 +329,7 @@ namespace cinemaApp
             streamreader.Close();
         }
 
+        //save to shopping cart
         static void SaveToShoppingCart(User user) {
             if (room == "room1") {
                 string fileName = "roomOne.json";
@@ -328,7 +346,7 @@ namespace cinemaApp
             }
             string filename = $"{user.username}-ShoppingCart.json";
             double price = priceArray[rowChoice][seatChoice];
-            string[] s = new string[] {price.ToString(), movieOptions[movieChoice], dayOptions[dayChoice], timeTemplate[timeChoice], room, "row:" + rowChoice.ToString(), "seat:" + seatChoice.ToString()};
+            string[] s = new string[] {price.ToString(), movieOptions[movieChoice], dayOptions[dayChoice], timeTemplate[timeChoice], room, rowChoice.ToString(), seatChoice.ToString()};
             if (user.username != "Guest") {
                 if (File.Exists(@filename)) {
                     string rawJSON = File.ReadAllText(filename);
