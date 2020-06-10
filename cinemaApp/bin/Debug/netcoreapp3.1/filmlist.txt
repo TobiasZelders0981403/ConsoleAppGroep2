@@ -40,7 +40,7 @@ Just another movie
 comedy
 23-04-2012
 16:00
-Room1
+room1
 5
 
 moviename4
@@ -58,7 +58,7 @@ cute
 comedy
 04-04-2019
 16:00
-Room3
+room3
 7
 
 ANOTHERMOVIE
@@ -67,6 +67,6 @@ ok
 action
 04-04-12312
 16:00
-Room2
+room2
 8
 
