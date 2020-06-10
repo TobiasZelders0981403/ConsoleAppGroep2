@@ -166,22 +166,22 @@ namespace cinemaApp
             while (busy)
             {
                 TheMenu.overview();
-                Console.WriteLine("\nHi, what do you wanna do?\n1. See menu\n2. Search menu\n3. New food order\npress q to quit....");
-                var choice = Console.ReadKey().Key;
-                if (choice == ConsoleKey.Q)
+                Console.WriteLine("\nHi, what do you wanna do?\n[1] See menu\n[2] Search menu\n[3] New food order\n[0] Exit...");
+                var choice = Program.ChoiceInput(0, 5);
+                if (choice == 0)
                 {
                     busy = false;
                     break;
                 }
-                else if (choice == ConsoleKey.D1)
+                else if (choice == 1)
                 {
                     TheMenu.overview();
                 }
-                else if (choice == ConsoleKey.D2)
+                else if (choice == 2)
                 {
                     TheMenu.search();
                 }
-                else if (choice == ConsoleKey.D3)
+                else if (choice == 3)
                 {
                     all.Add(FoodOrder.Add(user));
                     allOrders = new CostumerFoodOrder(all);

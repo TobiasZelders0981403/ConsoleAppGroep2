@@ -99,22 +99,22 @@ namespace cinemaApp
 
             while (busy)
             {
-                Console.WriteLine("\n1. View Orders\n2. Add item to done\n3. Remove a picked up order\npress q to quit....");
-                var choice = Console.ReadKey().Key;
-                if (choice == ConsoleKey.Q)
+                Console.WriteLine("\n[1] View Orders\n[2] Add item to done\n[3] Remove a picked up order\n[0] Exit....");
+                var choice = Program.ChoiceInput(0, 3);
+                if (choice == 0)
                 {
                     busy = false;
                     break;
                 }
-                else if (choice == ConsoleKey.D1)
+                else if (choice == 1)
                 {
                     allOrders.caterView();
                 }
-                else if (choice == ConsoleKey.D2)
+                else if (choice == 2)
                 {
                     allOrders.isDone();
                 }
-                else if (choice == ConsoleKey.D3)
+                else if (choice == 3)
                 {
                     allOrders.pickedUp();
                 }
