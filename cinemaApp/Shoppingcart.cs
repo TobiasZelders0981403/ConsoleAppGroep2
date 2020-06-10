@@ -247,7 +247,7 @@ namespace cinemaApp
 
             int reservationCode = 0;
 
-            using (var reader = new StreamReader("ReseravationCodes+TicketOrders.txt"))
+            using (var reader = new StreamReader("ReservationCodes+TicketOrders.txt"))
             {
                 int R = 0;
 
@@ -261,7 +261,7 @@ namespace cinemaApp
                 //making it unique
                 reservationCode = R;
             }
-            using (StreamWriter sw = File.AppendText("ReseravationCodes+TicketOrders.txt"))
+            using (StreamWriter sw = File.AppendText("ReservationCodes+TicketOrders.txt"))
             {
                 sw.WriteLine(reservationCode);
                 sw.WriteLine(reservatedMovies);
