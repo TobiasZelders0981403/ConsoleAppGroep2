@@ -13,7 +13,7 @@ namespace cinemaApp {
             while (choice != 0) {
                 if (choice == 1) {
                     //look at sale data
-                    UserData.ShowSaleData();
+                    SaleData.ShowSaleData();
                 } else if (choice == 2) {
                     //adjust seat prices
                     Rooms.Manager();
@@ -49,10 +49,10 @@ namespace cinemaApp {
             while (choice != 0) {
                 if (choice == 1) {
                     //show sale data
-                    UserData.ShowSaleData();
+                    SaleData.ShowSaleData();
                 } else if (choice == 2) {
                     //input sale data
-                    UserData.UserDataInput();
+                    SaleData.SaleDatainput();
                 } else if (choice == 3) {
                     //see all reservations
                     Console.WriteLine("NOT IMPLEMENTED YET");

@@ -62,6 +62,18 @@ namespace cinemaApp
             return choice;
         }
 
+        public static double DoubleInput(double min, double max) {
+            double choice;
+            string choiceInput = Console.ReadLine();
+            double.TryParse(choiceInput, out choice);
+            while (max < choice || choice < min || string.IsNullOrWhiteSpace(choiceInput) || !double.TryParse(choiceInput, out choice)) {
+                Console.WriteLine("Invalid Input! Please enter your option:");
+                choiceInput = Console.ReadLine();
+                double.TryParse(choiceInput, out choice);
+            }
+            return choice;
+        }
+
         public static string StringCheck() {
             string input = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(input)) {
