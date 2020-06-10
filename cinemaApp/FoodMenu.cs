@@ -61,28 +61,68 @@ namespace cinemaApp
             bool busy = true;
             while (busy)
             {
-                Console.WriteLine("search by name(1), category(2) or sub-category(3)\nPress q to quit...");
-                var choice = Console.ReadKey().Key;
-                if (choice == ConsoleKey.Q)
+                Console.WriteLine("[1] Search by name\n[2] Category\n[3] Sub-category\n[0] Exit...");
+                var choice = Program.ChoiceInput(0, 3);
+                if (choice == 0)
                 {
                     busy = false;
                     break;
                 }
-                else if (choice == ConsoleKey.D1)
+                else if (choice == 1)
                 {
                     searchName();
                 }
-                else if (choice == ConsoleKey.D2)
+                else if (choice == 2)
                 {
                     searchCategory();
                 }
-                else if (choice == ConsoleKey.D3)
+                else if (choice == 3)
                 {
                     searchsubCategory();
                 }
                 else
                 {
                     Console.WriteLine("Please choose a number between 1 and 3");
+                }
+            }
+        }
+        
+
+        public void viewCategory()
+        {
+            string[] snacksSubs = { "Popcorn", "Sweets", "Hot Dog", "Nachos", "Pizza" };
+            string[] drinkSubs = { "Water", "Soda", "Juice", "Milkshake", "Slushie" };
+            bool busy = true;
+
+            while (busy)
+            {
+                Console.WriteLine("[1] Snack\n[2] Drink\n[0] Exit...");
+                int choice = Program.ChoiceInput(1, 2);
+                if (choice == 0)
+                {
+                    break;
+                }
+                else if (choice == 1)
+                {
+                    string sc = Food.getSubCategory("Snack");
+                    foreach(var food in this.Menu)
+                    {
+                        if(food.subCategory == sc)
+                        {
+                            food.display();
+                        }
+                    }
+                }
+                else if (choice == 2)
+                {
+                    string sc = Food.getSubCategory("Drink");
+                    foreach (var food in this.Menu)
+                    {
+                        if (food.subCategory == sc)
+                        {
+                            food.display();
+                        }
+                    }
                 }
             }
         }
@@ -351,37 +391,45 @@ namespace cinemaApp
             while (busy)
             {
 
-                Console.WriteLine("\nWhat do you wanna do?\n1. See all avalaible items\n2. Add a new item\n3. Edit an item\n4. Remove an item\n5. Search for an item(5)\nPress q to quit...");
-                var userChoice = Console.ReadKey().Key;
+                while (busy)
+                {
 
-                if (userChoice == ConsoleKey.Q)
-                {
-                    busy = false;
-                    break;
-                }
-                else if (userChoice == ConsoleKey.D1)
-                {
-                    menu.overview();
-                }
-                else if (userChoice == ConsoleKey.D2)
-                {
-                    menu.addItem();
-                }
-                else if (userChoice == ConsoleKey.D3)
-                {
-                    menu.editItem();
-                }
-                else if (userChoice == ConsoleKey.D4)
-                {
-                    menu.Delete();
-                }
-                else if (userChoice == ConsoleKey.D5)
-                {
-                    menu.search();
-                }
-                else
-                {
-                    Console.WriteLine("Please choose between 1, 2, 3 and 4");
+                    Console.WriteLine("\nWhat do you wanna do?\n[1] See all avalaible items\n[2] Add a new item\n[3] Edit an item\n[4] Remove an item\n[5] Search for an item\n[6] View by category\n[0] Exit...");
+                    int userChoice = Program.ChoiceInput(0, 6);
+
+                    if (userChoice == 0)
+                    {
+                        busy = false;
+                        break;
+                    }
+                    else if (userChoice == 1)
+                    {
+                        menu.overview();
+                    }
+                    else if (userChoice == 2)
+                    {
+                        menu.addItem();
+                    }
+                    else if (userChoice == 3)
+                    {
+                        menu.editItem();
+                    }
+                    else if (userChoice == 4)
+                    {
+                        menu.Delete();
+                    }
+                    else if (userChoice == 5)
+                    {
+                        menu.search();
+                    }
+                    else if (userChoice == 6)
+                    {
+                        menu.viewCategory();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please choose between 1, 2, 3, 4 and 5");
+                    }
                 }
             }
             string newJson = JsonConvert.SerializeObject(mainMenu);
