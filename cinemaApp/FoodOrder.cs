@@ -20,16 +20,17 @@ namespace cinemaApp
         public bool Paid;
         public bool Made;
 
-        public FoodOrder(FoodMenu order, string day, int hour, int minute, string username)
+        public FoodOrder(FoodMenu order, string day, int hour, int minute, string un)
         {
             this.OrderId = ID.orderId();
             this.Order = order;
             this.Day = day;
             this.Hour = hour;
             this.Minute = minute;
-            //this.UserName = "default";//User.username
+            this.UserName = un;
             this.Paid = false;
             this.Made = false;
+            
         }
 
         public static string day()
@@ -43,17 +44,14 @@ namespace cinemaApp
                 i++;
             }
             Console.WriteLine("Choose number between 1 and 7: ");
-          
             int chose = Program.ChoiceInput(1,7);
-            return days[chose - 1];
-            
-            
+            return days[chose-1];
         }
 
         public static int hour()
         {
             Console.Write("Hour(9-23): ");
-            int hour = Program.ChoiceInput(1, 23);
+            int hour = Program.ChoiceInput(9, 23);
             return hour;
         }
 
@@ -116,19 +114,13 @@ namespace cinemaApp
                     addFoodOrder();
                 }
 
-                if (userOrder.Count != 0)
-                {
-                    Console.WriteLine("When do you want it to be ready?\n");
-                    string userDay = day();
+                Console.WriteLine("When do you want it to be ready?\n");
+                string userDay = day();
 
-                    Console.WriteLine("The time: ");
-                    int userHour = hour();
-                    int userMinute = minute();
-                }
-                else
-                {
-                    Console.WriteLine("Nothing selected");
-                }
+                Console.WriteLine("The time: ");
+                int userHour = hour();
+                int userMinute = minute();
+
 
             }
         }
@@ -140,16 +132,13 @@ namespace cinemaApp
             List<Food> menu = JsonConvert.DeserializeObject<List<Food>>(rawJson);
             var TheMenu = new FoodMenu(menu);
 
-
             bool items = true;
             List<Food> userOrder = new List<Food>();
             while (items)
             {
-                int check = 0;
                 bool addFood = true;
                 while (addFood)
                 {
-                    
                     Console.WriteLine("\nEnter the product id or press q to continue...");
                     int userId;
                     string idStr = Console.ReadLine();
@@ -157,7 +146,6 @@ namespace cinemaApp
                     {
                         break;
                     }
-
                     bool sucess = Int32.TryParse(idStr, out userId);
 
                     if ((sucess) & (userId <= ID.foodMax()) & (userId >= 0))
@@ -169,7 +157,6 @@ namespace cinemaApp
                             {
                                 food.display();
                                 userOrder.Add(food);
-                                check++;
                             }
                         }
                     }
@@ -178,21 +165,17 @@ namespace cinemaApp
                         Console.WriteLine("Invalid input");
                         Add(user);
                     }
-
                 }
-
-                if (userOrder.Count == 0)
+                if(userOrder.Count == 0)
                 {
                     break;
                 }
-
                 Console.WriteLine("When do you want it to be ready?\n");
                 string userDay = day();
 
                 Console.WriteLine("The time: ");
                 int userHour = hour();
                 int userMinute = minute();
-                
                 //save to shoppingCart
 
                 string filename = $"{user.username}-ShoppingCart.json";
