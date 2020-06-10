@@ -165,7 +165,6 @@ namespace cinemaApp
 
             while (busy)
             {
-                TheMenu.overview();
                 Console.WriteLine("\nHi, what do you wanna do?\n[1] See menu\n[2] Search menu\n[3] New food order\n[0] Exit...");
                 var choice = Program.ChoiceInput(0, 5);
                 if (choice == 0)
@@ -175,7 +174,7 @@ namespace cinemaApp
                 }
                 else if (choice == 1)
                 {
-                    TheMenu.overview();
+                    TheMenu.viewCategory();
                 }
                 else if (choice == 2)
                 {
