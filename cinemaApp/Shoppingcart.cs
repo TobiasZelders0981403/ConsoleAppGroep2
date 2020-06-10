@@ -11,9 +11,11 @@ namespace cinemaApp
     public class Shoppingcart
     {
         static string[][] data;
+
         public static void ShoppingcartNav(User user)
         {
             ShoppincartConverter(user);
+            //seeCart(user);
             ShoppincartShowItems(user);
 
             Console.WriteLine("\nPlease pick a option.\n[1] Checkout.\n[2] Remove item from shoppingcart.\n[3] Continue shopping.\n[4] Back.");
@@ -159,10 +161,44 @@ namespace cinemaApp
             }
 
         }
-        static void ShoppingcartCheckout(User user)
+        /*
+        public static void ReservationCode(User user)
+        {
+            int reservationCode = 0;
+
+            using (var reader = new StreamReader("ReseravationCodes+TicketOrders.txt"))
+            {
+                int R = 0;
+
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    R = Convert.ToInt32(line);
+                    //checking last created reservationcode
+                }
+                R = R + 1;
+                //making it unique
+                reservationCode = R;
+            }
+            using (StreamWriter sw = File.AppendText("ReseravationCodes+TicketOrders.txt"))
+            {
+                sw.WriteLine(reservationCode);
+                sw.WriteLine(reservatedMovies);
+                sw.Close();
+            }
+
+
+
+            Console.WriteLine("\n\nyour reservationcode is: " + reservationCode);
+
+        }
+        */
+        public static void ShoppingcartCheckout(User user)
         {
             double totalCheckout = 0;
             double currentMoviePrice;
+            double rest;
+            List<String> reservatedMovies = new List<String>();
             int count = 4;
             for (int i = 0; i < data.Length; i++)
             {
@@ -173,13 +209,18 @@ namespace cinemaApp
                         if (count < data[i].Length)
                         {
                             totalCheckout += double.Parse(data[i][count]);
-                            count += 5;
+                            count += 3;
                         }
                     }
                     else if (j==0)
                     {
                         Double.TryParse(data[i][0], out currentMoviePrice);
                         totalCheckout += currentMoviePrice;
+
+                    }
+                    if (Double.TryParse(data[i][0], out rest))
+                    {
+                        reservatedMovies.Add(data[i][j]);
                     }
                 }
 
@@ -195,7 +236,6 @@ namespace cinemaApp
                 if (int.TryParse(creditcardInput, out int integer) && creditcardInput.Length == creditcardMaxNumbers)
                 {
                     creditcardCheck = true;
-                    Console.WriteLine("True");
                 }
                 else
                 {
@@ -203,7 +243,31 @@ namespace cinemaApp
                     creditcardInput = Console.ReadLine();
                 }
             }
-            Console.WriteLine("Thank you for your purchase!\nHere is your reservation code: (reservation code)");
+
+            int reservationCode = 0;
+
+            using (var reader = new StreamReader("ReservationCodes+TicketOrders.txt"))
+            {
+                int R = 0;
+
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    R = Convert.ToInt32(line);
+                    //checking last created reservationcode
+                }
+                R = R + 1;
+                //making it unique
+                reservationCode = R;
+            }
+            using (StreamWriter sw = File.AppendText("ReservationCodes+TicketOrders.txt"))
+            {
+                sw.WriteLine(reservationCode);
+                sw.WriteLine(reservatedMovies);
+                sw.Close();
+            }
+
+            Console.WriteLine("Thank you for your purchase!\nHere is your reservation code: {0}", reservationCode);
             Navigation.CustomerNavigation(user);
         }
 
@@ -252,6 +316,36 @@ namespace cinemaApp
             }
             streamwriter.WriteLine(s);
             streamwriter.Close();
+        }
+        public static void seeCart(User user)
+        {
+            string fileName = "allOrders.json";
+            string rawJson = File.ReadAllText(fileName);
+            List<FoodOrder> all = JsonConvert.DeserializeObject<List<FoodOrder>>(rawJson);
+            var allOrders = new CostumerFoodOrder(all);
+
+            string username = user.username;
+            List<FoodOrder> userOrders = new List<FoodOrder>();
+            foreach (var order in all)
+            {
+                if (order.UserName == username && !order.Paid && !order.Made)
+                {
+                    userOrders.Add(order);
+                }
+            }
+
+
+
+            Console.WriteLine("\nIn your cart");
+            foreach (var fo in userOrders)
+            {
+                Console.WriteLine("\nOrder id: " + fo.OrderId);
+                fo.displayTime();
+                fo.Order.payOverview();
+            }
+
+
+
         }
 
     }

@@ -47,8 +47,7 @@ namespace cinemaApp
             string fileName = "IdOrder.json";
             string rawJson = File.ReadAllText(fileName);
             List<int> orderIds = JsonConvert.DeserializeObject<List<int>>(rawJson);
-            List<int> oderIds = new List<int> { 1, 2 };
-            return oderIds.Max() + 1;
+            return orderIds.Max() + 1;
         }     
     }
 }

@@ -41,7 +41,7 @@ namespace CommentManager
             }
             else if (input == "3")
             {
-                OwnerNavigation();
+                //OwnerNavigation();
             }
         }
         public static void MaReview()
@@ -96,7 +96,7 @@ namespace CommentManager
                 }
                 else if (input == "3")
                 {
-                    OwnerNavigation();
+                    //OwnerNavigation();
                 }
             }
         }
