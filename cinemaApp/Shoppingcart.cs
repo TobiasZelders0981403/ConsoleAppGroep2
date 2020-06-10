@@ -15,8 +15,8 @@ namespace cinemaApp
         public static void ShoppingcartNav(User user)
         {
             ShoppincartConverter(user);
-            seeCart(user);
-            //ShoppincartShowItems(user);
+            //seeCart(user);
+            ShoppincartShowItems(user);
 
             Console.WriteLine("\nPlease pick a option.\n[1] Checkout.\n[2] Remove item from shoppingcart.\n[3] Continue shopping.\n[4] Back.");
             int choice = Program.ChoiceInput(0, 4);
@@ -161,15 +161,44 @@ namespace cinemaApp
             }
 
         }
+        /*
         public static void ReservationCode(User user)
         {
-            int reservationCode;
+            int reservationCode = 0;
+
+            using (var reader = new StreamReader("ReseravationCodes+TicketOrders.txt"))
+            {
+                int R = 0;
+
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    R = Convert.ToInt32(line);
+                    //checking last created reservationcode
+                }
+                R = R + 1;
+                //making it unique
+                reservationCode = R;
+            }
+            using (StreamWriter sw = File.AppendText("ReseravationCodes+TicketOrders.txt"))
+            {
+                sw.WriteLine(reservationCode);
+                sw.WriteLine(reservatedMovies);
+                sw.Close();
+            }
+
+
+
+            Console.WriteLine("\n\nyour reservationcode is: " + reservationCode);
 
         }
-        static void ShoppingcartCheckout(User user)
+        */
+        public static void ShoppingcartCheckout(User user)
         {
             double totalCheckout = 0;
             double currentMoviePrice;
+            double rest;
+            List<String> reservatedMovies = new List<String>();
             int count = 4;
             for (int i = 0; i < data.Length; i++)
             {
@@ -180,13 +209,18 @@ namespace cinemaApp
                         if (count < data[i].Length)
                         {
                             totalCheckout += double.Parse(data[i][count]);
-                            count += 5;
+                            count += 3;
                         }
                     }
                     else if (j==0)
                     {
                         Double.TryParse(data[i][0], out currentMoviePrice);
                         totalCheckout += currentMoviePrice;
+
+                    }
+                    if (Double.TryParse(data[i][0], out rest))
+                    {
+                        reservatedMovies.Add(data[i][j]);
                     }
                 }
 
@@ -210,7 +244,31 @@ namespace cinemaApp
                     creditcardInput = Console.ReadLine();
                 }
             }
-            Console.WriteLine("Thank you for your purchase!\nHere is your reservation code: (reservation code)");
+
+            int reservationCode = 0;
+
+            using (var reader = new StreamReader("ReseravationCodes+TicketOrders.txt"))
+            {
+                int R = 0;
+
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    R = Convert.ToInt32(line);
+                    //checking last created reservationcode
+                }
+                R = R + 1;
+                //making it unique
+                reservationCode = R;
+            }
+            using (StreamWriter sw = File.AppendText("ReseravationCodes+TicketOrders.txt"))
+            {
+                sw.WriteLine(reservationCode);
+                sw.WriteLine(reservatedMovies);
+                sw.Close();
+            }
+
+            Console.WriteLine("Thank you for your purchase!\nHere is your reservation code: {0}", reservationCode);
             Navigation.CustomerNavigation(user);
         }
 
