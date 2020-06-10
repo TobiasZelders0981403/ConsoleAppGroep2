@@ -8,8 +8,8 @@ namespace cinemaApp {
     class Navigation {
         //navigation system for the owner with all its options.
         public static void OwnerNavigation() {
-            Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Adjust seat prices.\n[3] Add, edit or remove Films\n[4] Add, edit or remove fututre Films\n[5] See all Reservations.\n[6] Look at the expected amount of customers.\n[0] Exit application.");
-            int choice = Program.ChoiceInput(0,6);
+            Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Adjust seat prices.\n[3] Add, edit or remove Films\n[4] Add, edit or remove fututre Films\n[5] See all Reservations.\n[6] Look at the expected amount of customers.\n[7] Go to the comments / reviews.\n[0] Exit application.");
+            int choice = Program.ChoiceInput(0,7);
             while (choice != 0) {
                 if (choice == 1) {
                     //look at sale data
@@ -30,9 +30,12 @@ namespace cinemaApp {
                 } else if (choice == 6) {
                     //look at expected customers
                     expected.ExpectedCustomers();
+                } else if (choice == 7) {
+                    //go to the comments / revies
+                    OwnerComment.CoMaMain();
                 }
-                Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Adjust seat prices.\n[3] Add, edit or remove Films\n[4] Add, edit or remove fututre Films\n[5] See all Reservations.\n[6] Look at the expected amount of customers.\n[0] Exit application.");
-                choice = Program.ChoiceInput(0, 6);
+                Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Adjust seat prices.\n[3] Add, edit or remove Films\n[4] Add, edit or remove fututre Films\n[5] See all Reservations.\n[6] Look at the expected amount of customers.\n[7] Go to the comments / reviews.\n[0] Exit application.");
+                choice = Program.ChoiceInput(0, 7);
             }
             Environment.Exit(0);
             //MUST HAVES
@@ -89,7 +92,7 @@ namespace cinemaApp {
 
         public static void CustomerNavigation(User user) {
             //navigation system for the cystomer with all its options.
-            Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at future movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to shopping cart.\n[0] Exit application.");
+            Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at future movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to comments / reviews. \n[7] Go to shopping cart.\n[0] Exit application.");
             int choice = Program.ChoiceInput(0, 6);
             while (choice != 0) {
                 if (choice == 1) {
@@ -108,10 +111,12 @@ namespace cinemaApp {
                     //order food
                     CostumerFoodOrder.Costumer(user);
                 } else if (choice == 6) {
+                    CommentSystem.CommentMain(user);
+                } else if (choice == 7) {
                     //shopping cart
                     Shoppingcart.ShoppingcartNav(user);
                 }
-                Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at future movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to shopping cart.\n[0] Exit application.");
+                Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at future movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to comments / reviews. \n[7] Go to shopping cart.\n[0] Exit application.");
                 choice = Program.ChoiceInput(0, 6);
             }
             Environment.Exit(0);

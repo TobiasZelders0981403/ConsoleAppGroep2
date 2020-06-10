@@ -32,10 +32,10 @@ namespace cinemaApp
 
         static void FutureChoice()
         {
-            Console.WriteLine("What would you like to do? Please type 1-3 and press Enter to continue.");
-            Console.WriteLine("1: Add film.");
-            Console.WriteLine("2: Edit film.");
-            Console.WriteLine("3: Remove film.");
+            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("[1] Add film.");
+            Console.WriteLine("[2] Edit film.");
+            Console.WriteLine("[3] Remove film.");
 
             input = Console.ReadLine();
             ChoiceAction();
@@ -83,17 +83,25 @@ namespace cinemaApp
             FullList = "\n" + File.ReadAllText(@"futurefilm.txt");
             Console.WriteLine(FullList);
 
-            Console.WriteLine("Would you like to continue? Y/N?");
+            Console.WriteLine("Would you like to continue? [Y]/[N].");
             input = Console.ReadLine();
-            if (input == "Y")
+            while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                Console.WriteLine("Would you like to continue? [Y]/[N].");
+                input = Console.ReadLine();
+            }
+            if (input.ToUpper() == "Y")
             {
                 AddFuture();
             }
-            else if (input == "N")
+            else if (input.ToUpper() == "N")
             {
-                Console.WriteLine("Would you like to do something else? Y/N?");
+                Console.WriteLine("Would you like to do something else? [Y]/[N].");
                 input = Console.ReadLine();
-                if (input == "Y")
+                while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                    Console.WriteLine("Would you like to do something else? [Y]/[N].");
+                    input = Console.ReadLine();
+                }
+                if (input.ToUpper() == "Y")
                 {
                     FutureChoice();
                 }
@@ -112,17 +120,25 @@ namespace cinemaApp
             sw.Close();
             Edit = "";
 
-            Console.WriteLine("Would you like to continue? Y/N?");
+            Console.WriteLine("Would you like to continue? [Y]/[N].");
             input = Console.ReadLine();
-            if (input == "Y")
+            while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                Console.WriteLine("Would you like to continue? [Y]/[N].");
+                input = Console.ReadLine();
+            }
+            if (input.ToUpper() == "Y")
             {
                 EditFuture();
             }
-            else if (input == "N")
+            else if (input.ToUpper() == "N")
             {
-                Console.WriteLine("Would you like to do something else? Y/N?");
+                Console.WriteLine("Would you like to do something else? [Y]/[N].");
                 input = Console.ReadLine();
-                if (input == "Y")
+                while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                    Console.WriteLine("Would you like to do something else? [Y]/[N].");
+                    input = Console.ReadLine();
+                }
+                if (input.ToUpper() == "Y")
                 {
                     FutureChoice();
                 }
@@ -150,17 +166,25 @@ namespace cinemaApp
                 BIndex = 0;
                 EIndex = 0;
             }
-            Console.WriteLine("Would you like to continue? Y/N?");
+            Console.WriteLine("Would you like to continue? [Y]/[N].");
             input = Console.ReadLine();
-            if (input == "Y")
+            while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                Console.WriteLine("Would you like to continue? [Y]/[N].");
+                input = Console.ReadLine();
+            }
+            if (input.ToUpper() == "Y")
             {
                 RemoveFuture();
             }
-            else if (input == "N")
+            else if (input.ToUpper() == "N")
             {
-                Console.WriteLine("Would you like to do something else? Y/N?");
+                Console.WriteLine("Would you like to do something else? [Y]/[N].");
                 input = Console.ReadLine();
-                if (input == "Y")
+                while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                    Console.WriteLine("Would you like to do something else? [Y]/[N].");
+                    input = Console.ReadLine();
+                }
+                if (input.ToUpper() == "Y")
                 {
                     FutureChoice();
                 }

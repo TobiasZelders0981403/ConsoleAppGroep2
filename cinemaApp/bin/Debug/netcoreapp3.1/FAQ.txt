@@ -1,0 +1,21 @@
+FAQ.
+
+Q: How many rooms are available?
+A: There are three rooms available; one that can hold up to 150 people, one that can hold up to 300 people and the last room can hold up to 500 people.
+
+Q: What are the payment methods?
+A: Online, we only accept credit card at this time. At the service desk, we accept cash and card.
+
+Q: Can you order food in advance?
+A: Yes! You can order food in advance and it will be ready on time.
+
+Q: Can we get a refund in case we cannot attend?
+A: Yes, however be sure to call us to cancel.
+
+Q: What’s the best way to get to your cinema if you take public transport?
+A: You can take either metro line A, B, C, or D to metrostation Beurs. 
+
+Q: What are the perks of getting a membership?
+A: With a membership you receive a lot of standard discounts on tickets and food. 
+
+

@@ -77,7 +77,11 @@ namespace cinemaApp {
             Console.WriteLine(FullList);
             Console.WriteLine("Would you like to do something else? Y/N?");
             input = Console.ReadLine();
-            if (input == "Y") {
+            while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                Console.WriteLine("Would you like to do something else? Y/N?");
+                input = Console.ReadLine();
+            }
+            if (input.ToUpper() == "Y") {
                 MovieChoice();
             }
         }
@@ -118,7 +122,11 @@ namespace cinemaApp {
             SaveMovies();
             Console.WriteLine("Would you like to do something else? [Y]/[N]?");
             input = Console.ReadLine();
-            if (input == "Y") {
+            while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                Console.WriteLine("Would you like to do something else? [Y]/[N]?");
+                input = Console.ReadLine();
+            }
+            if (input.ToUpper() == "Y") {
                 MovieChoice();
             }
         }
@@ -134,7 +142,11 @@ namespace cinemaApp {
             SaveMovies();
             Console.WriteLine("Would you like to do something else? [Y]/[N]?");
             input = Console.ReadLine();
-            if (input == "Y") {
+            while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                Console.WriteLine("Would you like to do something else? [Y]/[N]?");
+                input = Console.ReadLine();
+            }
+            if (input.ToUpper() == "Y") {
                 MovieChoice();
             }
         }
