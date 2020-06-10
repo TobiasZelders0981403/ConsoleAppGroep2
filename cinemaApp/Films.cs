@@ -270,7 +270,7 @@ namespace cinemaApp {
             }
             return false;
         }
-        static string AgeCheck() {
+        public static string AgeCheck() {
             int check;
             string ageInput = Console.ReadLine();
             int.TryParse(ageInput, out check);

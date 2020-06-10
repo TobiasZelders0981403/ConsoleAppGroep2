@@ -8,8 +8,8 @@ namespace cinemaApp {
     class Navigation {
 
         public static void OwnerNavigation() {
-            Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Adjust seat prices.\n[3] Add, edit or remove Films\n[4] See all Reservations.\n[5] Look at the expected amount of customers.\n[0] Exit application.");
-            int choice = Program.ChoiceInput(0,5);
+            Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Adjust seat prices.\n[3] Add, edit or remove Films\n[4] Add, edit or remove fututre Films\n[5] See all Reservations.\n[6] Look at the expected amount of customers.\n[0] Exit application.");
+            int choice = Program.ChoiceInput(0,6);
             while (choice != 0) {
                 if (choice == 1) {
                     //look at sale data
@@ -21,14 +21,17 @@ namespace cinemaApp {
                     //add, edit or remove films
                     Films.FilmMain();
                 } else if (choice == 4) {
+                    FutureFilm.FutureMain();
+                }
+                else if (choice == 5) {
                     //see all reservations
                     Console.WriteLine("NOT IMPLEMENTED YET");
-                } else if (choice == 5) {
+                } else if (choice == 6) {
                     //look at expected customers
                     expected.ExpectedCustomers();
                 }
-                Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Adjust seat prices.\n[3] Add, edit or remove Films\n[4] See all Reservations.\n[5] Look at the expected amount of customers.\n[0] Exit application.");
-                choice = Program.ChoiceInput(0, 5);
+                Console.WriteLine("\nPlease pick a option.\n[1] Look at sale data.\n[2] Adjust seat prices.\n[3] Add, edit or remove Films\n[4] Add, edit or remove fututre Films\n[5] See all Reservations.\n[6] Look at the expected amount of customers.\n[0] Exit application.");
+                choice = Program.ChoiceInput(0, 6);
             }
             Environment.Exit(0);
             //MUST HAVES
@@ -95,6 +98,7 @@ namespace cinemaApp {
                     Filters.GenreFilter(user);
                 } else if (choice == 3) {
                     //look at futute movies
+                    Filters.FutureMovies(user);
                 } else if (choice == 4) {
                     //reserve tickets
                     ReserveTickets.ReserveTicketsMain(user);

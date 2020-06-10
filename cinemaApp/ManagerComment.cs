@@ -39,10 +39,6 @@ namespace CommentManager
             {
                 MaQuestions();
             }
-            else if (input == "3")
-            {
-                OwnerNavigation();
-            }
         }
         public static void MaReview()
         {
@@ -93,10 +89,6 @@ namespace CommentManager
                 else if (input == "2")
                 {
                     MaQuestions();
-                }
-                else if (input == "3")
-                {
-                    OwnerNavigation();
                 }
             }
         }

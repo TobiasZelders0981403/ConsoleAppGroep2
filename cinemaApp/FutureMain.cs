@@ -5,25 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Films2_0
+namespace cinemaApp
 {
     class FutureFilm
     {
-        static string username;
         static string input;
         static string input2;
         static string filmName;
         static string filmDescription;
         static string Genre;
         static string Release;
-        static string Time;
         static string futureList;
         static string Replacement;
         static string Edit;
         static string FullList;
-        static string filmID;
         static string Delete;
-        static int filmAge;
+        static string filmAge;
         static int BIndex;
         static int EIndex;
 
@@ -67,21 +64,17 @@ namespace Films2_0
         static void AddFuture()
         {
             Console.WriteLine("Enter film name:");
-            filmName = Console.ReadLine();
-            Console.WriteLine("Enter age:");
-            filmAge = Convert.ToInt32(Console.ReadLine());
+            filmName = Program.StringCheck();
+            Console.WriteLine("Enter age (min is 3):");
+            filmAge = Films.AgeCheck();
             Console.WriteLine("Enter film description:");
-            filmDescription = Console.ReadLine();
+            filmDescription = Program.StringCheck();
             Console.WriteLine("Enter film genre:");
-            Genre = Console.ReadLine();
+            Genre = Program.StringCheck();
             Console.WriteLine("Enter release date:");
-            Release = Console.ReadLine();
-            Console.WriteLine("Enter time:");
-            Time = Console.ReadLine();
-            Console.WriteLine("Enter film ID:");
-            filmID = Console.ReadLine();
+            Release = Program.StringCheck();
 
-            futureList += filmName + "\n" + filmAge + "\n" + filmDescription + "\n" + Genre + "\n" + Release + "\n" + Time + "\n" + filmID + "\n";
+            futureList += filmName + "\n" + filmAge + "\n" + filmDescription + "\n" + Genre + "\n" + Release + "\n";
 
             StreamWriter sw = new StreamWriter(@"futurefilm.txt", append: true);
             sw.WriteLine(futureList);
