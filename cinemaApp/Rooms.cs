@@ -313,7 +313,7 @@ namespace cinemaApp
                 Console.WriteLine("\nRoom 1");
                 displayOptions(room1.seatPrices.Length, room1.seatPrices[0].Length);
 
-                var operation = Program.ChoiceInput(1,6);
+                var operation = Program.ChoiceInput(0,6);
 
                 if (operation == 0)
                 {
@@ -364,7 +364,7 @@ namespace cinemaApp
                 Console.WriteLine("\nRoom 2");
                 displayOptions(room2.seatPrices.Length, room2.seatPrices[0].Length);
 
-                var operation = Program.ChoiceInput(1, 6);
+                var operation = Program.ChoiceInput(0, 6);
 
                 if (operation == 0)
                 {
@@ -415,7 +415,7 @@ namespace cinemaApp
                 Console.WriteLine("\nRoom 3");
                 displayOptions(room3.seatPrices.Length, room3.seatPrices[0].Length);
 
-                var operation = Program.ChoiceInput(1, 6);
+                var operation = Program.ChoiceInput(0, 6);
 
                 if (operation == 0)
                 {

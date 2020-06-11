@@ -30,7 +30,7 @@ namespace cinemaApp {
                     FutureFilm.FutureMain();
                 } else if (choice == 7) {
                     //see all reservations
-                    Console.WriteLine("NOT IMPLEMENTED YET");
+                    Reservations.ShowReservations();
                 } else if (choice == 8) {
                     //look at expected customers
                     expected.ExpectedCustomers();
@@ -42,8 +42,6 @@ namespace cinemaApp {
                 choice = Program.ChoiceInput(0, 9);
             }
             Environment.Exit(0);
-            //MUST HAVES
-            //see all reservations
         }
 
         public static void ManagerNavigation() {
@@ -59,7 +57,7 @@ namespace cinemaApp {
                     SaleData.SaleDatainput();
                 } else if (choice == 3) {
                     //see all reservations
-                    Console.WriteLine("NOT IMPLEMENTED YET");
+                    Reservations.ReservationMain();
                 } else if (choice == 4) {
                     //look at expected customers
                     expected.ExpectedCustomers();

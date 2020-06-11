@@ -205,6 +205,7 @@ namespace cinemaApp
             double totalPrice = ShoppingcartTotalPrice(user);
             int creditcardMaxNumbers = 5;
             bool creditcardCheck = false;
+            string ticketData = "";
             Console.WriteLine("Your total is: $" + totalPrice + "\nPlease enter the 5 characters of your creditcard to complete the transaction.");
             var creditcardInput = Console.ReadLine();
             while (creditcardCheck == false)
@@ -215,7 +216,7 @@ namespace cinemaApp
                     string filename2 = "allOrders.json";
                     string rawJSON = File.ReadAllText(filename2);
                     string[] data2 = JsonConvert.DeserializeObject<string[]>(rawJSON);
-                    if (data2 == null) {
+                    if (data2.Length == 0) {
                         data2 = new string[1];
                     }
                     for ( int i = 0; i < data.Length; i++) {
@@ -224,15 +225,25 @@ namespace cinemaApp
                             for (int j = 0; j < data[i].Length; j++) {
                                 s += data[i][j] + " ";
                             }
-                            if (data2[0] != null) {
+                            if (data2[0] == null) {
                                 Array.Resize(ref data2, data2.Length + 1);
                             }
                             data2[data2.Length - 1] = s;
                             string newJSON = JsonConvert.SerializeObject(data2);
                             File.WriteAllText(filename2, newJSON);
+                        } else {
+                            for (int j = 0; j < data[i].Length; j++) {
+                                ticketData += data[i][j] + " ";
+                            } 
+                            ticketData += " | ";
+                            double TicketPrice;
+                            double.TryParse(data[i][0], out TicketPrice);
+                            SaleData.AddData(data[i][2], TicketPrice);
                         }
                     }
                     creditcardCheck = true;
+                    //add to sale data
+
                 }
                 else
                 {
@@ -242,34 +253,34 @@ namespace cinemaApp
             }
 
             //Reservation code
-            int reservationCode = 0;
+            string reservationCode = "";
+            if (ticketData != "") {
+                using (var reader = new StreamReader(@"ReservationID.txt")) {
+                    int R = 0;
 
-            using (var reader = new StreamReader("ReservationCodes+TicketOrders.txt"))
-            {
-                int R = 0;
-
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
-                    R = Convert.ToInt32(line);
-                    //checking last created reservationcode
+                    while (!reader.EndOfStream) {
+                        string line = reader.ReadLine();
+                        R = Convert.ToInt32(line);
+                        //checking last created reservationcode
+                    }
+                    R = R + 1;
+                    //making it unique
+                    reservationCode = R.ToString();
                 }
-                R = R + 1;
-                //making it unique
-                reservationCode = R;
-            }
-            using (StreamWriter sw = File.AppendText("ReservationCodes+TicketOrders.txt"))
-            {
-                sw.WriteLine(reservationCode);
-                sw.Close();
-            }
+                using (StreamWriter sw = File.AppendText(@"ReservationID.txt")) {
+                    sw.Write(reservationCode);
+                }
+                using (StreamWriter sw = File.AppendText("ReservationCodes+TicketOrders.txt")) {
+                    sw.WriteLine("[" + reservationCode + "] "+ ticketData);
+                    sw.Close();
+                }
 
-            //foreach (var r in reservatedMovies)
-            //{
-              //  Console.WriteLine(r);
-            //}
-            Console.WriteLine("Thank you for your purchase!\nHere is your reservation code: {0}", reservationCode);
-            
+                //foreach (var r in reservatedMovies)
+                //{
+                //  Console.WriteLine(r);
+                //}
+                Console.WriteLine("Thank you for your purchase!\nHere is your reservation code: {0}", reservationCode);
+            }
             //clearing data list and deleting json shoppingcart file
             if (creditcardCheck == true)
             {

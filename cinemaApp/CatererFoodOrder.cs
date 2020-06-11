@@ -109,26 +109,29 @@ namespace cinemaApp
                 {
                     if (allOrders.Length != 0) {
                         for (int i = 0; i < allOrders.Length; i++) {
-                            Console.WriteLine($"{i} {allOrders[i]}");
+                            Console.WriteLine($"[{i}] {allOrders[i]}");
                         }
                     } else {
-                        Console.WriteLine("There are no orders.");
+                        Console.WriteLine("\nThere are no orders.");
                     }
                 }
                 else if (choice == 2)
                 {
                     if (allOrders.Length != 0) {
-                        Console.WriteLine("What item would you like to remove?");
+                        Console.WriteLine("\nWhat item would you like to remove?");
                         for (int i = 0; i < allOrders.Length; i++) {
-                            Console.WriteLine($"{i} {allOrders[i]}");
+                            Console.WriteLine($"[{i}] {allOrders[i]}");
                         }
                         int removeChoice = Program.ChoiceInput(0, allOrders.Length - 1);
                         List<string> list = new List<string>(allOrders);
                         list.RemoveAt(removeChoice);
                         rawJson = JsonConvert.SerializeObject(list.ToArray());
+                        if (list.Count == 0) {
+                            rawJson = "[]";
+                        }
                         File.WriteAllText(fileName, rawJson);
                     } else {
-                        Console.WriteLine("There are no orders.");
+                        Console.WriteLine("\nThere are no orders.");
                     }
                 }
             }
