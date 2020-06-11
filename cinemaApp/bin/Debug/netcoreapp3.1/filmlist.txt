@@ -1,7 +1,7 @@
 Rundfunk: Jachtenwachter
 12
 Wat een ongelooflijke K*tcamping.
-comedy
+Comedy
 11-06-2020
 12:00
 room1
@@ -19,7 +19,7 @@ F2
 The Invisible Man
 16
 What you can't see can hurt you. Elisabeth Moss (Us, The Handmaid's Tale) is te zien in een angstaanjagend verhaal over obsessie.
-horror
+Horror
 5-03-2020
 16:00
 room2
@@ -28,7 +28,7 @@ F3
 Bloodshot
 12
 In deze verfilming van de populaire gelijknamige comic speelt Vin Diesel de rol van Ray Garrison, een marinier die door de RTS Corporation opnieuw tot leven gewekt wordt als de superheld Bloodshot.
-action
+Action
 12-03-2020
 18:00
 room3
@@ -37,7 +37,7 @@ F4
 Bohemian Rhapsody
 12
 Bohemian Rhapsody is een ode aan Queen, hun muziek en hun uitzonderlijke zanger Freddie Mercury.
-music
+Music
 01-11-2018
 24:00
 room3
@@ -46,7 +46,7 @@ F5
 Inception
 12
 Dom Cobb (Leonardo DiCaprio) is een handige dief, een ware meester op het gebied van 'Inception': het stelen van waardevolle geheimen uit het onderbewustzijn van mensen die in de droomfase verkeren, wanneer het brein het meest kwetsbaar is.
-actie
+Action
 22-07-2010
 22:00
 room2
@@ -55,7 +55,7 @@ F6
 My Spy
 9
 JJ (Dave Bautista) is een belangrijke CIA-agent, maar wanneer een missie uit de hand loopt, krijgt hij nog één kans om zijn carrière te redden. Hij wordt op een undercoveroperatie gezet om een gevaarlijke familie van wapenhandelaars te observeren.
-Actie
+Action
 13-03-2020
 20:00
 room1
@@ -64,7 +64,7 @@ F7
 The Gentlemen
 16
 Amerikaanse expat Mickey Pearson (Matthew McConaughey) heeft een zeer winstgevend marihuana-imperium opgezet in Londen. Wanneer het verhaal de ronde gaat dat hij uit de business wil stappen krijgt Mickey te maken met complotten, intriges, omkoping en chantage in een poging alles van hem af te nemen.
-Actie
+Action
 20-02-2020
 12:00
 room3
@@ -73,7 +73,7 @@ F8
 Notting Hill
 3
 Een bekende Amerikaanse actrice (Julia Roberts) wordt verliefd op een simpele Engelse boekverkoper (Hugh Grant).
-Romantiek
+Romance
 11-06-2020
 22:00
 room1
