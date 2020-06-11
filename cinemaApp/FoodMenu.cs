@@ -97,7 +97,7 @@ namespace cinemaApp
             while (busy)
             {
                 Console.WriteLine("[1] Snack\n[2] Drink\n[0] Exit...");
-                int choice = Program.ChoiceInput(1, 2);
+                int choice = Program.ChoiceInput(0, 2);
                 if (choice == 0)
                 {
                     break;
@@ -109,7 +109,7 @@ namespace cinemaApp
                     {
                         if(food.subCategory == sc)
                         {
-                            food.display();
+                            food.displayCostumer();
                         }
                     }
                 }
@@ -120,7 +120,7 @@ namespace cinemaApp
                     {
                         if (food.subCategory == sc)
                         {
-                            food.display();
+                            food.displayCostumer();
                         }
                     }
                 }
