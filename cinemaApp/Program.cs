@@ -39,7 +39,7 @@ namespace cinemaApp
                 user.VerifyLogin();
             if (user.accountVerified == false) {
                 Console.WriteLine("\nIncorrect! Please pick a option\n[1] Try again.\n[2] Continue as guest.\n[3] Register a new account.\n[0] Exit");
-                int loginChoice = ChoiceInput(0, 2);
+                int loginChoice = ChoiceInput(0, 3);
                 if (loginChoice == 0) {
                     Environment.Exit(0);
                 } else if (loginChoice == 1) {
