@@ -135,7 +135,7 @@ namespace cinemaApp
                 }
                 else if (input == "2")
                 {
-                    CommentMain(user);
+                    QuestionScreen(user);
                 }
                 else if (input == "3")
                 {
@@ -197,7 +197,7 @@ namespace cinemaApp
                 }
                 else if (input == "2")
                 {
-                    CommentMain(user);
+                    QuestionScreen(user);
                 }
                 else if (input == "3")
                 {
