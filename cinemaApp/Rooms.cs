@@ -294,7 +294,7 @@ namespace cinemaApp
                 "[3] Set price individual seat\n" +
                 "[4] Set price for a whole row\n" +
                 "[5] Set price for the whole room\n" +
-                "[5] Set price for the middle seats\n" +
+                "[6] Set price for the middle seats\n" +
                 "[0] Exit...");
         }
 
