@@ -1,1 +1,210 @@
-[{"id":0,"name":" BBQ hotdog","category":"Snack","subCategory":"Hot Dog","size":"","price":6.5},{"id":1,"name":"M Fernandes cherry","category":"Drink","subCategory":"Soda","size":"M","price":2.5},{"id":3,"name":"M Spa blauw","category":"Drink","subCategory":"Water","size":"M","price":3.02},{"id":4,"name":" Spa Rood","category":"Drink","subCategory":"Water","size":"","price":3.0},{"id":5,"name":"M Fanta","category":"Drink","subCategory":"Soda","size":"M","price":4.0},{"id":6,"name":"M Fernandes groen","category":"Drink","subCategory":"Soda","size":"M","price":4.1},{"id":7,"name":" Mango","category":"Drink","subCategory":"Juice","size":"","price":4.2},{"id":8,"name":" Apple","category":"Drink","subCategory":"Juice","size":"","price":4.15},{"id":9,"name":" Veggie dog","category":"Snack","subCategory":"Hot Dog","size":"","price":9.0},{"id":10,"name":" Classic Dog","category":"Snack","subCategory":"Hot Dog","size":"","price":7.5},{"id":11,"name":" Classic Nachos","category":"Snack","subCategory":"Nachos","size":"","price":7.7},{"id":12,"name":" Veggie Nachos","category":"Snack","subCategory":"Nachos","size":"","price":7.6},{"id":13,"name":"L Pepporoni","category":"Snack","subCategory":"Pizza","size":"L","price":8.0},{"id":14,"name":"L Hawaii","category":"Snack","subCategory":"Pizza","size":"L","price":9.0},{"id":15,"name":"L Veggie Lover","category":"Snack","subCategory":"Pizza","size":"L","price":8.0},{"id":16,"name":"L Popcorn Sweet and Salty","category":"Snack","subCategory":"Popcorn","size":"L","price":10.0},{"id":17,"name":"M Popcorn Salty","category":"Snack","subCategory":"Popcorn","size":"M","price":7.0},{"id":18,"name":"L Popcorn Sweet ","category":"Snack","subCategory":"Popcorn","size":"L","price":10.0},{"id":19,"name":" M&M","category":"Snack","subCategory":"Sweets","size":"","price":5.0},{"id":20,"name":" Oreo","category":"Snack","subCategory":"Sweets","size":"","price":3.0},{"id":21,"name":" Doritos","category":"Snack","subCategory":"Sweets","size":"","price":4.0},{"id":23,"name":" Cola slush","category":"Drink","subCategory":"Slushie","size":"","price":5.0},{"id":24,"name":" Tropical Slush","category":"Drink","subCategory":"Slushie","size":"","price":6.0},{"id":25,"name":" Choco shake","category":"Drink","subCategory":"Milkshake","size":"","price":7.0},{"id":26,"name":" Caramel Shake","category":"Drink","subCategory":"Milkshake","size":"","price":6.8}]
+[
+    {
+        "id": 0,
+        "name": " BBQ hotdog",
+        "category": "Snack",
+        "subCategory": "Hot Dog",
+        "size": "",
+        "price": 6.5
+    },
+    {
+        "id": 1,
+        "name": "M Fernandes cherry",
+        "category": "Drink",
+        "subCategory": "Soda",
+        "size": "M",
+        "price": 2.5
+    },
+    {
+        "id": 2,
+        "name": "Auto Drop",
+        "category": "Snack",
+        "subCategory": "Sweets",
+        "size": "XL",
+        "price": 109.99
+    },
+    {
+        "id": 3,
+        "name": "M Spa blauw",
+        "category": "Drink",
+        "subCategory": "Water",
+        "size": "M",
+        "price": 3.02
+    },
+    {
+        "id": 4,
+        "name": " Spa Rood",
+        "category": "Drink",
+        "subCategory": "Water",
+        "size": "",
+        "price": 3.0
+    },
+    {
+        "id": 5,
+        "name": "M Fanta",
+        "category": "Drink",
+        "subCategory": "Soda",
+        "size": "M",
+        "price": 4.0
+    },
+    {
+        "id": 6,
+        "name": "M Fernandes groen",
+        "category": "Drink",
+        "subCategory": "Soda",
+        "size": "M",
+        "price": 4.1
+    },
+    {
+        "id": 7,
+        "name": " Mango",
+        "category": "Drink",
+        "subCategory": "Juice",
+        "size": "",
+        "price": 4.2
+    },
+    {
+        "id": 8,
+        "name": " Apple",
+        "category": "Drink",
+        "subCategory": "Juice",
+        "size": "",
+        "price": 4.15
+    },
+    {
+        "id": 9,
+        "name": " Veggie dog",
+        "category": "Snack",
+        "subCategory": "Hot Dog",
+        "size": "",
+        "price": 9.0
+    },
+    {
+        "id": 10,
+        "name": " Classic Dog",
+        "category": "Snack",
+        "subCategory": "Hot Dog",
+        "size": "",
+        "price": 7.5
+    },
+    {
+        "id": 11,
+        "name": " Classic Nachos",
+        "category": "Snack",
+        "subCategory": "Nachos",
+        "size": "",
+        "price": 7.7
+    },
+    {
+        "id": 12,
+        "name": " Veggie Nachos",
+        "category": "Snack",
+        "subCategory": "Nachos",
+        "size": "",
+        "price": 7.6
+    },
+    {
+        "id": 13,
+        "name": "L Pepporoni",
+        "category": "Snack",
+        "subCategory": "Pizza",
+        "size": "L",
+        "price": 8.0
+    },
+    {
+        "id": 14,
+        "name": "L Hawaii",
+        "category": "Snack",
+        "subCategory": "Pizza",
+        "size": "L",
+        "price": 9.0
+    },
+    {
+        "id": 15,
+        "name": "L Veggie Lover",
+        "category": "Snack",
+        "subCategory": "Pizza",
+        "size": "L",
+        "price": 8.0
+    },
+    {
+        "id": 16,
+        "name": "L Popcorn Sweet and Salty",
+        "category": "Snack",
+        "subCategory": "Popcorn",
+        "size": "L",
+        "price": 10.0
+    },
+    {
+        "id": 17,
+        "name": "M Popcorn Salty",
+        "category": "Snack",
+        "subCategory": "Popcorn",
+        "size": "M",
+        "price": 7.0
+    },
+    {
+        "id": 18,
+        "name": "L Popcorn Sweet ",
+        "category": "Snack",
+        "subCategory": "Popcorn",
+        "size": "L",
+        "price": 10.0
+    },
+    {
+        "id": 19,
+        "name": " M&M",
+        "category": "Snack",
+        "subCategory": "Sweets",
+        "size": "",
+        "price": 5.0
+    },
+    {
+        "id": 20,
+        "name": " Oreo",
+        "category": "Snack",
+        "subCategory": "Sweets",
+        "size": "",
+        "price": 3.0
+    },
+    {
+        "id": 21,
+        "name": " Doritos",
+        "category": "Snack",
+        "subCategory": "Sweets",
+        "size": "",
+        "price": 4.0
+    },
+    {
+        "id": 23,
+        "name": " Cola slush",
+        "category": "Drink",
+        "subCategory": "Slushie",
+        "size": "",
+        "price": 5.0
+    },
+    {
+        "id": 24,
+        "name": " Tropical Slush",
+        "category": "Drink",
+        "subCategory": "Slushie",
+        "size": "",
+        "price": 6.0
+    },
+    {
+        "id": 25,
+        "name": " Choco shake",
+        "category": "Drink",
+        "subCategory": "Milkshake",
+        "size": "",
+        "price": 7.0
+    },
+    {
+        "id": 26,
+        "name": " Caramel Shake",
+        "category": "Drink",
+        "subCategory": "Milkshake",
+        "size": "",
+        "price": 6.8
+    }
+]
