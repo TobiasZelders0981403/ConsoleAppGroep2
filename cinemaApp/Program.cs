@@ -31,7 +31,6 @@ namespace cinemaApp
             } else {
                 Navigation.CustomerNavigation(user);
             }
-            Console.Read();
         }
 
         static void Login(User user)

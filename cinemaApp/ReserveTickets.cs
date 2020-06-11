@@ -363,10 +363,6 @@ namespace cinemaApp
             } else {
                 user.shoppingCart.Add(s);
             }
-            /* else {
-                List<string> data = new List<string> { movieOptions[movieChoice], dayOptions[dayChoice], timeTemplate[timeChoice], room, rowChoice.ToString(), seatChoice.ToString()};
-                user.shoppingCart.Add(data);
-            }*/
         }
     }
 }
