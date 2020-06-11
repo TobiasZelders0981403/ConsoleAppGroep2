@@ -15,7 +15,7 @@ namespace cinemaApp
             int Day;
             int Tickets;
             double Money;
-            List<string> dayOptions = new List<string>() { "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" };
+            List<string> dayOptions = new List<string>() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             using (DataTable dt = new DataTable("sales"))
             {
                 List<List<string>> saleData = new List<List<string>>();
@@ -91,7 +91,7 @@ namespace cinemaApp
             int Day;
             int Tickets;
             double Money;
-            List<string> dayOptions = new List<string>() { "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" };
+            List<string> dayOptions = new List<string>() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             using (DataTable dt = new DataTable("sales")) {
                 List<List<string>> saleData = new List<List<string>>();
 
