@@ -16,6 +16,7 @@ namespace cinemaApp
 
         public static void ShoppingcartNav(User user)
         {
+            data = null;
             ShoppingcartConverter(user);
             //seeCart(user);
             ShoppingcartShowItems(user);
@@ -214,13 +215,18 @@ namespace cinemaApp
                     string filename2 = "allOrders.json";
                     string rawJSON = File.ReadAllText(filename2);
                     string[] data2 = JsonConvert.DeserializeObject<string[]>(rawJSON);
+                    if (data2 == null) {
+                        data2 = new string[1];
+                    }
                     for ( int i = 0; i < data.Length; i++) {
                         if (data[i][0] == user.username) {
                             string s = "";
                             for (int j = 0; j < data[i].Length; j++) {
-                                s += data[i][j];
+                                s += data[i][j] + " ";
                             }
-                            Array.Resize(ref data2, data2.Length + 1);
+                            if (data2[0] != null) {
+                                Array.Resize(ref data2, data2.Length + 1);
+                            }
                             data2[data2.Length - 1] = s;
                             string newJSON = JsonConvert.SerializeObject(data2);
                             File.WriteAllText(filename2, newJSON);
@@ -322,37 +328,6 @@ namespace cinemaApp
             streamwriter.WriteLine(s);
             streamwriter.Close();
         }
-        public static void seeCart(User user)
-        {
-            string fileName = "allOrders.json";
-            string rawJson = File.ReadAllText(fileName);
-            List<FoodOrder> all = JsonConvert.DeserializeObject<List<FoodOrder>>(rawJson);
-            var allOrders = new CostumerFoodOrder(all);
-
-            string username = user.username;
-            List<FoodOrder> userOrders = new List<FoodOrder>();
-            foreach (var order in all)
-            {
-                if (order.UserName == username && !order.Paid && !order.Made)
-                {
-                    userOrders.Add(order);
-                }
-            }
-
-
-
-            Console.WriteLine("\nIn your cart");
-            foreach (var fo in userOrders)
-            {
-                Console.WriteLine("\nOrder id: " + fo.OrderId);
-                fo.displayTime();
-                fo.Order.payOverview();
-            }
-
-
-
-        }
-
     }
 }
         

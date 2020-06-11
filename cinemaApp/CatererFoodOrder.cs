@@ -92,15 +92,13 @@ namespace cinemaApp
 
         public static void Caterer()
         {
-            string fileName = "allOrders.json";
-            string rawJson = File.ReadAllText(fileName);
-            List<FoodOrder> all = JsonConvert.DeserializeObject<List<FoodOrder>>(rawJson);
-            var allOrders = new CatererFoodOrder(all);
             bool busy = true;
-
             while (busy)
             {
-                Console.WriteLine("\n[1] View Orders\n[2] Add item to done\n[3] Remove a picked up order\n[0] Exit....");
+                string fileName = "allOrders.json";
+                string rawJson = File.ReadAllText(fileName);
+                string[] allOrders = JsonConvert.DeserializeObject<string[]>(rawJson);
+                Console.WriteLine("\n[1] View Orders\n[2] Remove a picked up order\n[0] Exit....");
                 var choice = Program.ChoiceInput(0, 3);
                 if (choice == 0)
                 {
@@ -109,19 +107,31 @@ namespace cinemaApp
                 }
                 else if (choice == 1)
                 {
-                    allOrders.caterView();
+                    if (allOrders.Length != 0) {
+                        for (int i = 0; i < allOrders.Length; i++) {
+                            Console.WriteLine($"{i} {allOrders[i]}");
+                        }
+                    } else {
+                        Console.WriteLine("There are no orders.");
+                    }
                 }
                 else if (choice == 2)
                 {
-                    allOrders.isDone();
-                }
-                else if (choice == 3)
-                {
-                    allOrders.pickedUp();
+                    if (allOrders.Length != 0) {
+                        Console.WriteLine("What item would you like to remove?");
+                        for (int i = 0; i < allOrders.Length; i++) {
+                            Console.WriteLine($"{i} {allOrders[i]}");
+                        }
+                        int removeChoice = Program.ChoiceInput(0, allOrders.Length - 1);
+                        List<string> list = new List<string>(allOrders);
+                        list.RemoveAt(removeChoice);
+                        rawJson = JsonConvert.SerializeObject(list.ToArray());
+                        File.WriteAllText(fileName, rawJson);
+                    } else {
+                        Console.WriteLine("There are no orders.");
+                    }
                 }
             }
-            string newJson = JsonConvert.SerializeObject(all);
-            File.WriteAllText(fileName, newJson);
         }
     }
 }
