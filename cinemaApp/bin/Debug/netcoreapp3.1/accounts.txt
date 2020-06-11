@@ -1,9 +1,9 @@
-owner owner 0
-manager manager 0
-caterer caterer 0
-user1 user 16
-user2 user 20
-ben ben 17
-Gaetonde qwerty 15
+owner 9N::Rn+G%bKPZ-z) 0
+manager 34-,ZGu>AS=8Xw]S 0
+caterer aUc'gWy2Q!:V&9$, 0
+
+
+
+
+
 Tobias 123 19
-1 1 111

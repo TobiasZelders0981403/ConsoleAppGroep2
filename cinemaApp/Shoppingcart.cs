@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.VisualBasic.FileIO;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Enumeration;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -14,19 +16,26 @@ namespace cinemaApp
 
         public static void ShoppingcartNav(User user)
         {
-            ShoppincartConverter(user);
+            ShoppingcartConverter(user);
             //seeCart(user);
-            ShoppincartShowItems(user);
-
-            Console.WriteLine("\nPlease pick a option.\n[1] Checkout.\n[2] Remove item from shoppingcart.\n[3] Continue shopping.\n[4] Back.");
+            ShoppingcartShowItems(user);
+            
+            //double totalPrice = 0;
+            //Console.WriteLine("------------------\nYour total price: $"+ totalPrice + "\n------------------");
+            Console.WriteLine("\nPlease pick an option.\n[1] Checkout.\n[2] Remove item from shoppingcart.\n[3] Continue shopping.\n[4] Back.");
             int choice = Program.ChoiceInput(0, 4);
             while(choice != 0) {
                 if (choice == 1)
                 {
-                    if (data.Length > 0)
+                    if (data == null || data.Length == 0)
                     {
-                        ShoppincartShowItems(user);
-                        Console.WriteLine("Are you sure you want to checkout with these items?\n[1]Yes.\n[2] No.");                        
+                        Console.WriteLine("\nSorry you don't have any items in your shoppingcart\nPlease come back when you have added an item to your shoppingcart.");
+                        ShoppingcartNav(user);
+                    }
+                    else if (data.Length > 0 || data != null)
+                    {
+                        ShoppingcartShowItems(user);
+                        Console.WriteLine("Are you sure you want to checkout with these items?\nYour total is: $"+ShoppingcartTotalPrice(user)+"\n[1] Yes.\n[2] No.");
                         int choiceCreditConformation = Program.ChoiceInput(0, 2);
                         while (choiceCreditConformation != 0)
                         {
@@ -38,17 +47,17 @@ namespace cinemaApp
                             {
                                 ShoppingcartNav(user);
                             }
-                        }                       
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nSorry you don't have any items in your shoppingcart\nPlease come back when you have added an item to your shoppincart.");
-                        ShoppingcartNav(user);
+                        }
                     }
                 }
                 else if (choice == 2)
                 {
-                    if (data.Length > 0)
+                    if (data == null || data.Length == 0)
+                    {
+                        Console.WriteLine("\nSorry you don't have any items in your shoppingcart\nPlease come back when you have added an item to your shoppingcart.");
+                        ShoppingcartNav(user);
+                    }                   
+                    else if (data.Length > 0)
                     {
                         Console.WriteLine("Are you sure you want to remove an item of your shoppingcart?\n[1] Yes.\n[2] No.");
                         int choiceItemRemoveConformation = Program.ChoiceInput(0, 2);
@@ -64,15 +73,10 @@ namespace cinemaApp
                             }
                         }                          
                     }
-                    else
-                    {
-                        Console.WriteLine("\nSorry you don't have any items in your shoppingcart\nPlease come back when you have added an item to your shoppincart.");
-                        ShoppingcartNav(user);
-                    }
                 }
                 else if (choice == 3)
                 {
-                    Console.WriteLine("\nPlease pick a option.\n[1] Reserve tickets\n[2] Buy food.\n[3] Back.");
+                    Console.WriteLine("\nPlease pick an option.\n[1] Reserve tickets\n[2] Buy food.\n[3] Back.");
                     int choiceContinueShopping = Program.ChoiceInput(0, 3);
                     while (choiceContinueShopping != 0)
                     {
@@ -100,7 +104,7 @@ namespace cinemaApp
 
         public static void ShoppingcartRemove(User user)
         {
-            ShoppincartShowItems(user);
+            ShoppingcartShowItems(user);
             Console.WriteLine("\nPlease pick an item to remove.\n");
             for (int i = 0; i < data.Length; i++)
             {
@@ -121,7 +125,7 @@ namespace cinemaApp
             File.WriteAllText(filename, shoppingData);
             ShoppingcartNav(user);
         }
-        static void ShoppincartConverter(User user)
+        public static void ShoppingcartConverter(User user)
         {
             string filename = $"{user.username}-ShoppingCart.json";
             if (user.username != "Guest")
@@ -131,17 +135,20 @@ namespace cinemaApp
                     string rawJSON = File.ReadAllText(filename);
                     data = JsonConvert.DeserializeObject<string[][]>(rawJSON);
                 }
-                else {
-                    //user.shoppingCart;
-                }
-
+            }
+            else
+            {
+                data = (user.shoppingCart).ToArray();
             }
         }
 
-        static void ShoppincartShowItems(User user)
+        static void ShoppingcartShowItems(User user)
         {
-
-            if (data.Length > 0)
+            if (data == null || data.Length == 0)
+            {
+                Console.WriteLine("--------------------------------------------------\nCurrently there are no items in your shoppingcart.\n--------------------------------------------------");
+            }
+            else if (data.Length > 0)
             {
                 Console.WriteLine("\nYour current shoppingcart:\n____________________________________");
                 for (int i = 0; i < data.Length; i++)
@@ -155,47 +162,10 @@ namespace cinemaApp
                 }
                 Console.WriteLine("____________________________________");
             }
-            else
-            {
-                Console.WriteLine("--------------------------------------------------\nCurrently there are no items in your shoppingcart.\n--------------------------------------------------");
-            }
-
         }
-        /*
-        public static void ReservationCode(User user)
+        public static double ShoppingcartTotalPrice(User user)
         {
-            int reservationCode = 0;
-
-            using (var reader = new StreamReader("ReseravationCodes+TicketOrders.txt"))
-            {
-                int R = 0;
-
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
-                    R = Convert.ToInt32(line);
-                    //checking last created reservationcode
-                }
-                R = R + 1;
-                //making it unique
-                reservationCode = R;
-            }
-            using (StreamWriter sw = File.AppendText("ReseravationCodes+TicketOrders.txt"))
-            {
-                sw.WriteLine(reservationCode);
-                sw.WriteLine(reservatedMovies);
-                sw.Close();
-            }
-
-
-
-            Console.WriteLine("\n\nyour reservationcode is: " + reservationCode);
-
-        }
-        */
-        public static void ShoppingcartCheckout(User user)
-        {
-            double totalCheckout = 0;
+            double totalPrice = 0;
             double currentMoviePrice;
             double rest;
             List<String> reservatedMovies = new List<String>();
@@ -208,14 +178,14 @@ namespace cinemaApp
                     {
                         if (count < data[i].Length)
                         {
-                            totalCheckout += double.Parse(data[i][count]);
-                            count += 3;
+                            totalPrice += double.Parse(data[i][count]);
+                            count += 5;
                         }
                     }
-                    else if (j==0)
+                    else if (j == 0)
                     {
                         Double.TryParse(data[i][0], out currentMoviePrice);
-                        totalCheckout += currentMoviePrice;
+                        totalPrice += currentMoviePrice;
 
                     }
                     if (Double.TryParse(data[i][0], out rest))
@@ -225,11 +195,15 @@ namespace cinemaApp
                 }
 
             }
-            Console.WriteLine(totalCheckout);
+            return totalPrice;
+        }
+        public static void ShoppingcartCheckout(User user)
+        {
 
+            double totalPrice = ShoppingcartTotalPrice(user);
             int creditcardMaxNumbers = 5;
             bool creditcardCheck = false;
-            Console.WriteLine("Your total is: $" + totalCheckout.ToString() + "\nPlease enter the 5 characters of your creditcard to complete the transaction.");
+            Console.WriteLine("Your total is: $" + totalPrice + "\nPlease enter the 5 characters of your creditcard to complete the transaction.");
             var creditcardInput = Console.ReadLine();
             while (creditcardCheck == false)
             {
@@ -244,6 +218,7 @@ namespace cinemaApp
                 }
             }
 
+            //Reservation code
             int reservationCode = 0;
 
             using (var reader = new StreamReader("ReservationCodes+TicketOrders.txt"))
@@ -263,12 +238,25 @@ namespace cinemaApp
             using (StreamWriter sw = File.AppendText("ReservationCodes+TicketOrders.txt"))
             {
                 sw.WriteLine(reservationCode);
-                sw.WriteLine(reservatedMovies);
                 sw.Close();
             }
 
+            //foreach (var r in reservatedMovies)
+            //{
+              //  Console.WriteLine(r);
+            //}
             Console.WriteLine("Thank you for your purchase!\nHere is your reservation code: {0}", reservationCode);
+            
+            //clearing data list and deleting json shoppingcart file
+            if (creditcardCheck == true)
+            {
+                Array.Clear(data, 0, data.Length);
+                string filename = $"{user.username}-ShoppingCart.json";
+                File.Delete(filename);
+            }
             Navigation.CustomerNavigation(user);
+
+            
         }
 
         static void RestoreSeatAvalibility(int choiceRemove) {

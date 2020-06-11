@@ -10,7 +10,7 @@ namespace cinemaApp
             Console.Title = "Cinema Application.";
             User user = new User();
 
-            Console.WriteLine("Please pick an option.\n[1] Login.\n[2] Register.\n[3] Continue as guest.\n[0] Exit");
+            Console.WriteLine("Please pick a option.\n[1] Login.\n[2] Register.\n[3] Continue as guest.\n[0] exit");
             int choice = ChoiceInput(0, 3);
             if (choice == 1) {
                Login(user);
@@ -38,13 +38,15 @@ namespace cinemaApp
         {
                 user.VerifyLogin();
             if (user.accountVerified == false) {
-                Console.WriteLine("\nIncorrect! Please pick an option\n[1] Try again.\n[2] Register a new account.\n[0] Exit.");
-                int loginChoice = ChoiceInput(0, 2);
+                Console.WriteLine("\nIncorrect! Please pick a option\n[1] Try again.\n[2] Continue as guest.\n[3] Register a new account.\n[0] Exit");
+                int loginChoice = ChoiceInput(0, 3);
                 if (loginChoice == 0) {
                     Environment.Exit(0);
                 } else if (loginChoice == 1) {
                     Login(user);
                 } else if (loginChoice == 2) {
+                    user.ContinueAsGuest();
+                } else if (loginChoice == 3) {
                     user.CreateAccount();
                 }
             }
@@ -53,24 +55,23 @@ namespace cinemaApp
         public static int ChoiceInput(int min, int max) {
             int choice;
             string choiceInput = Console.ReadLine();
-            int Catch = 0;
-            while (Catch == 0)
-            {
-                if (!Int32.TryParse(choiceInput, out choice)) //if not a whole number input give an error
-                {
-                    Console.WriteLine("Invalid Input! Please enter your option:");
-                    choiceInput = Console.ReadLine();
-                }
-                else
-                {
-                    Catch = 1;
-                }
-            }
             int.TryParse(choiceInput, out choice);
             while (max < choice || choice < min || string.IsNullOrWhiteSpace(choiceInput) || !int.TryParse(choiceInput, out choice)) {
                 Console.WriteLine("Invalid Input! Please enter your option:");
                 choiceInput = Console.ReadLine();
                 int.TryParse(choiceInput, out choice);
+            }
+            return choice;
+        }
+
+        public static double DoubleInput(double min, double max) {
+            double choice;
+            string choiceInput = Console.ReadLine();
+            double.TryParse(choiceInput, out choice);
+            while (max < choice || choice < min || string.IsNullOrWhiteSpace(choiceInput) || !double.TryParse(choiceInput, out choice)) {
+                Console.WriteLine("Invalid Input! Please enter your option:");
+                choiceInput = Console.ReadLine();
+                double.TryParse(choiceInput, out choice);
             }
             return choice;
         }
