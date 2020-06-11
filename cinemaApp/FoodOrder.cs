@@ -14,19 +14,17 @@ namespace cinemaApp
         //public FoodMenu menu;
         public string Order;
         public string Day;
-        public int Hour;
-        public int Minute;
+        public string Time;
         public string UserName;
         public bool Paid;
         public bool Made;
 
-        public FoodOrder(string order, string day, int hour, int minute, string un)
+        public FoodOrder(string order, string day, string time, string un)
         {
             this.OrderId = ID.orderId();
             this.Order = order;
             this.Day = day;
-            this.Hour = hour;
-            this.Minute = minute;
+            this.Time = time;
             this.UserName = un;
             this.Paid = false;
             this.Made = false;
@@ -62,6 +60,7 @@ namespace cinemaApp
             return min;
         }
 
+        /*
         public void displayTime()
         {
             if (Minute < 10)
@@ -73,7 +72,7 @@ namespace cinemaApp
                 Console.WriteLine(Day + " " + Hour + ":" + Minute);
             }
         }
-
+        */
         public static FoodOrder Add(User user)
         {
             string fileName = "food.json";
@@ -130,14 +129,15 @@ namespace cinemaApp
                 Console.WriteLine("The time: ");
                 int userHour = hour();
                 int userMinute = minute();
+                string time = $"{userHour}:{userMinute}";
                 //save to shoppingCart
 
                 string filename = $"{user.username}-ShoppingCart.json";
-                string[] s = { user.username, userDay, userHour.ToString(), userMinute.ToString() };
+                string[] s = { user.username,"Date: " + userDay, time };
                 string s3 = "";
                 for (int i = 0; i < userOrder.Count; i++) {
                     Food order = userOrder[i];
-                    string[] s2 = { order.price.ToString(), order.name, order.size, order.category, order.subCategory};
+                    string[] s2 = { order.price.ToString(), "Name: " +order.name, "Size: " +order.size,"Category: " + order.category,"Type: " +order.subCategory +"\n" };
                     s3 += order.price.ToString() + order.name + order.size + order.category + order.subCategory + " | ";
                     List<string> myList = new List<string>();
                     myList.AddRange(s);
@@ -162,7 +162,7 @@ namespace cinemaApp
                 }
 
                 //return to Caterers FoodOrders
-                return new FoodOrder(s5, userDay, userHour, userMinute, user.username);
+                return new FoodOrder(s5, userDay, time, user.username);
             }
             return null;
         }

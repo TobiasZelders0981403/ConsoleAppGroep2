@@ -29,7 +29,7 @@ namespace cinemaApp
                     if (!fo.Made)
                     {
                         Console.WriteLine("\nOrder id: " + fo.OrderId);
-                        fo.displayTime();
+                        Console.WriteLine(fo.Time);
                         Console.WriteLine(fo.Order);
                     }
                 }
@@ -43,7 +43,7 @@ namespace cinemaApp
                     if (fo.Made)
                     {
                         Console.WriteLine("\nOrder id: " + fo.OrderId);
-                        fo.displayTime();
+                        Console.WriteLine(fo.Time);
                         Console.WriteLine(fo.Order);
                     }
                 }
