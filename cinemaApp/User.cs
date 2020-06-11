@@ -60,7 +60,7 @@ namespace cinemaApp
         {
             StreamReader streamreader = new StreamReader(@"accounts.txt");
             string line;
-            while ((line = streamreader.ReadLine()) != null)
+            while ((line = streamreader.ReadLine()) != null && line != "")
             {
                 string[] components = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 usernames.Add(components[0]);

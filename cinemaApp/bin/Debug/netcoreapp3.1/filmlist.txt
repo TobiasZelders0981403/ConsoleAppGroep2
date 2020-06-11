@@ -1,72 +1,126 @@
-filmName
-16
-Dope Movie
-action
-08-07-2002
+Rundfunk: Jachtenwachter
+12
+Wat een ongelooflijke K*tcamping.
+comedy
+11-06-2020
 12:00
 room1
-1
+F1
 
-newMovie
-18
-Also a dope movie
-comedy
-08-07-2002
-12:00
-room2
-2
-
-film4
-17
-dope
-action
-07-08-2049
-12:00
-room3
-3
-
-anotherMovie
-14
-dope
+I See You
+12
+Vreemde gebeurtenissen teisteren een rechercheur en zijn gezin wanneer hij de mysterieuze verdwijning van een jongen onderzoekt.
 thriller
-2006
-14:00
-room1
-4
-
-AnotherMovieName
-14
-Just another movie
-comedy
-23-04-2012
-16:00
-room1
-5
-
-moviename4
-4
-dope
-comedy
-23-04-1999
+01-06-2020
 14:00
 room3
-6
+F2
 
-yetanothermovie
-5
-cute
-comedy
-04-04-2019
-16:00
-room3
-7
-
-ANOTHERMOVIE
-3
-ok
-action
-04-04-12312
+The Invisible Man
+16
+What you can't see can hurt you. Elisabeth Moss (Us, The Handmaid's Tale) is te zien in een angstaanjagend verhaal over obsessie.
+Horror
+5-03-2020
 16:00
 room2
-8
+F3
+
+Bloodshot
+12
+In deze verfilming van de populaire gelijknamige comic speelt Vin Diesel de rol van Ray Garrison, een marinier die door de RTS Corporation opnieuw tot leven gewekt wordt als de superheld Bloodshot.
+n deze verfilming van de populaire gelijknamige comic speelt Vin Diesel de rol van Ray Garrison, een marinier die door de RTS Corporation opnieuw tot leven gewekt wordt als de superheld Bloodshot.
+12-03-2020
+18:00
+room3
+F4
+
+Bohemian Rhapsody
+12
+Bohemian Rhapsody is een ode aan Queen, hun muziek en hun uitzonderlijke zanger Freddie Mercury.
+Biografie
+01-11-2018
+24:00
+room3
+F5
+
+Inception
+12
+Dom Cobb (Leonardo DiCaprio) is een handige dief, een ware meester op het gebied van 'Inception': het stelen van waardevolle geheimen uit het onderbewustzijn van mensen die in de droomfase verkeren, wanneer het brein het meest kwetsbaar is.
+Actie
+22-07-2010
+22:00
+room2
+F6
+
+My Spy
+9
+JJ (Dave Bautista) is een belangrijke CIA-agent, maar wanneer een missie uit de hand loopt, krijgt hij nog één kans om zijn carrière te redden. Hij wordt op een undercoveroperatie gezet om een gevaarlijke familie van wapenhandelaars te observeren.
+Actie
+13-03-2020
+20:00
+room1
+F7
+
+The Gentlemen
+16
+Amerikaanse expat Mickey Pearson (Matthew McConaughey) heeft een zeer winstgevend marihuana-imperium opgezet in Londen. Wanneer het verhaal de ronde gaat dat hij uit de business wil stappen krijgt Mickey te maken met complotten, intriges, omkoping en chantage in een poging alles van hem af te nemen.
+Actie
+20-02-2020
+12:00
+room3
+F8
+
+Notting Hill
+3
+Een bekende Amerikaanse actrice (Julia Roberts) wordt verliefd op een simpele Engelse boekverkoper (Hugh Grant).
+Romantiek
+11-06-2020
+22:00
+room1
+F9
+
+The High Note
+3
+Grace Davis (Tracee Ellis Ross) is een superster in de overweldigende muziekscene van Los Angeles. Zowel haar talent als haar ego zijn tot ongekende hoogtes gestegen.
+Comedy
+18-06-2020
+14:00
+room1
+F10
+
+Line Of Duty
+12
+Frank Penny is een politieagent die op zoek is naar verlossing. Wanneer de 11-jarige dochter van de politiechef wordt ontvoerd, zet Frank alles op het spel om haar te redden.
+Action
+18-06-2020
+16:00
+room3
+F11
+
+Harry Potter And The Deathly Hallows Part 1
+12
+Harry, Ron en Hermoine beginnen aan hun missie om de Horcruxes te vernietigen. Nu ze alleen en op de vlucht zijn, moeten de drie meer dan ooit op elkaar vertrouwen. maar duistere krachten dreigen hen uit elkaar te drijven.
+Fantasy
+17-11-2010
+18:00
+room2
+F12
+
+Elvis: That's The Way It Is
+3
+De muziekdocumentaire over het legendarische optreden van Elvis Presley in het Las Vegas International Hotel tijdens de zomer van 1970, eenmalig in de bioscoop op woensdag 8 januari 2020, de dag dat 'The King' 85 jaar zou zijn geworden.
+Music
+08-01-2020
+20:00
+room2
+F13
+
+Gravity
+12
+Oscar® winnaars Sandra Bullock (The Blind Side) en George Clooney (Syriana) spelen de hoofdrollen in Gravity een spannende thriller die je meesleurt in het oneindige en meedogenloze van de ruimte.
+Thriller
+03-10-2013
+24:00
+room2
+F14
 
