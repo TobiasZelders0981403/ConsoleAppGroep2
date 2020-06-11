@@ -12,15 +12,12 @@ namespace cinemaApp
         static string input;
         static string input2;
         static string filmName;
-        static string filmDescription;
-        static string Genre;
         static string Release;
         static string futureList;
         static string Replacement;
         static string Edit;
         static string FullList;
         static string Delete;
-        static string filmAge;
         static int BIndex;
         static int EIndex;
 
@@ -65,16 +62,10 @@ namespace cinemaApp
         {
             Console.WriteLine("Enter film name:");
             filmName = Program.StringCheck();
-            Console.WriteLine("Enter age (min is 3):");
-            filmAge = Films.AgeCheck();
-            Console.WriteLine("Enter film description:");
-            filmDescription = Program.StringCheck();
-            Console.WriteLine("Enter film genre:");
-            Genre = Program.StringCheck();
             Console.WriteLine("Enter release date:");
             Release = Program.StringCheck();
 
-            futureList += filmName + "\n" + filmAge + "\n" + filmDescription + "\n" + Genre + "\n" + Release + "\n";
+            futureList += filmName + "\n" + Release + "\n";
 
             StreamWriter sw = new StreamWriter(@"futurefilm.txt", append: true);
             sw.WriteLine(futureList);
