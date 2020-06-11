@@ -19,7 +19,7 @@ namespace cinemaApp
         static string[][] RoomSeats;
         static List<string> dayOptions = new List<string>() { "monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
         static List<string> timeOptions;
-        static List<string> timeTemplate = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00" };
+        static List<string> timeTemplate = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00" };
         static List<string> movieOptions;
         static List<string> rooms = new List<string>();
         static int dayChoice;
