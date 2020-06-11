@@ -94,7 +94,7 @@ namespace cinemaApp {
         public static void CustomerNavigation(User user) {
             //navigation system for the cystomer with all its options.
             Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at upcoming movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to comments. \n[7] Go to shopping cart.\n[0] Exit application.");
-            int choice = Program.ChoiceInput(0, 6);
+            int choice = Program.ChoiceInput(0, 7);
             while (choice != 0) {
                 if (choice == 1) {
                     //show all movies
@@ -118,7 +118,7 @@ namespace cinemaApp {
                     Shoppingcart.ShoppingcartNav(user);
                 }
                 Console.WriteLine("\nPlease pick a option.\n[1] Look at all movies.\n[2] Search by genre.\n[3] Look at upcoming movies.\n[4] Reserve tickets.\n[5] Order food.\n[6] Go to comments. \n[7] Go to shopping cart.\n[0] Exit application.");
-                choice = Program.ChoiceInput(0, 6);
+                choice = Program.ChoiceInput(0, 7);
             }
             Environment.Exit(0);
         }

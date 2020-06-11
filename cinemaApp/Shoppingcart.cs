@@ -135,10 +135,10 @@ namespace cinemaApp
                     string rawJSON = File.ReadAllText(filename);
                     data = JsonConvert.DeserializeObject<string[][]>(rawJSON);
                 }
-                else {
-                    data = (user.shoppingCart).ToArray();
-                }
-
+            }
+            else
+            {
+                data = (user.shoppingCart).ToArray();
             }
         }
 
