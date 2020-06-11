@@ -110,9 +110,10 @@ namespace cinemaApp
                 //check if it is a movie
             if (data[choiceRemove][0] != user.username) {
                 RestoreSeatAvalibility(choiceRemove);
+                if (user.username == "Guest") {
+                    user.shoppingCart.Remove(data[choiceRemove]);
+                }
             }
-            //remove foodOrder for caterer
-
             //remove item from shopping cart
             data = data.Where(w => w != data[choiceRemove]).ToArray();
             string shoppingData = JsonConvert.SerializeObject(data);
@@ -129,17 +130,15 @@ namespace cinemaApp
                     string rawJSON = File.ReadAllText(filename);
                     data = JsonConvert.DeserializeObject<string[][]>(rawJSON);
                 }
-                else {
-                    //user.shoppingCart;
-                }
-
+            } else {
+                data = (user.shoppingCart).ToArray();
             }
         }
 
         static void ShoppincartShowItems(User user)
         {
 
-            if (data.Length > 0)
+            if (data.Length != 0)
             {
                 Console.WriteLine("\nYour current shoppingcart:\n____________________________________");
                 for (int i = 0; i < data.Length; i++)
@@ -194,6 +193,22 @@ namespace cinemaApp
             {
                 if (int.TryParse(creditcardInput, out int integer) && creditcardInput.Length == creditcardMaxNumbers)
                 {
+                    //add to foodOrders
+                    string filename2 = "allOrders.json";
+                    string rawJSON = File.ReadAllText(filename2);
+                    string[] data2 = JsonConvert.DeserializeObject<string[]>(rawJSON);
+                    for ( int i = 0; i < data.Length; i++) {
+                        if (data[i][0] == user.username) {
+                            string s = "";
+                            for (int j = 0; j < data[i].Length; j++) {
+                                s += data[i][j];
+                            }
+                            Array.Resize(ref data2, data2.Length + 1);
+                            data2[data2.Length - 1] = s;
+                            string newJSON = JsonConvert.SerializeObject(data2);
+                            File.WriteAllText(filename2, newJSON);
+                        }
+                    }
                     creditcardCheck = true;
                     Console.WriteLine("True");
                 }
@@ -204,6 +219,8 @@ namespace cinemaApp
                 }
             }
             Console.WriteLine("Thank you for your purchase!\nHere is your reservation code: (reservation code)");
+            string filename = $"{user.username}-ShoppingCart.json";
+            File.Delete(filename);
             Navigation.CustomerNavigation(user);
         }
 
@@ -253,7 +270,6 @@ namespace cinemaApp
             streamwriter.WriteLine(s);
             streamwriter.Close();
         }
-
     }
 }
         
