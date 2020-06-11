@@ -138,10 +138,11 @@ namespace cinemaApp
                 {
                     for (int i = 0; i < snacksSubs.Length; i++)
                     {
-                        if (food.subCategory == snacksSubs[i])
-                        {
-                            food.display();
-                        }
+                            if (food.subCategory == snacksSubs[i])
+                            {
+                                food.display();
+                            }
+                        
                     }
                 }
             }
@@ -152,10 +153,11 @@ namespace cinemaApp
                 {
                     for (int i = 0; i < drinkSubs.Length; i++)
                     {
-                        if (food.subCategory == drinkSubs[i])
-                        {
-                            food.display();
-                        }
+                            if (food.subCategory == drinkSubs[i])
+                            {
+                                food.display();
+                            }
+                        
                     }
                 }
             }
@@ -205,7 +207,7 @@ namespace cinemaApp
 
             while (busy)
             {
-                overview();
+                
                 Console.WriteLine("Enter the id of the product you want to edit.\nPress q to quit....");
                 var idDelete = Console.ReadLine();
 
@@ -213,7 +215,12 @@ namespace cinemaApp
                 //int id = Convert.ToInt32(idDelete);
                 bool sucess = Int32.TryParse(idDelete, out id);
 
-                if ((sucess) & (id <= this.Menu.Count) & (id >= 0))
+                if (idDelete == "q")
+                {
+                    break;
+                }
+
+                else if ((sucess) & (id <= this.Menu.Count) & (id >= 0))
                 {
 
                     Console.WriteLine("Type 'y' to change 'n' to leave be");
@@ -333,8 +340,8 @@ namespace cinemaApp
 
             while (busy)
             {
-                overview();
-                Console.WriteLine("Enter the id of the product you want to delete or q to quit...");
+              
+                Console.WriteLine("Enter the id of the product you want to delete\nq to quit...");
                 var idDelete = Console.ReadLine();
 
                 int id;
