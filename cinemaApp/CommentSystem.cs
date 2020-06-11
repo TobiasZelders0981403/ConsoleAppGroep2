@@ -2,46 +2,37 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommentSystem
+namespace cinemaApp
 {
-    class CSystem
+    class CommentSystem
     {
-        static string username;
         static string input;
         static string title;
         static string name;
         static string review;
         static string question;
-        private static int i;
-        private static string line;
-        private static string[] data;
 
-        public static void CommentMain()
+        public static void CommentMain(User user)
         {
-
-            CommentChoice();
-        }
-
-        public static void CommentChoice()
-        {
-
-            Console.WriteLine("Where would you like to go? \n 1. Reviews. \n 2. Questions. \n 3. Back.");
+            Console.WriteLine("\nWhere would you like to go? \n[1] Reviews. \n[2] Questions. \n[3] Back.");
             input = Console.ReadLine();
-            Action();
+            Action(user);
         }
-        public static void Action()
+        
+        public static void Action(User user)
         {
 
             if (input == "1")
             {
-                ReviewScreen();
+                ReviewScreen(user);
             }
             else if (input == "2")
             {
-                QuestionScreen();
+                QuestionScreen(user);
             }
             else if (input == "3")
             {
@@ -49,126 +40,164 @@ namespace CommentSystem
             }
             else
             {
-                CommentChoice();
+                CommentMain(user);
             }
         }
 
-        public static void ReviewScreen()
+        public static void ReviewScreen(User user)
         {
-            Console.WriteLine("What would you like to do? \n 1. Write a review. \n 2. Read reviews. \n 3. Back.");
+            Console.WriteLine("\nWhat would you like to do? \n[1] Write a review. \n[2] Read reviews. \n[3] Back.");
             input = Console.ReadLine();
 
             if (input == "1")
             {
-                AddReview();
+                AddReview(user);
             }
             else if (input == "2")
             {
-                ReadReview();
+                ReadReview(user);
             }
             else if (input == "3")
             {
-                CommentChoice();
+                CommentMain(user);
             }
             else
             {
-                ReviewScreen();
+                CommentMain(user);
             }
         }
-        public static void AddReview()
+
+        public static void AddReview(User user)
         {
-            loadFilmTitles();
-
-
-            Console.WriteLine("What movie would you like to review?");
-            // add code with list of existing movie names.
-
-            title = Console.ReadLine();
-
-            Console.WriteLine("Would you like to be anonymous? Y/N.");
-            input = Console.ReadLine();
-
-            if (input == "Y")
-            {
-                name = "Anonymous";
+            Console.WriteLine("\nWhat movie would you like to review?");
+            //load all movie titles
+            List<string> movieTitles = new List<string>();
+            string line;
+            StreamReader streamreader = new StreamReader("filmlist.txt");
+            while (streamreader.EndOfStream == false) {
+                int i = 0;
+                string[] data = new string[8];
+                while (!string.IsNullOrWhiteSpace(line = streamreader.ReadLine())) {
+                    data[i] = line;
+                    i++;
+                }
+                movieTitles.Add(data[0]);
             }
-            else if (input == "N")
-            {
-                name = username;
+            streamreader.Close();
+            //movie choice
+            for (int i =0; i < movieTitles.Count; i++) {
+                Console.WriteLine($"[{i}] {movieTitles[i]}");
             }
 
+            title = movieTitles[Program.ChoiceInput(0, movieTitles.Count - 1)];
+            if (user.username != "Guest") {
+                Console.WriteLine("\nWould you like to be anonymous? [Y]/[N].");
+                input = Console.ReadLine();
+                while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                    Console.WriteLine("\nWould you like to be anonymous? [Y]/[N].");
+                    input = Console.ReadLine();
+                }
+                if (input.ToUpper() == "Y") {
+                    name = "Anonymous";
+                } else if (input.ToUpper() == "N") {
+                    name = user.username;
+                }
+            } else {
+                name = user.username;
+            }
             Console.WriteLine("Please write your review:");
             review = Console.ReadLine();
 
             // adding review to designated txt file.
-            using (StreamWriter sw = File.AppendText((title) + ".txt"))
+            using (StreamWriter sw = File.AppendText((title) + "-review.txt"))
             {
                 sw.WriteLine(name + " says:");
                 sw.WriteLine(review + "\n");
                 sw.Close();
             }
-            Console.WriteLine("Would you like to write another review? Y/N.");
+            Console.WriteLine("\nWould you like to write another review? [Y]/[N].");
             input = Console.ReadLine();
-
-            if (input == "Y")
-            {
-                AddReview();
+            while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                Console.WriteLine("\nWould you like to write another review? [Y]/[N].");
+                input = Console.ReadLine();
             }
-            else if (input == "N")
+
+            if (input.ToUpper() == "Y")
             {
-                Console.WriteLine("Where would you like to go? \n 1. Review screen. \n 2. Commenting screen. \n 3. Home. ");
+                AddReview(user);
+            }
+            else if (input.ToUpper() == "N") {
+                Console.WriteLine("\nWhere would you like to go? \n[1] Reviews. \n[2] Questions. \n[3] Back.");
                 input = Console.ReadLine();
                 if (input == "1")
                 {
-                    ReviewScreen();
+                    ReviewScreen(user);
                 }
                 else if (input == "2")
                 {
-                    CommentChoice();
+                    CommentMain(user);
                 }
                 else if (input == "3")
                 {
                     //CustomerNavigation(user);
                 }
             }
-
         }
-        public static void ReadReview()
+
+        public static void ReadReview(User user)
         {
             Console.WriteLine("Pick a movie.");
             // add code of list of existing movies.
 
-            loadFilmTitles();
-
-            title = Console.ReadLine();
-
-            using (StreamReader sr = new StreamReader(title + ".txt"))
-            {
-                string line;
-
-                while ((line = sr.ReadLine()) != null)
-                {
-                    Console.WriteLine(line);
+            //load all movie titles
+            List<string> movieTitles = new List<string>();
+            string line;
+            StreamReader streamreader = new StreamReader("filmlist.txt");
+            while (streamreader.EndOfStream == false) {
+                int i = 0;
+                string[] data = new string[8];
+                while (!string.IsNullOrWhiteSpace(line = streamreader.ReadLine())) {
+                    data[i] = line;
+                    i++;
                 }
+                movieTitles.Add(data[0]);
             }
-            Console.WriteLine("Would you like to read more reviews? Y/N.");
-            input = Console.ReadLine();
+            streamreader.Close();
+            //movie choice
+            for (int i = 0; i < movieTitles.Count; i++) {
+                Console.WriteLine($"[{i}] {movieTitles[i]}");
+            }
 
-            if (input == "Y")
-            {
-                ReadReview();
+            title = movieTitles[Program.ChoiceInput(0, movieTitles.Count - 1)];
+            if (File.Exists(title + "-review.txt")) {
+                using (StreamReader sr = new StreamReader(title + "-review.txt")) {
+                    while ((line = sr.ReadLine()) != null) {
+                        Console.WriteLine(line);
+                    }
+                }
+            } else {
+                Console.WriteLine("There are no reviews for the movie.");
             }
-            else if (input == "N")
+            Console.WriteLine("\nWould you like to read more reviews? [Y]/[N].");
+            input = Console.ReadLine();
+            while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                Console.WriteLine("\nWould you like to be anonymous? [Y]/[N].");
+                input = Console.ReadLine();
+            }
+            if (input.ToUpper() == "Y")
             {
-                Console.WriteLine("Where would you like to go? \n 1. Review screen. \n 2. Commenting screen. \n 3. Home. ");
+                ReadReview(user);
+            }
+            else if (input.ToUpper() == "N") {
+                Console.WriteLine("\nWhere would you like to go? \n[1] Reviews. \n[2] Questions. \n[3] Back.");
                 input = Console.ReadLine();
                 if (input == "1")
                 {
-                    ReviewScreen();
+                    ReviewScreen(user);
                 }
                 else if (input == "2")
                 {
-                    CommentChoice();
+                    CommentMain(user);
                 }
                 else if (input == "3")
                 {
@@ -176,26 +205,35 @@ namespace CommentSystem
                 }
             }
         }
-        public static void QuestionScreen()
+        public static void QuestionScreen(User user)
         {
-            Console.WriteLine("What would you like to do? \n 1. Read FAQ. \n 2. Ask a question. \n 3. Back.");
+            Console.WriteLine("\nWhat would you like to do? \n[1] Read FAQ. \n[2] Read all questions.\n[3] Ask a question.\n[4] Back.");
             input = Console.ReadLine();
 
             if (input == "1")
             {
                 ReadFAQ();
-            }
-            else if (input == "2")
-            {
-                AskQuestion();
+                QuestionScreen(user);
+            } 
+            else if (input == "2") {
+                if (File.Exists("questions.txt")) {
+                    Console.WriteLine(File.ReadAllText("questions.txt"));
+                } else {
+                    Console.WriteLine("There are no questions.");
+                }
+                QuestionScreen(user);
             }
             else if (input == "3")
             {
-                CommentChoice();
+                AskQuestion(user);
+            }
+            else if (input == "4")
+            {
+                CommentMain(user);
             }
             else
             {
-                QuestionScreen();
+                QuestionScreen(user);
             }
         }
 
@@ -212,20 +250,24 @@ namespace CommentSystem
             }
 
         }
-        public static void AskQuestion()
+        public static void AskQuestion(User user)
         {
-            Console.WriteLine("Would you like to be Anonymous? Y/N");
-            input = Console.ReadLine();
-            if (input == "Y")
-            {
-                name = "Anonymous";
+            if (user.username != "Guest") {
+                Console.WriteLine("\nWould you like to be anonymous? [Y]/[N].");
+                input = Console.ReadLine();
+                while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                    Console.WriteLine("\nWould you like to be anonymous? [Y]/[N].");
+                    input = Console.ReadLine();
+                }
+                if (input.ToUpper() == "Y") {
+                    name = "Anonymous";
+                } else if (input.ToUpper() == "N") {
+                    name = user.username;
+                }
+            } else {
+                name = user.username;
             }
-            else if (input == "N")
-            {
-                name = username;
-            }
-
-            Console.WriteLine("What is your question?");
+            Console.WriteLine("\nWhat is your question?");
             question = Console.ReadLine();
 
             using (StreamWriter sw = File.AppendText("questions.txt"))
@@ -234,49 +276,19 @@ namespace CommentSystem
                 sw.WriteLine("Q: " + question + "\n");
                 sw.Close();
             }
-            Console.WriteLine("Would you like to ask another question? Y/N.");
+            Console.WriteLine("\nWould you like to ask another question? [Y]/[N].");
             input = Console.ReadLine();
-
-            if (input == "Y")
-            {
-                AskQuestion();
-            }
-            else if (input == "N")
-            {
-                Console.WriteLine("Where would you like to go? \n 1. Question screen. \n 2. Commenting screen. \n 3. Home. ");
+            while (input.ToUpper() != "Y" && input.ToUpper() != "N") {
+                Console.WriteLine("\nWould you like to ask another question? [Y]/[N].");
                 input = Console.ReadLine();
-                if (input == "1")
-                {
-                    QuestionScreen();
-                }
-                else if (input == "2")
-                {
-                    CommentChoice();
-                }
-                else if (input == "3")
-                {
-                    //CustomerNavigation(user);
-                }
             }
-        }
-
-        public static void loadFilmTitles()
-        {
-            //readfile
-            List<string> filmTitles = new List<string>();
-            StreamReader sr = new StreamReader(@"filmlist.txt");
-            while (sr.EndOfStream == false)
+            if (input.ToUpper() == "Y")
             {
-                i = 0;
-                data = new string[8];
-                while ((line = sr.ReadLine()) != "")
-                {
-                    data[i] = line;
-                    i++;
-                }
-                Console.WriteLine(data[0]);
+                AskQuestion(user);
             }
-            sr.Close();
+            else if (input.ToUpper() == "N") {
+                QuestionScreen(user);
+            }
         }
     }
 }

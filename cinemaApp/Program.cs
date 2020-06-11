@@ -38,13 +38,15 @@ namespace cinemaApp
         {
                 user.VerifyLogin();
             if (user.accountVerified == false) {
-                Console.WriteLine("\nIncorrect! Please pick a option\n[1] Try again.\n[2] Register a new account.\n[0] Exit");
+                Console.WriteLine("\nIncorrect! Please pick a option\n[1] Try again.\n[2] Continue as guest.\n[3] Register a new account.\n[0] Exit");
                 int loginChoice = ChoiceInput(0, 2);
                 if (loginChoice == 0) {
                     Environment.Exit(0);
                 } else if (loginChoice == 1) {
                     Login(user);
                 } else if (loginChoice == 2) {
+                    user.ContinueAsGuest();
+                } else if (loginChoice == 3) {
                     user.CreateAccount();
                 }
             }
@@ -58,6 +60,18 @@ namespace cinemaApp
                 Console.WriteLine("Invalid Input! Please enter your option:");
                 choiceInput = Console.ReadLine();
                 int.TryParse(choiceInput, out choice);
+            }
+            return choice;
+        }
+
+        public static double DoubleInput(double min, double max) {
+            double choice;
+            string choiceInput = Console.ReadLine();
+            double.TryParse(choiceInput, out choice);
+            while (max < choice || choice < min || string.IsNullOrWhiteSpace(choiceInput) || !double.TryParse(choiceInput, out choice)) {
+                Console.WriteLine("Invalid Input! Please enter your option:");
+                choiceInput = Console.ReadLine();
+                double.TryParse(choiceInput, out choice);
             }
             return choice;
         }
