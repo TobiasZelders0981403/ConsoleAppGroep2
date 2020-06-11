@@ -168,6 +168,22 @@ namespace cinemaApp
             Console.WriteLine("\n-----");
         }
 
+        public void displayCostumer()
+        {
+            Console.WriteLine("-----");
+            Console.Write("Item Id: " + this.id + " || " + "Name: " + this.name + " || ");
+            Console.Write("Category: " + this.subCategory + " || ");
+            if (this.size == "" || this.size == " ")
+            {
+                Console.Write("Price: " + this.price);
+            }
+            else
+            {
+                Console.Write("Size: " + this.size + " || " + "Price: " + this.price);
+            }
+            Console.WriteLine("\n-----");
+        }
+
 
 
 
