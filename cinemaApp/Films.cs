@@ -20,7 +20,7 @@ namespace cinemaApp {
         static string filmID;
         static string Room;
         static List<string> SelectableRooms = new List<string> { "room1", "room2", "room3" };
-        static List<string> timeOptions = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00" };
+        static List<string> timeOptions = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00" };
 
 
         public static void FilmMain() {

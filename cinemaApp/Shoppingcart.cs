@@ -294,7 +294,7 @@ namespace cinemaApp
         }
 
         static void RestoreSeatAvalibility(int choiceRemove) {
-            List<string> timeTemplate = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00" };
+            List<string> timeTemplate = new List<string>() { "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00" };
             string seatFileName = data[choiceRemove][2] + "/" + timeTemplate.IndexOf(data[choiceRemove][3]) + "-Seats.txt";
             //read file
             StreamReader streamreader = new StreamReader(seatFileName);
