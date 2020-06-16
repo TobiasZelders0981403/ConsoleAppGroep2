@@ -171,7 +171,7 @@ namespace cinemaApp
             double currentMoviePrice;
             double rest;
             List<String> reservatedMovies = new List<String>();
-            int count = 4;
+            int count = 3;
             for (int i = 0; i < data.Length; i++)
             {
                 for (int j = 0; j < data[i].Length; j++)
@@ -194,8 +194,9 @@ namespace cinemaApp
                     {
                         reservatedMovies.Add(data[i][j]);
                     }
+                    
                 }
-
+                count = 3;
             }
             return totalPrice;
         }
